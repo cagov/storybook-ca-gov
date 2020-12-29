@@ -1,7 +1,7 @@
 {
   "name": "storybook-ca-gov",
   "version": "1.0.0",
-  "description": "",
+  "description": "An instance of Storybook intended for developing sharable web components.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

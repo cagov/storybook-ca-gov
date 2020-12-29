@@ -1,7 +1,7 @@
 # `CAGovReopening` Web Component Redesign
 
 * Version: 2.0.0
-* Status: Prototype
+* Status: Prototype / Draft
 
 ## Goal
 Make it easier to find current guidance about how Californians can stay safe in their activities and businesses.
