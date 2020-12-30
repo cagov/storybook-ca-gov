@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "update:build": "git add storybook-static && git commit -m 'update storybook static build' && git checkout build && git checkout main storybook-static/* && git add . && git commit -m 'update build' && echo \"Build complete you can check in a PR based off this build now.\" && git checkout main"
+    "update:build": "git add storybook-static && git commit -m 'update storybook static build' && git checkout build && rm -rf main* vendors* runtime* && git checkout main storybook-static/* && git add . && git commit -m 'update build' && echo \"Build complete you can check in a PR based off this build now.\" && git checkout main"
   },
   "keywords": [],
   "author": "",
