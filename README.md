@@ -20,13 +20,13 @@ Storybook add-ons allow for unit testing integration as well as tracing back to 
 
 As needed the Storybook environment can be further extended to act as progressively enhanceable documentation - from simple utilitarian documentation, to references with mock data samples that are helpful for long-term maintenance, to full on design narratives with in-line examples.
 
-Additionally, Storybook encourages a few development practices which can be beneficial for public code. 
+Additionally, Storybook encourages a few development practices which can be beneficial for public coding. 
 
 1. Sharing the story up-front.
 2. Setting up and declaring inputs and outputs.
 3. Connecting and documenting data sources.
 4. Describing variants based on interaction states (e.g. toggle buttons or component responses to interaction, such as selecting a county.)
-5. Integrate with a test framework: test all those variants!
+5. Integrate with a test framework: demonstrate & test all those variants (in an organized & easier way)!
 
 ## About this git repository
 

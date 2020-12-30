@@ -1,5 +1,5 @@
 import { withDesign } from "storybook-addon-designs";
-import { data } from './data/california.js';
+import { data } from './data/cagov-reopening.js';
 import { WebComponent } from './container';
 
 let mockData = {
