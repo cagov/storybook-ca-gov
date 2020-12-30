@@ -24,8 +24,8 @@ Template.args = {
     data: data,
 };
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const CountyOnly = Template.bind({});
+CountyOnly.args = {
   primary: true,
   label: 'Button',
 };
@@ -33,27 +33,44 @@ Primary.args = {
 /**
 * Connect Figma Frame
 */
-Primary.parameters = {
+CountyOnly.parameters = {
   design: {
     type: "figma",
     url:
-      "https://www.figma.com/file/hX1EkAcCQ86bzJKf6ZYy9y/Untitled?node-id=1%3A2",
+      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
   },
 };
 
-// export const Secondary = Template.bind({});
-// Secondary.args = {
-//   label: 'Button',
-// };
+export const CountyActivity = Template.bind({});
+CountyActivity.args = {
+  primary: true,
+  label: 'Button',
+};
 
-// export const Large = Template.bind({});
-// Large.args = {
-//   size: 'large',
-//   label: 'Button',
-// };
+/**
+* Connect Figma Frame
+*/
+CountyActivity.parameters = {
+  design: {
+    type: "figma",
+    url:
+      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A168",
+  },
+};
 
-// export const Small = Template.bind({});
-// Small.args = {
-//   size: 'small',
-//   label: 'Button',
-// };
+export const ActivityOnly = Template.bind({});
+ActivityOnly.args = {
+  primary: true,
+  label: 'Button',
+};
+
+/**
+* Connect Figma Frame
+*/
+ActivityOnly.parameters = {
+  design: {
+    type: "figma",
+    url:
+      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+  },
+};
