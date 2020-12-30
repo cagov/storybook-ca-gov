@@ -1,6 +1,6 @@
 import { withDesign } from "storybook-addon-designs";
 import { data } from './data/california.js';
-import { Button } from './cagov-reopening';
+import { WebComponent } from './container';
 
 let mockData = {
   Default: data
@@ -12,11 +12,10 @@ export default {
     backgroundColor: { control: 'color' },
     onClick: { action: 'onClick' },
   },
-  // component: Button,
   decorators: [withDesign]
 };
 
-const Template = (args) => Button(args);
+const Template = (args) => WebComponent(args);
 
 /**
 * Connect mock data

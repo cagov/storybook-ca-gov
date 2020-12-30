@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 
-import { Button } from './Button';
+import { Button } from './../Button/Button';
 import './header.css';
 
 export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => html`

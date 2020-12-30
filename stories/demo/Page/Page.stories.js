@@ -1,8 +1,8 @@
 import { Page } from './Page';
-import * as HeaderStories from './Header.stories';
+import * as HeaderStories from './../Header/Header.stories';
 
 export default {
-  title: 'Example/Page',
+  title: 'Demo/Page',
 };
 
 const Template = (args) => Page(args);

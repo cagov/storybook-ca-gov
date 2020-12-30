@@ -1,7 +1,7 @@
 import { Button } from './Button';
 
 export default {
-  title: 'Example/Button',
+  title: 'Demo/Button',
   argTypes: {
     backgroundColor: { control: 'color' },
     onClick: { action: 'onClick' },
