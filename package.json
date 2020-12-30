@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "update:build": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook static' && git checkout build && git checkout main storybook-static/*"
   },
   "keywords": [],
   "author": "",
