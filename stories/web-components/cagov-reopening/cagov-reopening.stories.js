@@ -1,6 +1,26 @@
 import { withDesign } from "storybook-addon-designs";
-import { data } from './data/cagov-reopening.js';
 import { WebComponent } from './container';
+
+import { dataAr } from './data/ar/cagov-reopening.js';
+import { dataEn } from './data/en/cagov-reopening.js';
+import { dataEs } from './data/es/cagov-reopening.js';
+import { dataKo } from './data/ko/cagov-reopening.js';
+import { dataTl } from './data/tl/cagov-reopening.js';
+import { dataVi } from './data/vi/cagov-reopening.js';
+import { dataZhHans } from './data/zh-hans/cagov-reopening.js';
+import { dataZhHant } from './data/zh-hant/cagov-reopening.js';
+
+// Build multi-lingual data object.
+var data {
+  "ar": dataAr,
+  "en": dataEn,
+  "es": dataEs,
+  "ko": dataKo,
+  "tl": dataTl,
+  "vi": dataVi,
+  "zh-hans": dataZhHans,
+  "zh-hant": dataZhHant,
+};
 
 let mockData = {
   Default: data
