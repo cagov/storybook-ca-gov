@@ -11,7 +11,7 @@ export const buildMultilingualDataObject = ({
     rshoApi,
     rshoData
 }) => {
-    const data = {
+    return  {
         content: "text",
         pubData: null, // @TODO What was this?
         "county-covid19-webpages": {
