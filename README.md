@@ -2,6 +2,8 @@
 
 An instance of [Storybook](https://storybook.js.org/) intended for developing sharable web components.
 
+[Staging site](https://wonderful-plant-07a82e81e-1.westus2.azurestaticapps.net)
+
 ## Projects
 
 ### Covid19
