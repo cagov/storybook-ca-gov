@@ -9,7 +9,9 @@ export const buildMultilingualDataObject = ({
     reopeningRoadmapActivityDataPage1,
     reopeningRoadmapActivityDataPage2,
     rshoApi,
-    rshoData
+    rshoData,
+    pubData,
+    pubDataApi
 }) => {
     return  {
         content: "text",
@@ -33,6 +35,10 @@ export const buildMultilingualDataObject = ({
         "rsho": {
             api: rshoApi,
             records: rshoData
+        },
+        "pubData": {
+            api: pubData,
+            records: pubData
         }
     };
 }

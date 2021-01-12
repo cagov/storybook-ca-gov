@@ -13,8 +13,11 @@ import reopeningRoadmapActivityDataApi from "./api_templates/reopening-roadmap-a
 
 import rshoData from "./records/rsho.json";
 import rshoApi from "./api_templates/rsho.api.json";
-import { buildMultilingualDataObject } from "../buildMultilingualDataObject";
 
+import pubData from "./records/pubData.json";
+import pubDataApi from "./api_templates/pubData.api.json";
+
+import { buildMultilingualDataObject } from "../buildMultilingualDataObject";
 
 export const data = buildMultilingualDataObject({
     countyCovid19WebpagesApi,
@@ -27,5 +30,7 @@ export const data = buildMultilingualDataObject({
     reopeningRoadmapActivityDataPage1,
     reopeningRoadmapActivityDataPage2,
     rshoApi,
-    rshoData
-})
+    rshoData,
+    pubData,
+    pubDataApi
+});

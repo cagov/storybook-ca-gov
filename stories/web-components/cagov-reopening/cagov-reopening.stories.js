@@ -26,13 +26,10 @@ let mockData = {
   Default: data
 };
 
-console.log(data);
-
 export default {
   title: 'covid19/cagov-reopening/web-component',
   argTypes: {
-    backgroundColor: { control: 'color' },
-    onClick: { action: 'onClick' },
+    // onClick: { action: 'onClick' },
   },
   decorators: [withDesign]
 };
@@ -46,16 +43,15 @@ Template.args = {
     data: data,
 };
 
-export const CountyOnly = Template.bind({});
-CountyOnly.args = {
-  primary: true,
-  label: 'Button',
+export const CountyOnlyEn = Template.bind({});
+CountyOnlyEn.args = {
+  language: 'en',
+  data: data['en']
 };
-
 /**
 * Connect Figma Frame
 */
-CountyOnly.parameters = {
+CountyOnlyEn.parameters = {
   design: {
     type: "figma",
     url:
@@ -63,16 +59,16 @@ CountyOnly.parameters = {
   },
 };
 
-export const CountyActivity = Template.bind({});
-CountyActivity.args = {
-  primary: true,
-  label: 'Button',
+export const CountyActivityEn = Template.bind({});
+CountyActivityEn.args = {
+  language: 'en',
+  data: data['en']
 };
 
 /**
 * Connect Figma Frame
 */
-CountyActivity.parameters = {
+CountyActivityEn.parameters = {
   design: {
     type: "figma",
     url:
@@ -80,16 +76,16 @@ CountyActivity.parameters = {
   },
 };
 
-export const ActivityOnly = Template.bind({});
-ActivityOnly.args = {
-  primary: true,
-  label: 'Button',
+export const ActivityOnlyEn = Template.bind({});
+ActivityOnlyEn.args = {
+  language: 'en',
+  data: data['en']
 };
 
 /**
 * Connect Figma Frame
 */
-ActivityOnly.parameters = {
+ActivityOnlyEn.parameters = {
   design: {
     type: "figma",
     url:
