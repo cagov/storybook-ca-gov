@@ -28,5 +28,8 @@
     "lit-html": "^1.3.0",
     "storybook-addon-designs": "^5.4.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@cagov/accordion": "^1.0.6",
+    "awesomplete-es6": "^1.2.2"
+  }
 }
