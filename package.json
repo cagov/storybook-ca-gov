@@ -29,6 +29,7 @@
     "storybook-addon-designs": "^5.4.2"
   },
   "dependencies": {
-    "@cagov/accordion": "^1.0.6"
+    "@cagov/accordion": "^1.0.6",
+    "d3": "^6.3.1"
   }
 }

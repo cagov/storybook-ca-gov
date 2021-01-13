@@ -17,8 +17,8 @@ class CAGovCountyMap extends window.HTMLElement {
     // console.log("translation strings", this.translationsStrings);
 
     // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
-    this.json = JSON.parse(this.dataset.json);
-    console.log("dataset json", this.json);
+    this.localData = JSON.parse(this.dataset.json);
+    console.log("dataset json", this.localData);
 
     // State object to use for persisting data across interactions.
     this.state = {};
@@ -26,7 +26,7 @@ class CAGovCountyMap extends window.HTMLElement {
     // Replace the enclosing tag element with contents of template.
     this.innerHTML = template({
       translations: this.translationsStrings,
-      localData: this.json,
+      localData: this.localData,
     });
 
     // Establish chart variables and settings.
@@ -53,17 +53,13 @@ class CAGovCountyMap extends window.HTMLElement {
 
     // Listen for responsive resize event and get the settings for the responsive chart sizes.
     getScreenResizeCharts(this);
-    this.screenDisplayType = window.charts
-      ? window.charts.displayType
-      : "desktop";
-    this.chartBreakpointValues = this.chartOptions[
-      this.screenDisplayType ? this.screenDisplayType : "desktop"
-    ];
 
     // Choose settings for current screen display.
     // Display content & layout dimensions.
     const handleChartResize = () => {
       getScreenResizeCharts(this);
+      // this.updateScreenOptions();
+      // @TODO ^ See if we can use this function in this scope (probably not but see if we can make a reference to it somewhere - like with a ref key in the tags of the component to a local window based state object or something)
       this.screenDisplayType = window.charts
         ? window.charts.displayType
         : "desktop";
@@ -72,6 +68,8 @@ class CAGovCountyMap extends window.HTMLElement {
       ];
     };
     window.addEventListener("resize", handleChartResize);
+
+    this.updateScreenOptions();
 
     // Generate the map.
     this.svg = drawCountyMap({
@@ -87,15 +85,20 @@ class CAGovCountyMap extends window.HTMLElement {
     // rtlOverride(this); // quick fix for arabic
   }
 
-  render() {
-    // When re-render is triggered, re-render chart.(@TODO confirm exactly when this happens)
-    getScreenResizeCharts(this);
+  updateScreenOptions() {
     this.screenDisplayType = window.charts
       ? window.charts.displayType
       : "desktop";
+
     this.chartBreakpointValues = this.chartOptions.screens[
       this.screenDisplayType ? this.screenDisplayType : "desktop"
     ];
+  }
+
+  render() {
+    // When re-render is triggered, re-render chart.(@TODO confirm exactly when this happens)
+    getScreenResizeCharts(this);
+    this.updateScreenOptions();
 
     // Generate the map.
     this.svg = drawCountyMap({
