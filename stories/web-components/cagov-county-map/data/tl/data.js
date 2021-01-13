@@ -4,7 +4,7 @@ import countyStatusApi from "./api_templates/countystatus.api.json";
 import rshoData from "./records/rsho.json";
 import rshoApi from "./api_templates/rsho.api.json";
 
-import { buildMultilingualDataObject } from "../buildMultilingualDataObject";
+import { buildMultilingualDataObject } from "./../buildMultilingualDataObject";
 
 export const data = buildMultilingualDataObject({
     countyStatusApi,
@@ -12,11 +12,3 @@ export const data = buildMultilingualDataObject({
     rshoApi,
     rshoData,
 });
-
-export const api = {
-    docs: {
-        name: "API NAME"
-        // More metadata goes here
-    },
-    data: data,
-}
