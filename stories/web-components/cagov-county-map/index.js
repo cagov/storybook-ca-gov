@@ -97,18 +97,18 @@ class CAGovCountyMap extends window.HTMLElement {
 
   render() {
     // When re-render is triggered, re-render chart.(@TODO confirm exactly when this happens)
-    getScreenResizeCharts(this);
-    this.updateScreenOptions();
+    // getScreenResizeCharts(this);
+    // this.updateScreenOptions();
 
-    // Generate the map.
-    this.svg = drawCountyMap({
-      translations: this.translationsStrings,
-      data: this.localData,
-      domElement: ".chart-container svg",
-      chartOptions: this.chartOptions,
-      chartBreakpointValues: this.chartBreakpointValues,
-      screenDisplayType: this.screenDisplayType,
-    });
+    // // Generate the map.
+    // this.svg = drawCountyMap({
+    //   translations: this.translationsStrings,
+    //   data: this.localData,
+    //   domElement: ".chart-container svg",
+    //   chartOptions: this.chartOptions,
+    //   chartBreakpointValues: this.chartBreakpointValues,
+    //   screenDisplayType: this.screenDisplayType,
+    // });
   }
 }
 window.customElements.define("cagov-county-map", CAGovCountyMap);
