@@ -1,0 +1,38 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="covid19/cagov-county-map/intro" />
+
+<style>{`
+  .content {
+    margin: 50px;
+  }
+`}</style>
+
+# `CAGovCountyMap`
+
+<div className="content">
+* Version: 2.0.0
+* Status: Prototype / Draft
+
+## Goal
+Render a basic d3 map of California with some data highlighted.
+
+This is based on the Tier Status Maps used on the covid19.ca.cov [State Dashboard](https://covid19.ca.gov/state-dashboard) and [Safer Economy](https://covid19.ca.gov/safer-economy) page.
+![](screenshot-original-map). [Learn more about this project](@TODO-spacebook-page)
+
+### Example
+For this example, we will start to recreate this map in d3.
+D3 will render an interactive SVG graphic that is:
+
+* light-weight
+* loads fast
+* allows translated legends 
+* used web-based accessibility features
+* works on mobile devices.
+
+### Steps
+1. Add d3 library. [Learn more about D3]()
+2. Get county boundaries data
+3. Connect highlighted data to color maps
+4. Add a chart legend in three languages.
+</div>
