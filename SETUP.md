@@ -23,8 +23,19 @@ This process can be further automated as desired by editing the .yml file in .gi
 Ideal
 We are observing our workflows before deciding what the ideal workflow would be & then configuring that in the .yml file (which requires researching the correct build commands)
 
-
 The general process would be:
 * check in code to the `stories` folder with a new pull request (PR.)
 * run `npm run build-storybook` on the git repository (ensuring that the global storybook build script is available to the environment) & that it can run in the Azure build pipeline.
 * make sure the `storybook-static` folder is the target & that it completes its static server set up workflow. Our .yml file is set to look for that folder.
+
+
+### CSS Integrations
+Notes on necessary CSS configurations.
+https://storybook.js.org/docs/react/get-started/setup
+
+CONSIDERING
+* Scoped CSS by project type (ca.gov, covid-19, etc)
+* Storybook specific styles as needed
+
+### Resources
+* Examples of Storybooks for various companies: https://storybook.js.org/docs/react/get-started/examples
