@@ -1,25 +1,25 @@
 import { withDesign } from "storybook-addon-designs";
 import { WebComponent } from './web-component-container';
 
-import { data as dataAr } from './data/ar/cagov-reopening-data.js';
-import { data as dataEn } from './data/en/cagov-reopening-data.js';
-import { data as dataEs } from './data/es/cagov-reopening-data.js';
-import { data as dataKo } from './data/ko/cagov-reopening-data.js';
-import { data as dataTl } from './data/tl/cagov-reopening-data.js';
-import { data as dataVi } from './data/vi/cagov-reopening-data.js';
-import { data as dataZhHans } from './data/zh-hans/cagov-reopening-data.js';
-import { data as dataZhHant } from './data/zh-hant/cagov-reopening-data.js';
+// import { data as dataAr } from './data/ar/data.js';
+import { data as dataEn } from './data/en/data.js';
+import { data as dataEs } from './data/es/data.js';
+// import { data as dataKo } from './data/ko/data.js';
+import { data as dataTl } from './data/tl/data.js';
+// import { data as dataVi } from './data/vi/data.js';
+// import { data as dataZhHans } from './data/zh-hans/data.js';
+// import { data as dataZhHant } from './data/zh-hant/data.js';
 
 // Build multi-lingual data object.
 var data = {
-  "ar": dataAr,
+  // "ar": dataAr,
   "en": dataEn,
   "es": dataEs,
-  "ko": dataKo,
+  // "ko": dataKo,
   "tl": dataTl,
-  "vi": dataVi,
-  "zh-hans": dataZhHans,
-  "zh-hant": dataZhHant,
+  // "vi": dataVi,
+  // "zh-hans": dataZhHans,
+  // "zh-hant": dataZhHant,
 };
 
 let mockData = {
