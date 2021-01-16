@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "@cagov/accordion": "^1.0.6",
-    "awesomplete-es6": "^1.2.2"
+    "d3": "^6.3.1"
   }
 }
