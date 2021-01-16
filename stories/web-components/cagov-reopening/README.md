@@ -92,9 +92,9 @@ Original: `/src/js/roadmap/countystatus.json`
 Redesign: `/docs/countystatus.json`
 
 ### NEW: County Public Health Department Covid-19 Webpages
-`county-covid19-webpages.json`
+`covid19-county-webpages.json`
 
-Endpoint: https://api.airtable.com/v0/appwpIGqyvG6bl73j/DEV-county-covid19-webpages/
+Endpoint: https://api.airtable.com/v0/appwpIGqyvG6bl73j/DEV-covid19-county-webpages/
 
 ### Safer Economy Language Labels
 Original: `pubData[language.id].saferEconomyLang.Table1[0] | dump | escape` 
@@ -153,4 +153,16 @@ To help streamline this process & get the best designs out the door, we are expl
 We created an Airtable database that helps us update and keep track of publishing the continuously evolving COVID-19 industry guidance recommendations. We use the Airtable database to build and publish publish a JSON file that we can write to our `covid-static` file server when we launch, and we will provide the tables as CSV files to our WordPress instance that runs covid19.ca.gov as a fallback method in the event of a service outage where we cannot publish API updates from Airtable to Github.
 
 CSV files from Airtable will be generated as part of a new automations workflow and suite of tools that have been outlined as part of our Phase 1, in which we made our dataset more structured and connected to collaborative tools to increase transparency and visibility across agencies.
+
+## Data documentation and content modelling
+While some Storybook components might be simple examples with button labels, other web components may be used to render real data, or be part of prototyping a design for a feature with more complexity. 
+
+In order to build the component, it's necessary to grab samples of data to pass into the components. Designers normally use filler "dummy" text for some examples (i.e. "Lorem ipsum"). It's often the case that anyone reviewing a design with filler text will reach a limit in what they can visualize, before they need to see it in action.
+
+Designers use tools such as [Framer](https://www.framer.com/), [Figma](https://www.figma.com/), [Invision](https://www.invisionapp.com/), [AdobeXD](https://www.adobe.com/products/xd/pricing/individual.html) to show some prototypes. 
+
+Tools such as [JSON to Figma](https://www.figma.com/community/plugin/789839703871161985) can help designers to pull data into their prototypes. Similarly, Storybook stories can pull data or copies of data for rendering the web-component, and building data to support rendering variations of the stories.
+
+For charts and other data, using a clear example from a point in time that's clearly indicated can also help. For our work with covid19.ca.gov, we learned that it could be helpful to see a chart with "real data", and also to help point anyone who wants to know more about the data source. Developers also need this information for building and debugging their tools.
+
 

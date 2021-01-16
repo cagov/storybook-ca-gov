@@ -16,7 +16,7 @@ export const buildMultilingualDataObject = ({
     return  {
         content: "text",
         pubData: null, // @TODO What was this?
-        "county-covid19-webpages": {
+        "covid19-county-webpages": {
             api: countyCovid19WebpagesApi,
             records: countyCovid19Webpages.records
         },

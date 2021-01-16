@@ -182,19 +182,3 @@ const reopeningRoadmapActivityData = {
         },
     }
 };
-
-
-
-
-
-/**
- * 
-covid19-industry-guidance-pdf-links.map 
-by industry_category_key
-return as industry_guidance_pdf_links
-covid19-related-guidance-metadata.filter industry_category_keygrouped by guidance hierarchystate_guidance              messageprimary_guidance      pdf_links
-          permalink          pdf_language          pdf_publication_date      guidance_metadata      additional_guidancesecondary_guidance      pdf_links      guidance_metadata      additional_guidance
-> permalink> pdf_language> message > message_activity_search, message_related_guidance, message_additional_resources
-
-
- */

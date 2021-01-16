@@ -1,5 +1,5 @@
-import countyCovid19Webpages from "./records/county-covid19-webpages.json";
-import countyCovid19WebpagesApi from "./api_templates/county-covid19-webpages.api.json";
+import countyCovid19Webpages from "./records/covid19-county-webpages.json";
+import countyCovid19WebpagesApi from "./api_templates/covid19-county-webpages.api.json";
 
 import countyStatus from "./records/countystatus.json";
 import countyStatusApi from "./api_templates/countystatus.api.json";
