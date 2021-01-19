@@ -3,6 +3,7 @@ import * as d3 from "d3";
  * Render SVG based interactive county map using d3
  */
 export default function drawChart({
+  domElement = null,
   data = null,
 }) {
   try {
@@ -17,14 +18,19 @@ export default function drawChart({
       ])
       .append("g");
 
-    svg
-      .append("rect")
-      .attr("width", 100)
-      .attr("height", 100)
-      .attr("x", 0)
-      .attr("y", 0)
-      .attr("fill", "yellow");
-
+    if (data !== null) {
+      data.map((item, index) => {
+        let color = '#'+Math.floor(Math.random() * Math.pow(2,32) ^ 0xffffff).toString(16).substr(-6);
+        return svg
+          .append("rect")
+          .attr("width", 40)
+          .attr("height", 40)
+          .attr("x", index * 10)
+          .attr("y", index * 10)
+          .attr("fill", color);
+      })
+      
+    }
   } catch (error) {
     console.error("error rendering hello-chart", error);
   }

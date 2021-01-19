@@ -19,20 +19,20 @@ function drawCountyMap({
   // which html content comes from data-labels & why (NOTE: this is advanced, we will make a couple of examples - a "hello-chart", and a few different case studies.)
 }) {
   try {
-    console.log(
-      "translations",
-      translations,
-      "data",
-      data,
-      "domElement",
-      domElement,
-      "chartOptions",
-      chartOptions,
-      "chartBreakpointValues",
-      chartBreakpointValues,
-      "screenDisplayType",
-      screenDisplayType
-    );
+    // console.log(
+    //   "translations",
+    //   translations,
+    //   "data",
+    //   data,
+    //   "domElement",
+    //   domElement,
+    //   "chartOptions",
+    //   chartOptions,
+    //   "chartBreakpointValues",
+    //   chartBreakpointValues,
+    //   "screenDisplayType",
+    //   screenDisplayType
+    // );
     const svg = d3
       .select(domElement)
       .append("svg")
@@ -43,14 +43,15 @@ function drawCountyMap({
         chartBreakpointValues.height,
       ])
       .append("g");
-
+      
+    
     svg
       .append("rect")
       .attr("width", 100)
       .attr("height", 100)
       .attr("x", 0)
       .attr("y", 0)
-      .attr("fill", "yellow");
+      .attr("fill", "pink");
 
     const g = svg.append("g").attr("id", "map-layers")
 
