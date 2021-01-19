@@ -18,7 +18,7 @@ class CAGovCountyMap extends window.HTMLElement {
 
     // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
     this.localData = JSON.parse(this.dataset.json);
-    console.log("dataset json", this.localData);
+    // console.log("dataset json", this.localData);
 
     // State object to use for persisting data across interactions.
     this.state = {};
@@ -41,8 +41,8 @@ class CAGovCountyMap extends window.HTMLElement {
           height: 400,
         },
         mobile: {
-          width: 600,
-          height: 400,
+          width: 400,
+          height: 200,
         },
         retina: {
           width: 600,
@@ -86,6 +86,7 @@ class CAGovCountyMap extends window.HTMLElement {
   }
 
   updateScreenOptions() {
+    
     this.screenDisplayType = window.charts
       ? window.charts.displayType
       : "desktop";
@@ -111,4 +112,5 @@ class CAGovCountyMap extends window.HTMLElement {
     // });
   }
 }
+
 window.customElements.define("cagov-county-map", CAGovCountyMap);
