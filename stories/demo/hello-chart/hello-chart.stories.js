@@ -3,7 +3,6 @@ import { Chart } from './hello-chart';
 export default {
   title: 'Demo/Hello-Chart',
   argTypes: {
-    onClick: { action: 'onClick' },
   },
 };
 
