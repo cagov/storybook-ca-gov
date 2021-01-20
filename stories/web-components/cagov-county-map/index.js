@@ -49,7 +49,7 @@ class CAGovCountyMap extends window.HTMLElement {
     // Render the chart for the first time.
     this.render();
   }
-
+ 
   /**
    * Remove any window events on removing this component.
    */

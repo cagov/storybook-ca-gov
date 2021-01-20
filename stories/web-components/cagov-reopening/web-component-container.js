@@ -5,11 +5,11 @@ import CAGovReopening from './index';
 /**
  * Primary UI component for user interaction
  */
-export const WebComponent = ({ data }) => {
-  console.log("web component data", data.pubData.records);
+export const WebComponent = (args) => {
+  console.log("web component data", args);
   return html`
     <cagov-reopening 
-      data-json=${JSON.stringify(data.pubData.records)}
+      data-json=${JSON.stringify(args.data)}
     >
       <ul>
         <li data-label="title">Find the status for activities in your county</li>
