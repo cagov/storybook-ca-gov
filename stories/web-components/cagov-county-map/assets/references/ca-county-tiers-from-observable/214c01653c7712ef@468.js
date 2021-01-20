@@ -1,12 +1,27 @@
 // https://observablehq.com/@aaronhans/ca-county-tiers@468
 export default function define(runtime, observer) {
   const main = runtime.module();
-  const fileAttachments = new Map([["california_06_counties.json","https://static.observableusercontent.com/files/9a21ca1fb2da8854d3f9b5d077bee487b02c6be6dfa38aecf71203dfbad10cda2b7e15e7beac5d107c2250e9a6ddb98b256ef631afb485026dbeecf9686b6e97"]]);
+  const fileAttachments = new Map([
+    [
+      "california_06_counties.json",
+      "https://static.observableusercontent.com/files/9a21ca1fb2da8854d3f9b5d077bee487b02c6be6dfa38aecf71203dfbad10cda2b7e15e7beac5d107c2250e9a6ddb98b256ef631afb485026dbeecf9686b6e97"]
+    ]);
+
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
+
   main.variable(observer()).define(["md"], function(md){return(
 md`# CA county tiers`
 )});
-  main.variable(observer("map")).define("map", ["d3","DOM","width","height","landArea","path","countyFeats","tiers"], function(d3,DOM,width,height,landArea,path,countyFeats,tiers)
+
+  main.variable(observer("map")).define("map", [
+    "d3",
+    "DOM",
+    "width",
+    "height","landArea",
+    "path",
+    "countyFeats",
+    "tiers"
+  ], function(d3,DOM,width,height,landArea,path,countyFeats,tiers)
 {
   const svg = d3.select(DOM.svg(width, height))
     .style("width", "100%")

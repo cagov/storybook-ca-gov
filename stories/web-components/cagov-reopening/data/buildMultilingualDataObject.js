@@ -1,4 +1,14 @@
 export const buildMultilingualDataObject = ({
+    countyRegionsData,
+    countyRegionsApi,
+    regionsClosedData,
+    regionsClosedApi,
+    reopeningActivitiesData,
+    reopeningActivitiesApi,
+    schoolsMayReopenData,
+    schoolsMayReopenApi,
+    statusDescriptorsData,
+    statusDescriptorsApi,
     countyCovid19WebpagesApi,
     countyCovid19Webpages,
     countyStatusApi,
@@ -37,8 +47,28 @@ export const buildMultilingualDataObject = ({
             records: rshoData
         },
         "pubData": {
-            api: pubData,
+            api: pubDataApi,
             records: pubData
-        }
+        },
+        "countyregions": {
+            api: countyRegionsApi,
+            records: countyRegionsData
+        },
+        "regionsclosed": {
+            api: regionsClosedApi,
+            records: regionsClosedData
+        },
+        "reopening-activities": {
+            api: reopeningActivitiesApi,
+            records: reopeningActivitiesData
+        },
+        "schools-may-reopen": {
+            api: schoolsMayReopenApi,
+            records: schoolsMayReopenData
+        },
+        "statusdescriptors": {
+            api: statusDescriptorsApi,
+            records: statusDescriptorsData
+        },
     };
 }

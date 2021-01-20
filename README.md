@@ -70,7 +70,7 @@ An example of building data for Storybook stories can be found in the [cagov-reo
 ## Configuration notes
 This instance of Storybook is configured with the following:
 
-* Core [@storybook/web-components](https://www.npmjs.com/package/@storybook/web-components) 6.1.11
+* Core [@storybook/web-components](https://www.npmjs.com/package/@storybook/web-components) 6.2.0-alpha.16
 
 ### Add-ons
 
