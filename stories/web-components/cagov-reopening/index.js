@@ -25,7 +25,7 @@ const inputValueActivity = (e) => {
     } else {
       clearActivity.classList.add('d-none');
     }
-  }
+}
 
 /**
  * This component provides a county and activity/business search interface
@@ -35,7 +35,8 @@ class CAGovReopening extends window.HTMLElement {
   constructor() {
     super();
     // Optional state object to use for persisting data across interactions.
-    this.state = {};
+    this.state = {
+    };
     // Establish chart variables and settings.
     this.displayOptions = {
       screens: {
@@ -85,6 +86,34 @@ class CAGovReopening extends window.HTMLElement {
     this.setupInputButtons();
   }
 
+  changeLocationInput(value) {
+    const $locationQuery = document.getElementById("location-query");
+    $locationQuery.value = value;
+    $locationQuery.setAttribute("aria-invalid", false);
+    this.state['county'] = value;
+    if (value) {
+      document.getElementById("clearLocation").classList.remove('d-none');
+    } else {
+      document.getElementById("clearLocation").classList.add('d-none');
+    }
+    document.getElementById("location-error").style.visibility = "hidden";
+    document.getElementById("reopening-error").style.visibility = "hidden";
+  }
+  
+  changeActivityInput(value) {
+      const $activityQuery = document.getElementById("activity-query");
+      $activityQuery.value = value;
+      $activityQuery.setAttribute("aria-invalid", false);
+      this.state['activity'] = value;
+      if (value) {
+        document.getElementById("clearActivity").classList.remove('d-none');
+      } else {
+        document.getElementById("clearActivity").classList.add('d-none');
+      }
+      document.getElementById("activity-error").style.visibility = "hidden";
+      document.getElementById("reopening-error").style.visibility = "hidden";
+    }
+
   handleResize(e) {
     // console.log("resize");
     getScreenResize(this);
@@ -119,7 +148,7 @@ class CAGovReopening extends window.HTMLElement {
   getLocalData() {
     console.log("data", this.localData);
 
-    // @TODO this will come from the html page
+    // @TODO this will come from the html page.. (I think?)
     let theMatrix = document.querySelector('.the-matrix');
     if (theMatrix) {
       document.querySelector('.matrix-holder').innerHTML = theMatrix.innerHTML;
@@ -298,16 +327,21 @@ class CAGovReopening extends window.HTMLElement {
     }
 
     let selectedActivities = this.allActivities;
-
     selectedCounties.forEach(item => {
       this.cardHTML += `<div class="card-county county-color-${item['Overall Status']}">
         <h2>${item.county}</h2>
-        ${(this.countyRegions) ? '<h3>' + this.localData.regionLabel + ' ' + this.countyRegions[item.county] + '</h3>' : ''}
+        
+        ${(this.countyRegions) ? '<h3>' + this.translationsStrings.regionLabel + ' ' + this.countyRegions[item.county] + '</h3>' : ''}
+
         ${(this.regionsclosed && this.countyRegions && this.regionsclosed.Table1.filter(r => r.region === this.countyRegions[item.county]).length > 0) ? '<p>Under <a href="/stay-home-except-for-essential-needs/#regional-stay-home-order">Regional Stay Home Order</a></p>' : ''}
+        
         <div class="pill">${this.statusdesc.Table1[parseInt(item['Overall Status']) - 1]['County tier']}</div>
-        <p>${this.statusdesc.Table1[parseInt(item['Overall Status']) - 1].description}. <a href="#county-status">${this.localData.understandTheData}</a></p>
-        <p>${this.localData.countyRestrictionsAdvice} <a href="../get-local-information">${this.localData.countyRestrictionsCountyWebsite}</a>.</p>
-      </div>`;
+        
+        <p>${this.statusdesc.Table1[parseInt(item['Overall Status']) - 1].description}. <a href="#county-status">${this.translationsStrings.understandTheData}</a></p>
+        
+        <p>${this.translationsStrings.countyRestrictionsAdvice} <a href="../get-local-information">${this.translationsStrings.countyRestrictionsCountyWebsite}</a>.</p>
+      
+        </div>`;
 
       if (this.state['activity']) {
         selectedActivities = [];
@@ -323,13 +357,13 @@ class CAGovReopening extends window.HTMLElement {
           this.cardHTML += `<div class="card-activity">
             <h4>${ac["0"]}</h4>
             <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac["6"]}</p>
-            <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.localData.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
+            <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.translationsStrings.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
           </div>`
         } else {
           this.cardHTML += `<div class="card-activity">
             <h4>${ac["0"]}</h4>
             <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac[item['Overall Status']]}</p>
-            <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.localData.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
+            <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.translationsStrings.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
           </div>`
         }
       })
@@ -378,7 +412,7 @@ class CAGovReopening extends window.HTMLElement {
       });
     }
 
-    console.log("activityInput", activityInput);
+    // console.log("activityInput", activityInput);
 
     if (activityInput) {
       // Show clear btn only on input (Activity)
