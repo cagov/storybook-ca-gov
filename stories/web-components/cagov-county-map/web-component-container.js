@@ -6,9 +6,8 @@ import './index.js';
  * Primary UI component for user interaction
  */
 export const WebComponent = (args) => {
-  console.log("Data passed into web component", args);
+  // console.log("Data passed into web component", args);
   let localData = JSON.stringify(args);
-  console.log("localData", localData);
   return html`
     <cagov-county-map id="cagov-county-map" data-json="${localData}">
       <ul>

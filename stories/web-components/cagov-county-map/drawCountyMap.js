@@ -2,14 +2,10 @@ import * as d3 from "d3";
 import * as landArea from './data/topojson/landArea.json';
 import * as countyFeats from './data/topojson/countyFeats.json';
 import * as ca from './data/topojson/ca.json';
-// import * as tiers from './data/topojson/tiers.json';
 
-// @TODO Let's use this as an opportunity to reformulate the function inputs & outputs.
 /**
  * Render SVG based interactive county map using d3
  */
-
-// @TODO Add d3 library to storybook.
 export default function drawCountyMap({
   translations = null,
   data = null,
@@ -19,7 +15,7 @@ export default function drawCountyMap({
   screenDisplayType = null,
 }) {
   try {
-    // Code loaded from Observables example.
+    // NOTE: Code loaded from Observables example.
     function zoom (s) {
       s.call(d3.zoom()
         .on("zoom", () => s.select("#map-layers").attr("transform", d3.event.transform))
@@ -27,14 +23,10 @@ export default function drawCountyMap({
         .translateExtent([[0, 0], [width, height]]))
     }
 
-    // @TODO Could make this responsive, if it's not already.
-    var width = 687;
-    var height = 458;
-
     var projection = d3.geoConicConformal()
     .parallels([37 + 4 / 60, 38 + 26 / 60])
     .rotate([120 + 30 / 60], 0)
-    .fitSize([width, height], landArea);
+    .fitSize([chartBreakpointValues.width, chartBreakpointValues.height], landArea);
 
     var path = d3.geoPath(projection);
     var boundaryFilter = (a, b) => a !== b;
@@ -65,8 +57,9 @@ export default function drawCountyMap({
       .attr("stroke-line-join", "round")
       .attr("d", path);
   
-    // county boundaries
-    const countiesGroup = g.append("g").attr("id", "county-boundaries")
+    // County boundaries
+    const countiesGroup = g.append("g").attr("id", "county-boundaries");
+    // Tier colors
     const tierColors = ["0000cc","e6b735","d97641","c43d53","802f67"];
     
     countiesGroup.selectAll('.county')
@@ -78,20 +71,18 @@ export default function drawCountyMap({
       .attr('d', path)
       .attr('fill', (d) => {
         let tier = '';
-        
         tiers.forEach(t => {
           if(t.county.toLowerCase() === d.properties.NAME.toLowerCase()) {
             tier = t["Overall Status"];
           }
         })
         if(tier) {
-          return "#"+tierColors[tier];
+          return "#" + tierColors[tier];
         } else {
           return 'gray';
         }
       })
       .on('mouseover', function(event, d){
-        console.log(d);
         tooltip.html(`<div class="county-tooltip">
           <h3>${d.properties.NAME}</h2>
         </div>`); return tooltip.style("visibility", "visible");
@@ -101,7 +92,8 @@ export default function drawCountyMap({
       })
       .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
     
-    // @NOTE Original was a simple label, not styled as a tooltip.
+    // Tooltip
+    // NOTE: Original was a simple label, not styled as a tooltip.
     let tooltip = d3.select("body")
       .append("div")
       .style("position", "absolute")
@@ -110,13 +102,11 @@ export default function drawCountyMap({
       .style("background", "#fff")
       .text("a simple tooltip");
   
-    // labels
+    // Labels
     const labelsGroup = g.append("g").attr("id", "labels")
-  
-    // return svg.node()
 
   } catch (error) {
-    console.error("error rendering cagov-county-map", error);
+    console.error("Error rendering cagov-county-map:", error);
   }
 }
 

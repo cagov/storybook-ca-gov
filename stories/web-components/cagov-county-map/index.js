@@ -21,11 +21,11 @@ class CAGovCountyMap extends window.HTMLElement {
         },
         tablet: {
           width: 600,
-          height: 400,
+          height: 1200,
         },
         mobile: {
           width: 400,
-          height: 200,
+          height: 800,
         },
         retina: {
           width: 600,
@@ -34,18 +34,18 @@ class CAGovCountyMap extends window.HTMLElement {
       },
     };    
   }
+
   /**
    * Run when component is first loaded. Pull any data from the environment.
    */
   connectedCallback() {
-    console.log("connected");
     window.addEventListener("resize", (e) => {
+      console.log("resize");
         this.handleChartResize(e);
     });
 
     // Get translations from web component markup.
     this.translationsStrings = getTranslations(this);
-    console.log("translation strings", this.translationsStrings);
     // Render the chart for the first time.
     this.render();
   }
@@ -61,23 +61,21 @@ class CAGovCountyMap extends window.HTMLElement {
   handleChartResize(e) {
     getScreenResizeCharts(this);
     this.updateScreenOptions(e)
-    console.log("event", e.target);
     // Trigger component redraw (any component on this page with this name) this makes sense for window resize events, but if you want more individualized redraws will need to 
     document.querySelector("cagov-county-map").redraw();
   }
 
   updateScreenOptions(e) {
-    console.log("update screen options");
     this.screenDisplayType = window.charts
       ? window.charts.displayType
       : "desktop";
     this.chartBreakpointValues = this.chartOptions.screens[
       this.screenDisplayType ? this.screenDisplayType : "desktop"
     ];
+    console.log(this.screenDisplayType);
   }
 
   redraw() {
-    console.log("redraw callback", this.localData);
     // Listen for responsive resize event and get the settings for the responsive chart sizes.
     getScreenResizeCharts(this);
     this.updateScreenOptions();
@@ -99,17 +97,13 @@ class CAGovCountyMap extends window.HTMLElement {
 
   // Manually triggered method to get or update and render dynamic data and pass into the template.
   render() {
-
-
     // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
     this.localData = JSON.parse(this.dataset.json);
-    console.log("render callback", this.localData);
     // Replace the enclosing tag element with contents of template.
     this.innerHTML = template({
       translations: this.translationsStrings,
       localData: this.localData,
     });
-
     // Draw or redraw the chart.
     this.redraw();
   }
