@@ -1,6 +1,6 @@
 /**
  * A template that is used to generate the HTML markup 
- * @param {*} param0 // @TODO JSDocs & hash signatures don't play nice, look up best way to document the variables here.
+ * @param {*} // @TODO JSDocs & hash signatures don't play nice, look up best way to document the variables here.
  */
 export default function template({
     localData = null, // Data sets passed into the web-component.
@@ -8,10 +8,10 @@ export default function template({
 }) {
     console.log("template data", localData, translations);
     return /*html*/`<div>
-        <div class="chart-title">title var: ${translations.title || null}</div>
         <div class="chart-container">d3 chart here</div>
-        <div class="chart-text">description: ${translations.description || null}</div>
     </div>
     `
+    // <div class="chart-title">title var: ${translations.title || null}</div>
+    // <div class="chart-text">description: ${translations.description || null}</div>
 }
   

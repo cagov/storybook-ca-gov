@@ -1,34 +1,17 @@
 import template from "./template.js";
 import drawCountyMap from "./drawCountyMap.js";
-import getTranslations from "./get-strings-list.js";
-import getScreenResizeCharts from "./get-window-size.js"; // Let's make an example with 3 entirely different d3 layouts for mobile, tablet & desktop
+import getTranslations from "./get-translations-list.js";
+import getScreenResizeCharts from "./get-window-size.js";
 // import rtlOverride from "./rtl-override.js"; // Let's have an example with Arabic & Chinese for the bar charts.
 // import { reformatReadableDate } from "./readable-date.js";
 
-// @TODO Handle situations of needing to re-render chart on re-size. This is our chance to encapsulate the code enough so it can re-render easily.
-
 class CAGovCountyMap extends window.HTMLElement {
-  /**
-   * This runs when the web component is first loaded.
-   */
-  connectedCallback() {
-    // Read translation strings that come from HTML markup that is pasted into a web page.
-    this.translationsStrings = getTranslations(this);
-    // console.log("translation strings", this.translationsStrings);
-
-    // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
-    this.localData = JSON.parse(this.dataset.json);
-    // console.log("dataset json", this.localData);
-
-    // State object to use for persisting data across interactions.
+  // Set up static variables that are specific to this component.
+  // https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
+  constructor() {
+    super();
+    // Optional state object to use for persisting data across interactions.
     this.state = {};
-
-    // Replace the enclosing tag element with contents of template.
-    this.innerHTML = template({
-      translations: this.translationsStrings,
-      localData: this.localData,
-    });
-
     // Establish chart variables and settings.
     this.chartOptions = {
       screens: {
@@ -49,28 +32,60 @@ class CAGovCountyMap extends window.HTMLElement {
           height: 400,
         },
       },
-    };
+    };    
+  }
+  /**
+   * Run when component is first loaded. Pull any data from the environment.
+   */
+  connectedCallback() {
+    console.log("connected");
+    window.addEventListener("resize", (e) => {
+        this.handleChartResize(e);
+    });
 
+    // Get translations from web component markup.
+    this.translationsStrings = getTranslations(this);
+    console.log("translation strings", this.translationsStrings);
+    // Render the chart for the first time.
+    this.render();
+  }
+
+  /**
+   * Remove any window events on removing this component.
+   */
+  disconnectedCallback() {
+    window.removeEventListener("resize", this.handleChartResize);
+  }
+
+  // Display content & layout dimensions.
+  handleChartResize(e) {
+    getScreenResizeCharts(this);
+    this.updateScreenOptions(e)
+    console.log("event", e.target);
+    // Trigger component redraw (any component on this page with this name) this makes sense for window resize events, but if you want more individualized redraws will need to 
+    document.querySelector("cagov-county-map").redraw();
+  }
+
+  updateScreenOptions(e) {
+    console.log("update screen options");
+    this.screenDisplayType = window.charts
+      ? window.charts.displayType
+      : "desktop";
+    this.chartBreakpointValues = this.chartOptions.screens[
+      this.screenDisplayType ? this.screenDisplayType : "desktop"
+    ];
+  }
+
+  redraw() {
+    console.log("redraw callback", this.localData);
     // Listen for responsive resize event and get the settings for the responsive chart sizes.
     getScreenResizeCharts(this);
-
-    // Choose settings for current screen display.
-    // Display content & layout dimensions.
-    const handleChartResize = () => {
-      getScreenResizeCharts(this);
-      // this.updateScreenOptions();
-      // @TODO ^ See if we can use this function in this scope (probably not but see if we can make a reference to it somewhere - like with a ref key in the tags of the component to a local window based state object or something)
-      this.screenDisplayType = window.charts
-        ? window.charts.displayType
-        : "desktop";
-      this.chartBreakpointValues = this.chartOptions.screens[
-        this.screenDisplayType ? this.screenDisplayType : "desktop"
-      ];
-    };
-    window.addEventListener("resize", handleChartResize);
-
     this.updateScreenOptions();
 
+    // Clear previous SVG.
+    if (document.querySelector('.chart-container') !== null) {
+      document.querySelector('.chart-container').innerHTML = "";
+    }
     // Generate the map.
     this.svg = drawCountyMap({
       translations: this.translationsStrings,
@@ -80,36 +95,23 @@ class CAGovCountyMap extends window.HTMLElement {
       chartBreakpointValues: this.chartBreakpointValues,
       screenDisplayType: this.screenDisplayType,
     });
-
-    // d-none equivalent
-    // rtlOverride(this); // quick fix for arabic
   }
 
-  updateScreenOptions() {
-    
-    this.screenDisplayType = window.charts
-      ? window.charts.displayType
-      : "desktop";
-
-    this.chartBreakpointValues = this.chartOptions.screens[
-      this.screenDisplayType ? this.screenDisplayType : "desktop"
-    ];
-  }
-
+  // Manually triggered method to get or update and render dynamic data and pass into the template.
   render() {
-    // When re-render is triggered, re-render chart.(@TODO confirm exactly when this happens)
-    // getScreenResizeCharts(this);
-    // this.updateScreenOptions();
 
-    // // Generate the map.
-    // this.svg = drawCountyMap({
-    //   translations: this.translationsStrings,
-    //   data: this.localData,
-    //   domElement: ".chart-container svg",
-    //   chartOptions: this.chartOptions,
-    //   chartBreakpointValues: this.chartBreakpointValues,
-    //   screenDisplayType: this.screenDisplayType,
-    // });
+
+    // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
+    this.localData = JSON.parse(this.dataset.json);
+    console.log("render callback", this.localData);
+    // Replace the enclosing tag element with contents of template.
+    this.innerHTML = template({
+      translations: this.translationsStrings,
+      localData: this.localData,
+    });
+
+    // Draw or redraw the chart.
+    this.redraw();
   }
 }
 

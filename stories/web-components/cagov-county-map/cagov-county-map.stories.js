@@ -8,7 +8,7 @@ export default {
   decorators: []
 };
 
-const Template = (args) => WebComponent(args);
+var Template = (args) => WebComponent(args);
 
 export const CountyMapEnglish = Template.bind({});
 CountyMapEnglish.storyName = "County Map (English API data)";
@@ -25,7 +25,6 @@ CountyMapSpanish.args = {
   // data: data["es"],
   countystatus: data["es"].countystatus.data,
   title: "Hola",
-
 };
 
 // NOTE: These variations currently have English text. Can grab existing translated data if it exists.
