@@ -2,6 +2,7 @@ import Awesomplete from 'awesomplete-es6';
 import template from './template.js';
 import getTranslations from "./get-translations-list.js";
 import getScreenResize from "./get-window-size.js";
+import './cagov-reopening.scss';
 
   // Show clear btn only if there is value (County)
 const inputValueCounty = (e) => {
@@ -400,6 +401,7 @@ class CAGovReopening extends window.HTMLElement {
       countyInput.addEventListener("input", function (e) {
         inputValueCounty();
       });
+
       //Clear buttons click events
       document.getElementById("clearLocation").addEventListener("click", function (e) {
         countyInput.value = '';
