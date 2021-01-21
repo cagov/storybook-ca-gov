@@ -9,7 +9,9 @@
     "start": "npm run storybook",
     "build-storybook": "build-storybook",
     "build": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
-    "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'"
+    "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
+    "update:data_activities": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildAirtableJsonCsv.js dotenv_config_path=.env/.env.local",
+    "update:data_state_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local"
   },
   "keywords": [],
   "author": "",
@@ -25,16 +27,20 @@
     "@storybook/addon-viewport": "^6.2.0-alpha.16",
     "@storybook/web-components": "^6.2.0-alpha.16",
     "babel-loader": "^8.2.2",
+    "dotenv": "^8.2.0",
     "lit-html": "^1.3.0",
     "storybook-addon-designs": "^5.4.3"
   },
   "dependencies": {
     "@cagov/accordion": "^1.0.6",
     "@storybook/preset-scss": "^1.0.3",
+    "airtable": "^0.10.1",
     "css-loader": "^5.0.1",
     "d3": "^6.3.1",
+    "json2csv": "^5.0.5",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
-    "style-loader": "^2.0.0"
+    "style-loader": "^2.0.0",
+    "immer": ">=8.0.1"
   }
 }
