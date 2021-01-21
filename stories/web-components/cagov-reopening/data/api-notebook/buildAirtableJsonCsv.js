@@ -76,7 +76,7 @@ let endpoints = {
       filename: null,
       git_pdf_template_type: null,
       industry_category_key: null,
-      pdf_language: null,
+      language: null,
       summary_of_changes: null,
       pdf_publication_date: null,
       accessibility_links: null,
@@ -103,7 +103,7 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-industry-guidance-categories",
     fields: {
-      related_guidance_key: null,
+      industry_category_key: null,
       industry_category_label: null,
       date_last_modified: null,
       language: null,
@@ -116,7 +116,7 @@ let endpoints = {
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-industry-guidance-additional-resources",
     fields: {
       id: null,
-      related_guidance_industry_category_key: null,
+      industry_category_key: null,
       url: null,
       message: null,
       type: null,
@@ -229,6 +229,20 @@ const formatResponse = ({ data = null, endpoint = null, saveCSV = true }) => {
   return null;
 };
 
+const getDate = () => {
+      // Get date updated.
+      var date = new Date();
+      var now_utc = Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        date.getUTCHours(),
+        date.getUTCMinutes(),
+        date.getUTCSeconds()
+      );
+      return new Date(now_utc);
+}
+
 /**
  * Format simple API from each Airtable dataset, only retrieving the fields.
  */
@@ -244,7 +258,7 @@ const formatApi = ({ data, docs }) => {
       date.getUTCMinutes(),
       date.getUTCSeconds()
     );
-    const utcDate = new Date(now_utc);
+    const utcDate = getDate();
 
     // Load docs template.
     let docsData = fs.readFileSync(docs, "utf8");
@@ -284,7 +298,7 @@ const saveAsCsv = (fieldData, endpoint) => {
     // For each primary guidance & secondary guidance, get state-industry-guidance key (comma separated) & build results.
     // state-industry-guidance
     // For each industry-category  covid19-industry-guidance-categories
-    // key: related_guidance_key // @TODO could this be industry_category_key? 
+    // key: industry_category_key // @TODO could this be industry_category_key? 
         // language
         // label
         // guidance_metadata  covid19-related-guidance-metadata
@@ -294,7 +308,7 @@ const saveAsCsv = (fieldData, endpoint) => {
             // industry_category_key
             // language
         // guidance_additional_resources // covid19-industry-guidance-additional-resources
-            // related_guidance_industry_category_key // @TODO could this be industry_category_key? 
+            // industry_category_key // @TODO could this be industry_category_key? 
             // sort by order, 1 is first, 5 is lower down.
             // language
 const buildStateGuidanceJSON = () => {
@@ -306,11 +320,11 @@ const buildStateGuidanceJSON = () => {
   let additionalResources = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-additional-resources.json`, "utf8"));
   let data = {};
   categories.data.map((item) => {
-    let category = item["related_guidance_key"];
+    let category = item["industry_category_key"];
     // console.log("category", category);
     let categoryMetadata = metadata.data.filter((dataItem) => dataItem["industry_category_key"] === category);
     let categoryPdfLinks = pdfLinks.data.filter((dataItem) => dataItem["industry_category_key"] === category);
-    let categoryAdditionalResources = additionalResources.data.filter((dataItem) => dataItem["related_guidance_industry_category_key"] === category); // @TODO sort this one
+    let categoryAdditionalResources = additionalResources.data.filter((dataItem) => dataItem["industry_category_key"] === category); // @TODO sort this one
 
 
     data[category] = {
@@ -320,9 +334,13 @@ const buildStateGuidanceJSON = () => {
       };
   });
 
+  const utcDate = getDate();
+
   let apiData = {
     docs: apiDoc,
-    data: data
+    data: data,
+    date_updated: utcDate,
+    total: Object.keys(data).length,
   }
 
   fs.writeFile(
@@ -338,8 +356,9 @@ const buildStateGuidanceJSON = () => {
   }
 };
 
-buildStateGuidanceJSON();
+
 /**
  * Run the script
  */
-// buildData();
+buildData();
+// buildStateGuidanceJSON();

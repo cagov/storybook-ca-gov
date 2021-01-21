@@ -1,4 +1,4 @@
-"id","related_guidance_industry_category_key","url","message","type","file_title","order","date_last_modified","language"
+"id","industry_category_key","url","message","type","file_title","order","date_last_modified","language"
 2,"libraries","https://library.ca.gov/Content/pdf/services/toLibraries/COVIDGuidanceLibraries.pdf",,"additional-resource","Restoring in-person services",1,"2021-01-15T09:44:00.000Z","English"
 20,"libraries","https://www.library.ca.gov/covid-19",,"additional-resource","State Library's COVID-19 website",2,"2021-01-15T09:44:00.000Z","English"
 21,"libraries","https://www.cla-net.org/page/7-1",,"additional-resource","Resources for public libraries",3,"2021-01-15T09:44:00.000Z","English"
