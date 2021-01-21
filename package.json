@@ -36,6 +36,7 @@
     "airtable": "^0.10.1",
     "css-loader": "^5.0.1",
     "d3": "^6.3.1",
+    "json2csv": "^5.0.5",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0"
