@@ -156,8 +156,7 @@ const buildData = async () => {
 /** Return only the field data from Airtable */
 const formatResponse = (data, endpoint) => {
   if (data !== undefined && data !== null) {
-    let formattedData = data;
-    formattedData = data.map((item) => {
+    let formattedData = data.map((item) => {
       let returnedFields = endpoints[endpoint].fields;
       let fields = {};
       Object.keys(returnedFields).map((fieldName) => {
@@ -175,6 +174,11 @@ const formatResponse = (data, endpoint) => {
   return null;
 };
 
+/** 
+ * Format simple API from each Airtable dataset, only retrieving the fields.
+ * If record ids are desired for tracing data back, that the data formatter can be updated.
+ * This api has docs from a docs template & updated data sources.
+ */
 const formatApi = ({ data, docs }) => {
   try {
     // Get date updated.
@@ -191,8 +195,6 @@ const formatApi = ({ data, docs }) => {
 
     // Get docs template.
     let docsData = fs.readFileSync(docs, "utf8");
-
-    console.log("docsData", docsData);
     return JSON.stringify({
       docs: JSON.parse(docsData),
       data: data,
@@ -205,25 +207,21 @@ const formatApi = ({ data, docs }) => {
 };
 
 const saveAsCsv = (fieldData, endpoint) => {
-  console.log(fieldData.length, endpoint);
-  // try {
-  //   let opts = Object.keys(endpoints[endpoint].fields;);
-  //   const parser = new Parser(opts);
-  //   const csv = parser.parse(fieldData);
-
-  //   console.log(csv);
-
-  //   fs.writeFile(
-  //     `${dataPath}/data-${endpoint}.csv`,
-  //     formatResponse(csv, endpoint),
-  //     function (err) {
-  //       if (err) return console.log(err);
-  //       console.log(`saved: ${endpoint}.csv`);
-  //     }
-  //   );
-  // } catch (err) {
-  //   console.error("ERROR", err);
-  // }
+  try {
+    let opts = Object.keys(endpoints[endpoint].fields);
+    const parser = new Parser(opts);
+    const csv = parser.parse(fieldData);
+    fs.writeFile(
+      `${dataPath}/data-${endpoint}.csv`,
+      csv,
+      function (err) {
+        if (err) return console.log(err);
+        console.log(`saved: ${endpoint}.csv`);
+      }
+    );
+  } catch (err) {
+    console.error("ERROR", err);
+  }
 };
 
 const lookupAdditionalResource = (key) => {};

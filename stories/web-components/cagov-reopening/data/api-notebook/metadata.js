@@ -10,7 +10,6 @@ const metadata = {
    "Machine Readable Title": "reopening-roadmap-activity-data",
    "Version": "2.0.0",
    "Permalink": null,
-   
    "Description": "COVID-19 reopening activity and business data sets, with references to related guidance files.",
    /**
    * Required
