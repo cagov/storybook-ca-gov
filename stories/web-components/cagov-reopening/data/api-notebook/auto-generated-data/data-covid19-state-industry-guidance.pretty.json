@@ -32,6 +32,8 @@
   },
   "data": {
     "agriculture": {
+      "label": "Agriculture and livestock",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "agriculture",
@@ -226,6 +228,8 @@
       ]
     },
     "amusement-theme-parks": {
+      "label": "Amusement parks and theme parks",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "amusement-theme-parks",
@@ -420,6 +424,8 @@
       "additional_resources": []
     },
     "auto-dealerships": {
+      "label": "Auto dealerships",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "auto-dealerships",
@@ -602,6 +608,8 @@
       "additional_resources": []
     },
     "bars": {
+      "label": "Bars, breweries, and distilleries",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "bars",
@@ -796,6 +804,8 @@
       "additional_resources": []
     },
     "campgrounds-outdoor-recreation": {
+      "label": "Campgrounds",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "campgrounds-outdoor-recreation",
@@ -1002,6 +1012,8 @@
       ]
     },
     "cardrooms-racetracks": {
+      "label": "Cardrooms and racetracks",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "cardrooms-racetracks",
@@ -1184,6 +1196,8 @@
       "additional_resources": []
     },
     "childcare": {
+      "label": "Childcare",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "childcare",
@@ -1317,6 +1331,8 @@
       ]
     },
     "cohorts": {
+      "label": "Cohorts for children and youth in supervised settings",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "cohorts",
@@ -1544,6 +1560,8 @@
       ]
     },
     "communications": {
+      "label": "Communications infrastructure",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "communications",
@@ -1726,6 +1744,8 @@
       "additional_resources": []
     },
     "construction": {
+      "label": "Construction",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "construction",
@@ -1908,6 +1928,8 @@
       "additional_resources": []
     },
     "day-camps": {
+      "label": "Day camps",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "day-camps",
@@ -1946,6 +1968,8 @@
       "additional_resources": []
     },
     "delivery-services": {
+      "label": "Delivery services",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "delivery-services",
@@ -2128,6 +2152,8 @@
       "additional_resources": []
     },
     "energy": {
+      "label": "Energy and utilities",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "energy",
@@ -2454,6 +2480,8 @@
       "additional_resources": []
     },
     "expanded-personal-care-services": {
+      "label": "Expanded Personal Care Services",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "expanded-personal-care-services",
@@ -2648,6 +2676,8 @@
       "additional_resources": []
     },
     "family-entertainment": {
+      "label": "Family entertainment centers",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "family-entertainment",
@@ -2998,6 +3028,8 @@
       ]
     },
     "fitness": {
+      "label": "Gyms and fitness centers",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "fitness",
@@ -3324,6 +3356,8 @@
       "additional_resources": []
     },
     "food-packing": {
+      "label": "Food packing",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "food-packing",
@@ -3650,6 +3684,8 @@
       "additional_resources": []
     },
     "hair-salons": {
+      "label": "Hair salons and barbershops",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "hair-salons",
@@ -3988,6 +4024,8 @@
       "additional_resources": []
     },
     "higher-education": {
+      "label": "Higher education",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "higher-education",
@@ -4170,6 +4208,8 @@
       "additional_resources": []
     },
     "hotels-lodging-rentals": {
+      "label": "Hotels, lodging, and short-term lodging rentals",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "hotels-lodging-rentals",
@@ -4364,6 +4404,8 @@
       "additional_resources": []
     },
     "libraries": {
+      "label": "Retail",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "libraries",
@@ -4411,6 +4453,8 @@
       ]
     },
     "life-sciences": {
+      "label": "Life sciences",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "life-sciences",
@@ -4737,6 +4781,8 @@
       "additional_resources": []
     },
     "limited-services": {
+      "label": "Limited services",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "limited-services",
@@ -4919,6 +4965,8 @@
       "additional_resources": []
     },
     "logistics-warehousing": {
+      "label": "Logistics and warehousing facilities",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "logistics-warehousing",
@@ -5245,6 +5293,8 @@
       "additional_resources": []
     },
     "manufacturing": {
+      "label": "Manufacturing",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "manufacturing",
@@ -5571,6 +5621,8 @@
       "additional_resources": []
     },
     "mining-logging": {
+      "label": "Mining and logging",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "mining-logging",
@@ -5825,6 +5877,8 @@
       "additional_resources": []
     },
     "movie-theaters": {
+      "label": "Movie theaters and family entertainment centers",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "movie-theaters",
@@ -6019,6 +6073,8 @@
       "additional_resources": []
     },
     "music-tv-film": {
+      "label": "Music, film, and TV production",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "music-tv-film",
@@ -6032,6 +6088,8 @@
       "additional_resources": []
     },
     "office-workspaces": {
+      "label": "Office workspaces",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "office-workspaces",
@@ -6358,6 +6416,8 @@
       "additional_resources": []
     },
     "outdoor-cardrooms": {
+      "label": "Outdoor cardrooms",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "outdoor-cardrooms",
@@ -6552,6 +6612,8 @@
       "additional_resources": []
     },
     "outdoor-live-professional-sports": {
+      "label": "Outdoor live professional sports",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "outdoor-live-professional-sports",
@@ -6746,6 +6808,8 @@
       "additional_resources": []
     },
     "places-of-worship": {
+      "label": "Places of worship and cultural ceremonies",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "places-of-worship",
@@ -7072,6 +7136,8 @@
       "additional_resources": []
     },
     "ports": {
+      "label": "Ports",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "ports",
@@ -7326,6 +7392,8 @@
       "additional_resources": []
     },
     "professional-sports": {
+      "label": "Professional sports",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "professional-sports",
@@ -7339,6 +7407,8 @@
       "additional_resources": []
     },
     "real-estate": {
+      "label": "Real estate transactions",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "real-estate",
@@ -7665,6 +7735,8 @@
       "additional_resources": []
     },
     "restaurants-bars-wineries": {
+      "label": "Restaurants, wineries, and bars",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "restaurants-bars-wineries",
@@ -7991,6 +8063,8 @@
       "additional_resources": []
     },
     "retail": {
+      "label": "Retail",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "retail",
@@ -8329,6 +8403,8 @@
       "additional_resources": []
     },
     "schools": {
+      "label": "Schools",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "schools",
@@ -8365,6 +8441,8 @@
       ]
     },
     "shopping-centers": {
+      "label": "Shopping centers",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "shopping-centers",
@@ -8703,6 +8781,8 @@
       "additional_resources": []
     },
     "transit-rail": {
+      "label": "Public transit and intercity passenger rail",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "transit-rail",
@@ -9053,6 +9133,8 @@
       ]
     },
     "wineries": {
+      "label": "Wineries and tasting rooms",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "wineries",
@@ -9247,6 +9329,8 @@
       "additional_resources": []
     },
     "youth-sports": {
+      "label": "Youth and adult recreational sports",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "youth-sports",
@@ -9305,6 +9389,8 @@
       ]
     },
     "zoos-museums": {
+      "label": "Museums, zoos, and aquariums",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "zoos-museums",
@@ -9643,6 +9729,8 @@
       "additional_resources": []
     },
     "swimming-pools": {
+      "label": "Swimming pools",
+      "language": "English",
       "metadata": [
         {
           "industry_category_key": "swimming-pools",
@@ -9656,6 +9744,6 @@
       "additional_resources": []
     }
   },
-  "date_updated": "2021-01-21T05:11:29.000Z",
+  "date_updated": "2021-01-21T05:19:32.000Z",
   "total": 44
 }
