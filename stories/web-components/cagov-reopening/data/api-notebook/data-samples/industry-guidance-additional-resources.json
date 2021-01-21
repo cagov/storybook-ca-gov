@@ -1,0 +1,269 @@
+{
+    "records": [
+        {
+            "id": "rec0NSv6Fdt1WXL5P",
+            "fields": {
+                "id": 32,
+                "related_guidance_industry_category_key": "youth-sports",
+                "type": "additional-text",
+                "order": 6,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "message": "Example content 1\n",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T22:42:38.000Z"
+        },
+        {
+            "id": "rec6XxPqIk7EOONs8",
+            "fields": {
+                "id": 9,
+                "related_guidance_industry_category_key": "cohorts",
+                "url": "https://www.cdss.ca.gov/Portals/9/CCLD/PINs/2020/CCP/PIN-20-22-CCP.pdf",
+                "type": "additional-resource",
+                "file_title": "FAQs about waivers and cohorts for childcare",
+                "order": 3,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "rec9NcGtgLRjh2qhJ",
+            "fields": {
+                "id": 21,
+                "related_guidance_industry_category_key": "libraries",
+                "url": "https://www.cla-net.org/page/7-1",
+                "type": "additional-resource",
+                "file_title": "Resources for public libraries",
+                "order": 3,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recAjmplX2Owaoxku",
+            "fields": {
+                "id": 33,
+                "related_guidance_industry_category_key": "youth-sports",
+                "type": "additional-text",
+                "order": 7,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "message": "Example <a href=\"#\">content</a> with <strong>bold</strong> 2.\n",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T22:42:38.000Z"
+        },
+        {
+            "id": "recFgnJ5C330RvhFd",
+            "fields": {
+                "id": 10,
+                "related_guidance_industry_category_key": "youth-sports",
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Youth-Sports-FAQ.aspx",
+                "type": "additional-resource",
+                "file_title": "Questions and answers about youth and adult recreational sports",
+                "order": 2,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recImz9mzXXfjIUr0",
+            "fields": {
+                "id": 35,
+                "related_guidance_industry_category_key": "schools",
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/COVID-19/Consolidated_Schools_Guidance.pdf",
+                "type": "guidance",
+                "file_title": "COVID-19 and Reopening In-Person Instruction Framework & Public Health Guidance for K-12 Schools in California, 2020-2021 School Year",
+                "order": 1,
+                "date_last_modified": "2021-01-16T01:46:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-16T01:00:02.000Z"
+        },
+        {
+            "id": "recKPUxKRGAZSlLbI",
+            "fields": {
+                "id": 20,
+                "related_guidance_industry_category_key": "libraries",
+                "url": "https://www.library.ca.gov/covid-19",
+                "type": "additional-resource",
+                "file_title": "State Library's COVID-19 website",
+                "order": 2,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recKRpoJ9VBAkEcu5",
+            "fields": {
+                "id": 8,
+                "related_guidance_industry_category_key": "transit-rail",
+                "url": "https://files.covid19.ca.gov/pdf/flyer-agriculture-shared-transportation--en.pdf",
+                "type": "additional-resource",
+                "file_title": "Shared transportation in agriculture",
+                "order": 1,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recNNoHM35lQ14K9g",
+            "fields": {
+                "id": 27,
+                "related_guidance_industry_category_key": "cohorts",
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/small-groups-child-youth.aspx",
+                "type": "guidance",
+                "file_title": "Guidance related to cohorts",
+                "order": 1,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recRFnCUjndzkAe8h",
+            "fields": {
+                "id": 12,
+                "related_guidance_industry_category_key": "childcare",
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/contact-management-childcare-facilities.aspx",
+                "type": "additional-resource",
+                "file_title": "COVID-19 case and contact management for childcare",
+                "order": 2,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recfSskdFA2ja9Yp9",
+            "fields": {
+                "id": 6,
+                "related_guidance_industry_category_key": "agriculture",
+                "url": "https://files.covid19.ca.gov/pdf/flyer-agriculture-shared-transportation--en.pdf",
+                "type": "additional-resource",
+                "file_title": "Shared transportation in agriculture",
+                "order": 1,
+                "date_last_modified": "2021-01-15T19:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "rech1nkSTm9ErlfdG",
+            "fields": {
+                "id": 36,
+                "related_guidance_industry_category_key": "schools",
+                "url": "https://schools.covid19.ca.gov/",
+                "type": "additional-resource",
+                "file_title": "Safe Schools for All",
+                "order": 4,
+                "date_last_modified": "2021-01-16T01:46:00.000Z",
+                "message": "Visit [Safe Schools for All](https://schools.covid19.ca.gov/) for the latest information and resources about COVID-19 and schools.\n",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-16T01:00:02.000Z"
+        },
+        {
+            "id": "recj2hF7CRkXcuOPK",
+            "fields": {
+                "id": 23,
+                "related_guidance_industry_category_key": "youth-sports",
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/outdoor-indoor-recreational-sports.aspx",
+                "type": "guidance",
+                "file_title": "Guidance for youth and recreational adult sports (indoor and outdoor)",
+                "order": 1,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recmhznN0ujO8doMp",
+            "fields": {
+                "id": 11,
+                "related_guidance_industry_category_key": "campgrounds-outdoor-recreation",
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Outdoor%20Playgrounds%20and%20other%20Outdoor%20Recreational%20Facilities.aspx",
+                "type": "additional-resource",
+                "file_title": "Requirements for outdoor playgrounds",
+                "order": 1,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "reco5wwSQXBVyJE1p",
+            "fields": {
+                "id": 2,
+                "related_guidance_industry_category_key": "libraries",
+                "url": "https://library.ca.gov/Content/pdf/services/toLibraries/COVIDGuidanceLibraries.pdf",
+                "type": "additional-resource",
+                "file_title": "Restoring in-person services",
+                "order": 1,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recpfYdGLLNOpwVz8",
+            "fields": {
+                "id": 7,
+                "related_guidance_industry_category_key": "family-entertainment",
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Outdoor%20Playgrounds%20and%20other%20Outdoor%20Recreational%20Facilities.aspx",
+                "type": "additional-resource",
+                "file_title": "Requirements for outdoor playgrounds",
+                "order": 1,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recqJtB90iWOofz0Y",
+            "fields": {
+                "id": 19,
+                "related_guidance_industry_category_key": "cohorts",
+                "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/contact-management-childcare-facilities.aspx",
+                "type": "additional-resource",
+                "file_title": "COVID-19 case and contact management for childcare",
+                "order": 4,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "recsmUVHp6M8FIs3m",
+            "fields": {
+                "id": 3,
+                "related_guidance_industry_category_key": "childcare",
+                "url": "https://www.cdss.ca.gov/Portals/9/CCLD/PINs/2020/CCP/PIN-20-22-CCP.pdf",
+                "type": "additional-resource",
+                "file_title": "FAQs about waivers and cohorts for childcare",
+                "order": 1,
+                "date_last_modified": "2021-01-15T09:44:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        },
+        {
+            "id": "reczFmzb1eVbt8vME",
+            "fields": {
+                "id": 28,
+                "related_guidance_industry_category_key": "cohorts",
+                "url": "https://files.covid19.ca.gov/pdf/guidance-schools-cohort-FAQ--en.pdf",
+                "type": "additional-resource",
+                "file_title": "Providing targeted, specialized support and services at school",
+                "order": 2,
+                "date_last_modified": "2021-01-16T01:37:00.000Z",
+                "Language": "English"
+            },
+            "createdTime": "2021-01-07T02:28:54.000Z"
+        }
+    ]
+}
