@@ -19,8 +19,12 @@ Airtable.configure({
 });
 const base = Airtable.base(process.env["AIRTABLE_BASE_ID"]); // Check Airtable API documention when logged into Airtable under "Account" and go to "Airtable API" & look up more information about your base.
 const VIEW_NAME = process.env["AIRTABLE_VIEW_NAME"]; // Manually set in the base to match this config. The default is
+
+// Location of docs templates.
 const docsPath =
   "./stories/web-components/cagov-reopening/data/api-notebook/api_templates/";
+
+// Write folder for JSON output
 const dataPath =
   "./stories/web-components/cagov-reopening/data/api-notebook/auto-generated-data";
 
@@ -37,6 +41,9 @@ const dataPath =
 // Airtable API does not return values if fields are empty (to save space), but we want null values for all fields for consistency. The map & docs will need to be updated if fields or api version are changed.
 // Airtable's npm package contains an .all() response which seems to not trigger rate limit issues & returns all data responses.
 // Airtable does not provide an API function to get CSV data, so we generate a CSV here to store in our public github. A similar script could be run in a non-public backup environment for other data backups.
+
+// In this configuration, all of our fields have a "language" field & this will be used to generate multilingual API data.
+// Translations get written to a special endpoint & will be migrated into Airtable itself as new translation data records when available.
 
 // Settings for exported JSON & CSV data.
 let endpoints = {
@@ -270,14 +277,69 @@ const saveAsCsv = (fieldData, endpoint) => {
   }
 };
 
-const connectRelatedData = (key, table) => {
-  // For each activitiy-business-search-data record
-  // For each primary_guidance and secondary_guidance
-  //  Use key value
-  //
+// How to use: 
+// For each activity-business-search-data record
+// For each primary_guidance and secondary_guidance
+    //  Use key value
+    // For each primary guidance & secondary guidance, get state-industry-guidance key (comma separated) & build results.
+    // state-industry-guidance
+    // For each industry-category  covid19-industry-guidance-categories
+    // key: related_guidance_key // @TODO could this be industry_category_key? 
+        // language
+        // label
+        // guidance_metadata  covid19-related-guidance-metadata
+            // get industry_category_key
+            // language
+        // guidance_pdf_links covid19-industry-guidance-pdf-links
+            // industry_category_key
+            // language
+        // guidance_additional_resources // covid19-industry-guidance-additional-resources
+            // related_guidance_industry_category_key // @TODO could this be industry_category_key? 
+            // sort by order, 1 is first, 5 is lower down.
+            // language
+const buildStateGuidanceJSON = () => {
+  try {
+  let apiDoc = JSON.parse(fs.readFileSync(`${docsPath}/covid19-state-industry-guidance.api.json`));
+  let categories = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-categories.json`, "utf8"));
+  let metadata = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-related-guidance-metadata.json`, "utf8"));
+  let pdfLinks = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-pdf-links.json`, "utf8"));
+  let additionalResources = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-additional-resources.json`, "utf8"));
+  let data = {};
+  categories.data.map((item) => {
+    let category = item["related_guidance_key"];
+    // console.log("category", category);
+    let categoryMetadata = metadata.data.filter((dataItem) => dataItem["industry_category_key"] === category);
+    let categoryPdfLinks = pdfLinks.data.filter((dataItem) => dataItem["industry_category_key"] === category);
+    let categoryAdditionalResources = additionalResources.data.filter((dataItem) => dataItem["related_guidance_industry_category_key"] === category); // @TODO sort this one
+
+
+    data[category] = {
+        metadata: categoryMetadata !== null && categoryMetadata[0] !== undefined ? categoryMetadata : null,
+        pdf: categoryPdfLinks,
+        additional_resources: categoryAdditionalResources,
+      };
+  });
+
+  let apiData = {
+    docs: apiDoc,
+    data: data
+  }
+
+  fs.writeFile(
+    `${dataPath}/data-covid19-state-industry-guidance.json`,
+    JSON.stringify(apiData),
+    function (err) {
+      if (err) return console.log(err);
+      console.log(`Updated: data-covid19-state-industry-guidance.json`);
+    }
+  );
+  } catch(error) {
+    console.error("Error building State Industry Guidance data.", error)
+  }
 };
 
+buildStateGuidanceJSON();
 /**
  * Run the script
  */
-buildData();
+// buildData();
