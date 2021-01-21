@@ -1,5 +1,5 @@
 {
-  "Dataset Status": "DRAFTING! This metadata is a test of adding metadata & filling out the recommended fields from the data.ca.gov Open Data Handbook. This data & this metadata is a draft.",
+  "Dataset Status": "DRAFTING! This metadata is a test of adding metadata & filling out the recommended fields from the data.ca.gov Open Data Handbook. This data & this metadata is a draft. The RSHO data and tier modifications listed here are old sample data. Up-to-date information can be found at https://covid19.ca.gov.",
   "Title": "Reopening Roadmap Activity Data",
   "Machine Readable Title": "reopening-roadmap-activity-data",
   "Version": "2.0.0-beta",
