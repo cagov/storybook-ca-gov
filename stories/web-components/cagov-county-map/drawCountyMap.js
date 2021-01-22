@@ -18,7 +18,7 @@ export default function drawCountyMap({
     // NOTE: Code loaded from Observables example.
     function zoom (s) {
       s.call(d3.zoom()
-        .on("zoom", () => s.select("#map-layers").attr("transform", d3.event.transform))
+        // .on("zoom", () => s.select("#map-layers").attr("transform", d3.event.transform))
         .scaleExtent([1, 18])
         .translateExtent([[0, 0], [width, height]]))
     }

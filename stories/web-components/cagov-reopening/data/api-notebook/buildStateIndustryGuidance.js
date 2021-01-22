@@ -33,13 +33,13 @@ const getDate = () => {
 // key: industry_category_key // @TODO could this be industry_category_key?
 // language
 // label
-// guidance_metadata  covid19-related-guidance-metadata
+// metadata  covid19-related-guidance-metadata
 // get industry_category_key
 // language
-// guidance_pdf_links covid19-industry-guidance-pdf-links
+// pdfs covid19-industry-guidance-pdf-links
 // industry_category_key
 // language
-// guidance_additional_resources // covid19-industry-guidance-additional-resources
+// additional_resources // covid19-industry-guidance-additional-resources
 // industry_category_key // @TODO could this be industry_category_key?
 // sort by order, 1 is first, 5 is lower down.
 // language
@@ -102,32 +102,15 @@ const buildStateGuidanceJSON = ({language = null}) => {
         ); // @TODO sort 1 is at the top, 10 below.
 
         data[category] = {
-          label: item.industry_category_label,
+          industry_category_label: item.industry_category_label,
           language: item.language,
           metadata:
             categoryMetadata !== null && categoryMetadata[0] !== undefined
               ? categoryMetadata
-              : null,
+              : "",
           pdf: categoryPdfLinks,
           additional_resources: categoryAdditionalResources,
         };
-
-        let apiData = {
-          data: data,
-          date_updated: utcDate,
-          total: Object.keys(data).length,
-          docs: apiDoc,
-        };
-    
-        fs.writeFile(
-          `${dataPath}/data-covid19-state-industry-guidance.json`,
-          JSON.stringify(apiData),
-          function (err) {
-            if (err) return console.log(err);
-            console.log(`Updated: data-covid19-state-industry-guidance.json`);
-          }
-        );
-
       } else if (language !== null) {
         let category = item["industry_category_key"];
 
@@ -142,44 +125,35 @@ const buildStateGuidanceJSON = ({language = null}) => {
         ); // @TODO sort 1 is at the top, 10 below.
 
         data[category] = {
-          label: item.industry_category_label,
+          industry_category_label: item.industry_category_label,
           language: item.language,
           metadata:
             categoryMetadata !== null && categoryMetadata[0] !== undefined
               ? categoryMetadata
-              : null,
+              : "",
           pdf: categoryPdfLinks,
           additional_resources: categoryAdditionalResources,
         };
-
-        let apiData = {
-          data: data,
-          date_updated: utcDate,
-          total: Object.keys(data).length,
-          docs: apiDoc,
-        };
-        
-        apiData.docs["Language"] = language;
-    
-        fs.writeFile(
-          `${dataPath}/data-covid19-state-industry-guidance.${languageKey.code}.json`,
-          JSON.stringify(apiData),
-          function (err) {
-            if (err) return console.log(err);
-            console.log(`Updated: data-covid19-state-industry-guidance.${languageKey.code}.json`);
-          }
-        );
-
-        fs.writeFile(
-          `${dataPath}/figma-covid19-state-industry-guidance.${languageKey.code}.json`,
-          JSON.stringify(apiData),
-          function (err) {
-            if (err) return console.log(err);
-            console.log(`Updated: figma-covid19-state-industry-guidance.${languageKey.code}.json`);
-          }
-        );
       }
     });
+
+    let apiData = {
+      data: data,
+      date_updated: utcDate,
+      total: Object.keys(data).length,
+      docs: apiDoc,
+    };
+    
+    apiData.docs["Language"] = language;
+
+    fs.writeFile(
+      `${dataPath}/data-covid19-state-industry-guidance.${languageKey.code}.json`,
+      JSON.stringify(apiData),
+      function (err) {
+        if (err) return console.log(err);
+        console.log(`Updated: data-covid19-state-industry-guidance.${languageKey.code}.json`);
+      }
+    );
   } catch (error) {
     console.error("Error building State Industry Guidance data.", error);
   }

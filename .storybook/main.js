@@ -28,7 +28,6 @@ module.exports = {
     const ruleCssIndex = config.module.rules.findIndex(
       (rule) => rule.test.toString() === "/\\.css$/"
     );
-
     
     // map over the 'use' array of the css rule and set the 'module' option to true
     config.module.rules[ruleCssIndex].use.map((item) => {
