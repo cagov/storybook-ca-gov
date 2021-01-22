@@ -70,7 +70,7 @@ const metadata = {
     * If-Applicable
        - Start date and End date for the data in your data resource.
     */
-   "Granularity": null,
+   "Granularity": "",
    /**
     * Optional
        - Tell us the most specific that data the in your resource gets.

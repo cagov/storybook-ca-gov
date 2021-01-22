@@ -13,7 +13,7 @@
   "Spatial | Geographic Coverage": "statewide",
   "Frequency": "As needed",
   "Temporal Coverage": "March 2020 until present",
-  "Granularity": null,
+  "Granularity": "",
   "Data Dictionary Type": "HTML",
   "Data Dictionary": "This data source is aggregated from several sources. (@TODO list the sources & add the data dictionaries)",
   "Program Contact Name ": null,
