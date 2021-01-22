@@ -10,6 +10,7 @@
     "build-storybook": "build-storybook",
     "build": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
     "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
+    "update:data_figma": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildAirtableFigmaJson.js dotenv_config_path=.env/.env.local",
     "update:data_activities": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildAirtableJsonCsv.js dotenv_config_path=.env/.env.local",
     "update:data_state_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local",
     "build:tailwind": "postcss scss/base.scss -o scss/tailwind.scss"
