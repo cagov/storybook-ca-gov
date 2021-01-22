@@ -81,13 +81,13 @@ const metadata = {
     * Required
        - If the link below is not an HTML file, the file type for the data dictionary (most often a PDF).
     */
-   "Data Dictionary": null,
+   "Data Dictionary": "",
    /**
     * @TODO Get link & link to Github
     * Required
        - HTML link to the data dictionary itself.
     */
-   "Program Contact Name ": null,
+   "Program Contact Name ": "",
    /**
          * @TODO Confirm
          * 
@@ -95,14 +95,14 @@ const metadata = {
          * - The specific group inside the agency, department, board or commission that produces the data that can best answer
 questions about the data.
          */
-   "Program Contact Email": null,
+   "Program Contact Email": "",
    /**
     * @TODO Confirm
     * 
     * Required
        - Enter a generic e-mail address for the program referrenced above. (e.g. answers@library.ca.gov )
     */
-   "Public Access Level": null,
+   "Public Access Level": "",
    /**
     * @TODO Not sure the category here, it's "Pre-Public"
     * 
@@ -157,7 +157,7 @@ questions about the data.
 include survey tools, post-collection methods for control and cleaning and notes on sampling response and errors. This is
 where you should document any known issues in using the data. May also be uploaded as an additional PDF.
          */
-   "Related Content": null,
+   "Related Content": "",
    /**
          * @TODO
          * Structure our links and references here.
