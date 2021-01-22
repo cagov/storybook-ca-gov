@@ -8,12 +8,12 @@
     "storybook": "start-storybook -p 6006",
     "start": "npm run storybook",
     "build-storybook": "build-storybook",
-    "build": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
+    "build": "npm run build-storybook",
+    "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
     "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
     "update:data_figma": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildAirtableFigmaJson.js dotenv_config_path=.env/.env.local",
     "update:data_activities": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildAirtableJsonCsv.js dotenv_config_path=.env/.env.local",
-    "update:data_state_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local",
-    "build:tailwind": "postcss scss/base.scss -o scss/tailwind.scss"
+    "update:data_state_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local"
   },
   "keywords": [],
   "author": "",
@@ -48,7 +48,6 @@
     "postcss-nested": "^5.0.3",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
-    "style-loader": "^2.0.0",
-    "tailwindcss": "^2.0.2"
+    "style-loader": "^2.0.0"
   }
 }
