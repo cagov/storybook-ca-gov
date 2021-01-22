@@ -52,18 +52,18 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-activity-business-search-data",
     fields: {
-      activity_reference_key: null,
-      activity_search_autocomplete: null,
-      override_industry_guidance_label: null,
-      activity_key: null,
-      "4 - WIDESPREAD": null,
-      "3 - SUBSTANTIAL": null,
-      "2 - MODERATE": null,
-      "1 - MINIMAL": null,
-      RSHO: null,
-      last_modified: null,
-      primary_guidance: null,
-      secondary_guidance: null,
+      activity_reference_key: "",
+      activity_search_autocomplete: "",
+      override_industry_guidance_label: "",
+      activity_key: "",
+      "4 - WIDESPREAD": "",
+      "3 - SUBSTANTIAL": "",
+      "2 - MODERATE": "",
+      "1 - MINIMAL": "",
+      RSHO: "",
+      last_modified: "",
+      primary_guidance: "",
+      secondary_guidance: "",
     },
     viewName: "API", // Not currently used in this script, but this script could be altered to use specific viewNames for further selecting or filtering data.
   },
@@ -72,16 +72,16 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-industry-guidance-pdf-links",
     fields: {
-      id: null,
-      filename: null,
-      git_pdf_template_type: null,
-      industry_category_key: null,
-      language: null,
-      summary_of_changes: null,
-      pdf_publication_date: null,
-      accessibility_links: null,
-      permalink: null,
-      git_date_updated: null,
+      id: "",
+      filename: "",
+      git_pdf_template_type: "",
+      industry_category_key: "",
+      language: "",
+      summary_of_changes: "",
+      pdf_publication_date: "",
+      accessibility_links: "",
+      permalink: "",
+      git_date_updated: "",
     },
     viewName: "API",
   },
@@ -90,11 +90,11 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-related-guidance-metadata",
     fields: {
-      industry_category_key: null,
-      date_last_modified: null,
-      language: null,
-      optional_message: null,
-      safer_economy_label: null,
+      industry_category_key: "",
+      date_last_modified: "",
+      language: "",
+      optional_message: "",
+      safer_economy_label: "",
     },
     viewName: "API",
   },
@@ -103,10 +103,10 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-industry-guidance-categories",
     fields: {
-      industry_category_key: null,
-      industry_category_label: null,
-      date_last_modified: null,
-      language: null,
+      industry_category_key: "",
+      industry_category_label: "",
+      date_last_modified: "",
+      language: "",
     },
     viewName: "API",
   },
@@ -115,15 +115,15 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-industry-guidance-additional-resources",
     fields: {
-      id: null,
-      industry_category_key: null,
-      url: null,
-      message: null,
-      type: null,
-      file_title: null,
-      order: null,
-      date_last_modified: null,
-      language: null,
+      id: "",
+      industry_category_key: "",
+      url: "",
+      message: "",
+      type: "",
+      file_title: "",
+      order: "",
+      date_last_modified: "",
+      language: "",
     },
     viewName: "API",
   },
@@ -132,11 +132,11 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-county-webpages",
     fields: {
-      key: null,
-      label: null,
-      url_county_covid19: null,
-      county_department: null,
-      last_modified_time: null,
+      key: "",
+      label: "",
+      url_county_covid19: "",
+      county_department: "",
+      last_modified_time: "",
     },
     viewName: "API",
   },
@@ -145,11 +145,11 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-language-keys",
     fields: {
-      id: null,
-      language: null,
-      code: null,
-      key: null,
-      alternative_codes: null,
+      id: "",
+      language: "",
+      code: "",
+      key: "",
+      alternative_codes: "",
     },
     viewName: "API",
   },
@@ -215,7 +215,7 @@ const formatResponse = ({ data = null, endpoint = null, saveCSV = true }) => {
       let fields = {};
       Object.keys(returnedFields).map((fieldName) => {
         fields[fieldName] =
-          item.fields[fieldName] !== undefined ? item.fields[fieldName] : null;
+          item.fields[fieldName] !== undefined ? item.fields[fieldName] : "";
       });
       return fields;
     });
@@ -263,10 +263,10 @@ const formatApi = ({ data, docs }) => {
     // Load docs template.
     let docsData = fs.readFileSync(docs, "utf8");
     return JSON.stringify({
-      docs: JSON.parse(docsData),
       data: data,
       total: data.length,
       date_updated: utcDate,
+      docs: JSON.parse(docsData),
     });
   } catch (error) {
     console.error(error);
@@ -290,75 +290,7 @@ const saveAsCsv = (fieldData, endpoint) => {
     console.error("ERROR writing CSV file", err);
   }
 };
-
-// How to use: 
-// For each activity-business-search-data record
-// For each primary_guidance and secondary_guidance
-    //  Use key value
-    // For each primary guidance & secondary guidance, get state-industry-guidance key (comma separated) & build results.
-    // state-industry-guidance
-    // For each industry-category  covid19-industry-guidance-categories
-    // key: industry_category_key // @TODO could this be industry_category_key? 
-        // language
-        // label
-        // guidance_metadata  covid19-related-guidance-metadata
-            // get industry_category_key
-            // language
-        // guidance_pdf_links covid19-industry-guidance-pdf-links
-            // industry_category_key
-            // language
-        // guidance_additional_resources // covid19-industry-guidance-additional-resources
-            // industry_category_key // @TODO could this be industry_category_key? 
-            // sort by order, 1 is first, 5 is lower down.
-            // language
-const buildStateGuidanceJSON = () => {
-  try {
-  let apiDoc = JSON.parse(fs.readFileSync(`${docsPath}/covid19-state-industry-guidance.api.json`));
-  let categories = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-categories.json`, "utf8"));
-  let metadata = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-related-guidance-metadata.json`, "utf8"));
-  let pdfLinks = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-pdf-links.json`, "utf8"));
-  let additionalResources = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-additional-resources.json`, "utf8"));
-  let data = {};
-  categories.data.map((item) => {
-    let category = item["industry_category_key"];
-    // console.log("category", category);
-    let categoryMetadata = metadata.data.filter((dataItem) => dataItem["industry_category_key"] === category);
-    let categoryPdfLinks = pdfLinks.data.filter((dataItem) => dataItem["industry_category_key"] === category);
-    let categoryAdditionalResources = additionalResources.data.filter((dataItem) => dataItem["industry_category_key"] === category); // @TODO sort this one
-
-
-    data[category] = {
-        metadata: categoryMetadata !== null && categoryMetadata[0] !== undefined ? categoryMetadata : null,
-        pdf: categoryPdfLinks,
-        additional_resources: categoryAdditionalResources,
-      };
-  });
-
-  const utcDate = getDate();
-
-  let apiData = {
-    docs: apiDoc,
-    data: data,
-    date_updated: utcDate,
-    total: Object.keys(data).length,
-  }
-
-  fs.writeFile(
-    `${dataPath}/data-covid19-state-industry-guidance.json`,
-    JSON.stringify(apiData),
-    function (err) {
-      if (err) return console.log(err);
-      console.log(`Updated: data-covid19-state-industry-guidance.json`);
-    }
-  );
-  } catch(error) {
-    console.error("Error building State Industry Guidance data.", error)
-  }
-};
-
-
 /**
  * Run the script
  */
 buildData();
-// buildStateGuidanceJSON();

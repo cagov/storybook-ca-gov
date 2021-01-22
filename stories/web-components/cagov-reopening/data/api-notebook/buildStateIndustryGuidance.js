@@ -81,7 +81,7 @@ const buildStateGuidanceJSON = ({language = null}) => {
     );
 
     let data = {};
-    let languageItem = language !== null ? languageKeys.data.filter((languageKeysItem) => languageKeysItem.language === language) : null;
+    let languageItem = language !== null ? languageKeys.data.filter((languageKeysItem) => languageKeysItem.language === language) : "";
 
     let languageKey = languageItem !== null && languageItem[0] !== undefined ? languageItem[0] : null;
 
@@ -113,10 +113,10 @@ const buildStateGuidanceJSON = ({language = null}) => {
         };
 
         let apiData = {
-          docs: apiDoc,
           data: data,
           date_updated: utcDate,
           total: Object.keys(data).length,
+          docs: apiDoc,
         };
     
         fs.writeFile(
@@ -147,16 +147,16 @@ const buildStateGuidanceJSON = ({language = null}) => {
           metadata:
             categoryMetadata !== null && categoryMetadata[0] !== undefined
               ? categoryMetadata
-              : null,
+              : "",
           pdf: categoryPdfLinks,
           additional_resources: categoryAdditionalResources,
         };
 
         let apiData = {
-          docs: apiDoc,
           data: data,
           date_updated: utcDate,
           total: Object.keys(data).length,
+          docs: apiDoc,
         };
         
         apiData.docs["Language"] = language;
