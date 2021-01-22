@@ -16,9 +16,9 @@
   "Granularity": "",
   "Data Dictionary Type": "HTML",
   "Data Dictionary": "This data source is aggregated from 6 sources. (@TODO list the sources & add the data dictionaries)",
-  "Program Contact Name ": null,
-  "Program Contact Email": null,
-  "Public Access Level": null,
+  "Program Contact Name ": "",
+  "Program Contact Email": "",
+  "Public Access Level": "",
   "Rights": "No restrictions on public use",
   "Homepage URL": "https://covid19.ca.gov/safer-economy",
   "Data Standard": "JSON",
@@ -27,5 +27,5 @@
     "Data Methodology": "Updated as information is made available or announced.",
     "Documentation Template": "https://handbook.data.ca.gov/wp-content/uploads/sites/262/2019/01/Publishing-Metadata-Template.pdf"
   },
-  "Related Content": null
+  "Related Content": ""
 }
