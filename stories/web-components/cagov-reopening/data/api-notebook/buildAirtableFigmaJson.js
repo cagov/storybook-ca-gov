@@ -215,7 +215,7 @@ const formatResponse = ({ data = "", endpoint = "", saveCSV = true }) => {
       let fields = {};
       Object.keys(returnedFields).map((fieldName) => {
         fields[fieldName] =
-          item.fields[fieldName] !== undefined ? item.fields[fieldName] : null;
+          item.fields[fieldName] !== undefined ? item.fields[fieldName] : "";
       });
       return fields;
     });
@@ -301,13 +301,13 @@ const saveAsCsv = (fieldData, endpoint) => {
     // key: industry_category_key // @TODO could this be industry_category_key? 
         // language
         // label
-        // guidance_metadata  covid19-related-guidance-metadata
+        // metadata  covid19-related-guidance-metadata
             // get industry_category_key
             // language
-        // guidance_pdf_links covid19-industry-guidance-pdf-links
+        // pdfs covid19-industry-guidance-pdf-links
             // industry_category_key
             // language
-        // guidance_additional_resources // covid19-industry-guidance-additional-resources
+        // additional_resources // covid19-industry-guidance-additional-resources
             // industry_category_key // @TODO could this be industry_category_key? 
             // sort by order, 1 is first, 5 is lower down.
             // language

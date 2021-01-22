@@ -215,7 +215,7 @@ const formatResponse = ({ data = null, endpoint = null, saveCSV = true }) => {
       let fields = {};
       Object.keys(returnedFields).map((fieldName) => {
         fields[fieldName] =
-          item.fields[fieldName] !== undefined ? item.fields[fieldName] : null;
+          item.fields[fieldName] !== undefined ? item.fields[fieldName] : "";
       });
       return fields;
     });
