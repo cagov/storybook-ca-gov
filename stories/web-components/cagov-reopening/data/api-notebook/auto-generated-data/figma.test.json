@@ -1,0 +1,153 @@
+{
+  "docs": {
+    "Dataset Status": "DRAFTING! This metadata is a test of adding metadata & filling out the recommended fields from the data.ca.gov Open Data Handbook. This data & this metadata is a draft. The RSHO data and tier modifications listed here are old sample data. Up-to-date information can be found at https://covid19.ca.gov.",
+    "Title": "State Industry Guidance Data",
+    "Machine Readable Title": "state-industry-guidance-data",
+    "Version": "2.0.0-beta",
+    "Permalink": "https://files.covid19.ca.gov/data/v2/state-industry-guidance-data.json",
+    "Description": "COVID-19 state industry guidance and related files.",
+    "Tags": "covid19, Industry Guidance",
+    "Groups": "Office of Digital Innovation, State of California https://ca.gov",
+    "Topics": "Economy and Demographics, COVID-19, Government, Health & Human Services",
+    "License": "Public Domain",
+    "Author": "covid19.ca.gov - Office of Digital Innovation, State of California",
+ 
+    "Frequency": "As needed",
+    "Temporal Coverage": "March 2020 until present",
+    "Granularity": ""
+  },
+  "data": {
+    "agriculture": {
+      "label": "Agriculture and livestock",
+      "language": "English",
+      "metadata": [
+        {
+          "industry_category_key": "agriculture",
+          "date_last_modified": "2021-01-15T19:44:00.000Z",
+          "language": "English",
+          "optional_message": null,
+          "safer_economy_label": "agriculture and livestock"
+        }
+      ],
+      "pdf": [
+        {
+          "id": "guidance-agriculture--en.pdf",
+          "filename": "guidance-agriculture--en.pdf",
+          "git_pdf_template_type": "Guidance",
+          "industry_category_key": "agriculture",
+          "language": "English",
+          "summary_of_changes": null,
+          "pdf_publication_date": null,
+          "accessibility_links": "\"Overview\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=2\n\"PURPOSE\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=2\n\"Required Use of Face Coverings\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=3\n\"Workplace Specific Plan\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=4\n\"Topics for Worker Training\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=4\n\"Individual Control Measures and Screening\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=6\n\"Cleaning and Disinfecting Protocols\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=7\n\"Physical Distancing Guidelines\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=8\n\"Additional Guidelines\" | https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf#page=9",
+          "permalink": "https://files.covid19.ca.gov/pdf/guidance-agriculture--en.pdf",
+          "git_date_updated": "2020-08-03 14:23:21 -0700"
+        },
+        {
+          "id": "checklist-agriculture--en.pdf",
+          "filename": "checklist-agriculture--en.pdf",
+          "git_pdf_template_type": "Checklist",
+          "industry_category_key": "agriculture",
+          "language": "English",
+          "summary_of_changes": null,
+          "pdf_publication_date": null,
+          "accessibility_links": null,
+          "permalink": "https://files.covid19.ca.gov/pdf/checklist-agriculture--en.pdf",
+          "git_date_updated": "2020-09-10 11:55:01 -0700"
+        }
+      ],
+      "additional_resources": [
+        {
+          "id": 6,
+          "industry_category_key": "agriculture",
+          "url": "https://files.covid19.ca.gov/pdf/flyer-agriculture-shared-transportation--en.pdf",
+          "message": null,
+          "type": "additional-resource",
+          "file_title": "Shared transportation in agriculture",
+          "order": 1,
+          "date_last_modified": "2021-01-15T19:44:00.000Z",
+          "language": "English"
+        }
+      ]
+    },
+    "amusement-theme-parks": {
+      "label": "Amusement parks and theme parks",
+      "language": "English",
+      "metadata": [
+        {
+          "industry_category_key": "amusement-theme-parks",
+          "date_last_modified": "2021-01-15T19:44:00.000Z",
+          "language": "English",
+          "optional_message": null,
+          "safer_economy_label": "amusement parks and theme parks"
+        }
+      ],
+      "pdf": [
+        {
+          "id": "guidance-amusement-theme-parks--en.pdf",
+          "filename": "guidance-amusement-theme-parks--en.pdf",
+          "git_pdf_template_type": "Guidance",
+          "industry_category_key": "amusement-theme-parks",
+          "language": "English",
+          "summary_of_changes": null,
+          "pdf_publication_date": null,
+          "accessibility_links": null,
+          "permalink": "https://files.covid19.ca.gov/pdf/guidance-amusement-theme-parks--en.pdf",
+          "git_date_updated": "2020-10-20 11:59:11 -0700"
+        },
+        {
+          "id": "checklist-amusement-theme-parks--en.pdf",
+          "filename": "checklist-amusement-theme-parks--en.pdf",
+          "git_pdf_template_type": "Checklist",
+          "industry_category_key": "amusement-theme-parks",
+          "language": "English",
+          "summary_of_changes": null,
+          "pdf_publication_date": null,
+          "accessibility_links": null,
+          "permalink": "https://files.covid19.ca.gov/pdf/checklist-amusement-theme-parks--en.pdf",
+          "git_date_updated": "2020-11-06 18:54:49 -0800"
+        }
+      ],
+      "additional_resources": []
+    },
+    "auto-dealerships": {
+      "label": "Auto dealerships",
+      "language": "English",
+      "metadata": [
+        {
+          "industry_category_key": "auto-dealerships",
+          "date_last_modified": "2021-01-15T19:39:00.000Z",
+          "language": "English",
+          "optional_message": null,
+          "safer_economy_label": "auto dealerships"
+        }
+      ],
+      "pdf": [
+        {
+          "id": "checklist-auto-dealerships--en.pdf",
+          "filename": "checklist-auto-dealerships--en.pdf",
+          "git_pdf_template_type": "Checklist",
+          "industry_category_key": "auto-dealerships",
+          "language": "English",
+          "summary_of_changes": null,
+          "pdf_publication_date": null,
+          "accessibility_links": null,
+          "permalink": "https://files.covid19.ca.gov/pdf/checklist-auto-dealerships--en.pdf",
+          "git_date_updated": "2020-09-10 11:55:01 -0700"
+        },
+        {
+          "id": "guidance-auto-dealerships--en.pdf",
+          "filename": "guidance-auto-dealerships--en.pdf",
+          "git_pdf_template_type": "Guidance",
+          "industry_category_key": "auto-dealerships",
+          "language": "English",
+          "summary_of_changes": null,
+          "pdf_publication_date": null,
+          "accessibility_links": null,
+          "permalink": "https://files.covid19.ca.gov/pdf/guidance-auto-dealerships--en.pdf",
+          "git_date_updated": "2020-08-03 14:23:21 -0700"
+        }
+      ],
+      "additional_resources": []
+    }
+  }
+}
