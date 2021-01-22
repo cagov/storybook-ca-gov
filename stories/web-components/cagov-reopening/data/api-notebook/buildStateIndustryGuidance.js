@@ -113,10 +113,10 @@ const buildStateGuidanceJSON = ({language = null}) => {
         };
 
         let apiData = {
-          docs: apiDoc,
           data: data,
           date_updated: utcDate,
           total: Object.keys(data).length,
+          docs: apiDoc,
         };
     
         fs.writeFile(
@@ -153,10 +153,10 @@ const buildStateGuidanceJSON = ({language = null}) => {
         };
 
         let apiData = {
-          docs: apiDoc,
           data: data,
           date_updated: utcDate,
           total: Object.keys(data).length,
+          docs: apiDoc,
         };
         
         apiData.docs["Language"] = language;
@@ -167,6 +167,15 @@ const buildStateGuidanceJSON = ({language = null}) => {
           function (err) {
             if (err) return console.log(err);
             console.log(`Updated: data-covid19-state-industry-guidance.${languageKey.code}.json`);
+          }
+        );
+
+        fs.writeFile(
+          `${dataPath}/figma-covid19-state-industry-guidance.${languageKey.code}.json`,
+          JSON.stringify(apiData),
+          function (err) {
+            if (err) return console.log(err);
+            console.log(`Updated: figma-covid19-state-industry-guidance.${languageKey.code}.json`);
           }
         );
       }
