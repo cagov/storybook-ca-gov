@@ -35,7 +35,7 @@
     "storybook-addon-designs": "^5.4.3"
   },
   "dependencies": {
-    "@cagov/accordion": "^1.0.6",
+    "@cagov/accordion": "^2.0.0",
     "@storybook/preset-scss": "^1.0.3",
     "airtable": "^0.10.1",
     "autoprefixer": "^10.2.3",
