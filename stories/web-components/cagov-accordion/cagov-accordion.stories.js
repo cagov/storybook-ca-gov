@@ -1,7 +1,7 @@
 import { WebComponent } from './web-component-container';
 
 export default {
-  title: 'covid19/cagov-accordion/web-component',
+  title: 'covid19/cagov-accordion',
   argTypes: {
     backgroundColor: { control: 'color' },
     onClick: { action: 'onClick' },
