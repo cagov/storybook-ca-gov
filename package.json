@@ -39,6 +39,7 @@
     "@storybook/preset-scss": "^1.0.3",
     "airtable": "^0.10.1",
     "autoprefixer": "^10.2.3",
+    "awesomplete-es6": "^1.2.2",
     "css-loader": "^5.0.1",
     "d3": "^6.3.1",
     "immer": ">=8.0.1",
