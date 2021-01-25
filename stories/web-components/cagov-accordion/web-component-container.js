@@ -7,7 +7,7 @@ import '@cagov/accordion';
  */
 export const WebComponent = ({ data }) => {
   return html`
-    <cwds-accordion>
+    <cagov-accordion>
       <div class="card">
         <button class="card-header accordion-alpha" type="button" aria-expanded="false">
           <div class="accordion-title">
@@ -26,6 +26,6 @@ export const WebComponent = ({ data }) => {
           </div>
         </div>
       </div>
-    </cwds-accordion>
+    </cagov-accordion>
   `;
 };
