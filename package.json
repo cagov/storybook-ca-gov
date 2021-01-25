@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@cagov/accordion": "^2.0.0",
-    "@cagov/arrow": "https://gitpkg.now.sh/cagov/covid19/src/js/arrow?staging",
+    "@cagov/arrow": "^1.0.1",
     "@storybook/preset-scss": "^1.0.3",
     "airtable": "^0.10.1",
     "autoprefixer": "^10.2.3",
