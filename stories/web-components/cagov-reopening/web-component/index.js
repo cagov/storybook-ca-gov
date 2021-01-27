@@ -1,32 +1,32 @@
-import Awesomplete from 'awesomplete-es6';
-import template from './template.js';
+import Awesomplete from "awesomplete-es6";
+import template from "./template.js";
 import getTranslations from "./get-translations-list.js";
 import getScreenResize from "./get-window-size.js";
-import './cagov-reopening.scss';
+import "./cagov-reopening.scss";
 
-  // Show clear btn only if there is value (County)
+// Show clear button only if there is a value (County)
 const inputValueCounty = (e) => {
-    console.log("county", e);
-    var countyInput = document.getElementById("location-query");
-    var clearCounty = document.getElementById("clearLocation");
-    if (countyInput && countyInput.value) {
-      clearCounty.classList.remove('d-none');
-    } else {
-      clearCounty.classList.add('d-none');
-    }
+  console.log("county", e);
+  var countyInput = document.getElementById("location-query");
+  var clearCounty = document.getElementById("clearLocation");
+  if (countyInput && countyInput.value) {
+    clearCounty.classList.remove("d-none");
+  } else {
+    clearCounty.classList.add("d-none");
   }
+};
 
-  // Show clear btn only if there is value (Activity)
+// Show clear button only if there is a value (Activity)
 const inputValueActivity = (e) => {
-    console.log("activity", e);
-    var activityInput = document.getElementById("activity-query");
-    var clearActivity = document.getElementById("clearActivity");
-    if (activityInput && activityInput.value) {
-      clearActivity.classList.remove('d-none');
-    } else {
-      clearActivity.classList.add('d-none');
-    }
-}
+  console.log("activity", e);
+  var activityInput = document.getElementById("activity-query");
+  var clearActivity = document.getElementById("clearActivity");
+  if (activityInput && activityInput.value) {
+    clearActivity.classList.remove("d-none");
+  } else {
+    clearActivity.classList.add("d-none");
+  }
+};
 
 /**
  * This component provides a county and activity/business search interface
@@ -36,8 +36,7 @@ class CAGovReopening extends window.HTMLElement {
   constructor() {
     super();
     // Optional state object to use for persisting data across interactions.
-    this.state = {
-    };
+    this.state = {};
     // Establish chart variables and settings.
     this.displayOptions = {
       screens: {
@@ -91,40 +90,40 @@ class CAGovReopening extends window.HTMLElement {
     const $locationQuery = document.getElementById("location-query");
     $locationQuery.value = value;
     $locationQuery.setAttribute("aria-invalid", false);
-    this.state['county'] = value;
+    this.state["county"] = value;
     if (value) {
-      document.getElementById("clearLocation").classList.remove('d-none');
+      document.getElementById("clearLocation").classList.remove("d-none");
     } else {
-      document.getElementById("clearLocation").classList.add('d-none');
+      document.getElementById("clearLocation").classList.add("d-none");
     }
     document.getElementById("location-error").style.visibility = "hidden";
     document.getElementById("reopening-error").style.visibility = "hidden";
   }
-  
+
   changeActivityInput(value) {
-      const $activityQuery = document.getElementById("activity-query");
-      $activityQuery.value = value;
-      $activityQuery.setAttribute("aria-invalid", false);
-      this.state['activity'] = value;
-      if (value) {
-        document.getElementById("clearActivity").classList.remove('d-none');
-      } else {
-        document.getElementById("clearActivity").classList.add('d-none');
-      }
-      document.getElementById("activity-error").style.visibility = "hidden";
-      document.getElementById("reopening-error").style.visibility = "hidden";
+    const $activityQuery = document.getElementById("activity-query");
+    $activityQuery.value = value;
+    $activityQuery.setAttribute("aria-invalid", false);
+    this.state["activity"] = value;
+    if (value) {
+      document.getElementById("clearActivity").classList.remove("d-none");
+    } else {
+      document.getElementById("clearActivity").classList.add("d-none");
     }
+    document.getElementById("activity-error").style.visibility = "hidden";
+    document.getElementById("reopening-error").style.visibility = "hidden";
+  }
 
   handleResize(e) {
-    // console.log("resize");
+    console.log("resize");
     getScreenResize(this);
-    this.updateScreenOptions(e)
+    this.updateScreenOptions(e);
   }
 
   updateScreenOptions(e) {
-    this.screenDisplayType = window.componentDisplay ?
-      window.componentDisplay.displayType :
-      "desktop";
+    this.screenDisplayType = window.componentDisplay
+      ? window.componentDisplay.displayType
+      : "desktop";
     this.chartBreakpointValues = this.displayOptions.screens[
       this.screenDisplayType ? this.screenDisplayType : "desktop"
     ];
@@ -150,18 +149,18 @@ class CAGovReopening extends window.HTMLElement {
     console.log("data", this.localData);
 
     // @TODO this will come from the html page.. (I think?)
-    let theMatrix = document.querySelector('.the-matrix');
+    let theMatrix = document.querySelector(".the-matrix");
     if (theMatrix) {
-      document.querySelector('.matrix-holder').innerHTML = theMatrix.innerHTML;
+      document.querySelector(".matrix-holder").innerHTML = theMatrix.innerHTML;
     }
 
     // @TODO organize this data a little bit
     this.countyStatuses = this.localData["countystatus"].records;
     let aList = [];
-    this.countyStatuses.forEach(c => {
-      aList.push(c.county)
-    })
-    this.setupAutoComplete('#location-query', 'county', aList);
+    this.countyStatuses.forEach((c) => {
+      aList.push(c.county);
+    });
+    this.setupAutoComplete("#location-query", "county", aList);
 
     this.countyRegions = this.localData.countyregions.records;
     this.regionsclosed = this.localData.regionsclosed.records;
@@ -171,48 +170,64 @@ class CAGovReopening extends window.HTMLElement {
 
     let bList = [];
     // aList.push(this.viewall);
-    this.allActivities.forEach(item => {
-      bList.push(item['0'])
+    this.allActivities.forEach((item) => {
+      bList.push(item["0"]);
     });
 
-    this.setupAutoCompleteActivity('#activity-query', 'activity', bList);
-    // Tableau map would go here 
+    this.setupAutoCompleteActivity("#activity-query", "activity", bList);
+    // Tableau map would go here
     this.activateForms();
   }
 
   activateForms() {
     console.log("Activate Forms");
-    document.getElementById("location-query").addEventListener("input", function (event) {
-      this.changeLocationInput(event.target.value);
-    }.bind(this));
+    document.getElementById("location-query").addEventListener(
+      "input",
+      function (event) {
+        this.changeLocationInput(event.target.value);
+      }.bind(this)
+    );
 
-    document.getElementById("clearLocation").addEventListener("click", function() {
-      this.changeLocationInput("");
-    }.bind(this));
+    document.getElementById("clearLocation").addEventListener(
+      "click",
+      function () {
+        this.changeLocationInput("");
+      }.bind(this)
+    );
 
-    document.getElementById("activity-query").addEventListener("input", function (event) {
-      this.changeActivityInput(event.target.value);
-    }.bind(this));
+    document.getElementById("activity-query").addEventListener(
+      "input",
+      function (event) {
+        this.changeActivityInput(event.target.value);
+      }.bind(this)
+    );
 
-    document.getElementById("clearActivity").addEventListener("click", function() {
-      this.changeActivityInput("");
-    }.bind(this));
+    document.getElementById("clearActivity").addEventListener(
+      "click",
+      function () {
+        this.changeActivityInput("");
+      }.bind(this)
+    );
 
-    document.querySelector('.reopening-activities').addEventListener('submit',function(event) {
-      event.preventDefault();
-      if(document.querySelector('#location-query').value == '') {
-        this.state['county'] = null;
-      }
-      if(document.querySelector('#activity-query').value == '') {
-        this.state['activity'] = null;
-      }
-      if(!this.state['activity'] && !this.state['county']) {
-        this.querySelector('.card-holder').innerHTML = '';
-        document.getElementById("reopening-error").style.visibility = "visible";
-      } else {
-        this.layoutCards();
-      }
-    }.bind(this));
+    document.querySelector(".reopening-activities").addEventListener(
+      "submit",
+      function (event) {
+        event.preventDefault();
+        if (document.querySelector("#location-query").value == "") {
+          this.state["county"] = null;
+        }
+        if (document.querySelector("#activity-query").value == "") {
+          this.state["activity"] = null;
+        }
+        if (!this.state["activity"] && !this.state["county"]) {
+          this.querySelector(".card-holder").innerHTML = "";
+          document.getElementById("reopening-error").style.visibility =
+            "visible";
+        } else {
+          this.layoutCards();
+        }
+      }.bind(this)
+    );
   }
 
   setupAutoComplete(fieldSelector, fieldName, aList) {
@@ -232,19 +247,21 @@ class CAGovReopening extends window.HTMLElement {
         component.state[fieldName] = finalval;
         // component.layoutCards();
       },
-      list: aList
+      list: aList,
     };
 
-
-    const makeAutocomplete = new Awesomplete(fieldSelector, awesompleteSettings)
+    const makeAutocomplete = new Awesomplete(
+      fieldSelector,
+      awesompleteSettings
+    );
   }
 
   tableauStuff() {
     // var divElement = document.getElementById('viz1598633253507');
     // var vizElement = divElement.getElementsByTagName('object')[0];
-    // if ( divElement.offsetWidth > 921 ) { vizElement.style.width='920px';vizElement.style.height='547px';} 
-    // else if ( (divElement.offsetWidth > 910) && (divElement.offsetWidth < 920)) { vizElement.style.width='900px';vizElement.style.height='547px';} 
-    // else if ( (divElement.offsetWidth > 700) && (divElement.offsetWidth < 899) ) { vizElement.style.width='700px';vizElement.style.height='547px';} 
+    // if ( divElement.offsetWidth > 921 ) { vizElement.style.width='920px';vizElement.style.height='547px';}
+    // else if ( (divElement.offsetWidth > 910) && (divElement.offsetWidth < 920)) { vizElement.style.width='900px';vizElement.style.height='547px';}
+    // else if ( (divElement.offsetWidth > 700) && (divElement.offsetWidth < 899) ) { vizElement.style.width='700px';vizElement.style.height='547px';}
     // else { vizElement.style.width='100%';vizElement.style.height='627px';}
     // var scriptElement = document.createElement('script');
     // scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
@@ -258,10 +275,10 @@ class CAGovReopening extends window.HTMLElement {
       minChars: 0,
       maxItems: 99,
       sort: function (a, b) {
-        if (a['0'] < b['0']) {
+        if (a["0"] < b["0"]) {
           return -1;
         }
-        if (a['0'] > b['0']) {
+        if (a["0"] > b["0"]) {
           return 1;
         }
         return 0;
@@ -274,42 +291,47 @@ class CAGovReopening extends window.HTMLElement {
         component.layoutCards();
         document.querySelector(fieldSelector).blur();
       },
-      list: aList
+      list: aList,
     };
 
-    window.makeAutocomplete2 = new Awesomplete(fieldSelector, awesompleteSettings);
+    window.makeAutocomplete2 = new Awesomplete(
+      fieldSelector,
+      awesompleteSettings
+    );
 
-    document.querySelector(fieldSelector).addEventListener('focus', function () {
-      this.value = '';
-      window.makeAutocomplete2.evaluate();
-    });
+    document
+      .querySelector(fieldSelector)
+      .addEventListener("focus", function () {
+        this.value = "";
+        window.makeAutocomplete2.evaluate();
+      });
   }
 
   layoutCards() {
     let replaceAllInMap = function (str) {
       let mapObj = {
-        '&lt;': '<',
-        '&gt;': '>',
-        '’': '"',
-        '”': '"'
-      }
+        "&lt;": "<",
+        "&gt;": ">",
+        "’": '"',
+        "”": '"',
+      };
       var re = new RegExp(Object.keys(mapObj).join("|"), "gi");
       return str.replace(re, function (matched) {
         return mapObj[matched.toLowerCase()];
       });
-    }
+    };
 
-    this.cardHTML = '';
+    this.cardHTML = "";
 
     let selectedCounties = this.countyStatuses;
 
-    if (this.state['county']) {
+    if (this.state["county"]) {
       selectedCounties = [];
-      this.countyStatuses.forEach(item => {
-        if (item.county == this.state['county']) {
-          selectedCounties.push(item)
+      this.countyStatuses.forEach((item) => {
+        if (item.county == this.state["county"]) {
+          selectedCounties.push(item);
         }
-      })
+      });
     }
 
     // If we are in one of these counties schools can reopen:
@@ -325,49 +347,112 @@ class CAGovReopening extends window.HTMLElement {
         return schoolStrings.schools_may_reopen + schoolStrings.schools_info;
       }
       return schoolStrings.schools_may_not_reopen + schoolStrings.schools_info;
-    }
+    };
 
     let selectedActivities = this.allActivities;
-    selectedCounties.forEach(item => {
-      this.cardHTML += `<div class="card-county county-color-${item['Overall Status']}">
+    selectedCounties.forEach((item) => {
+      this.cardHTML += `<div class="card-county county-color-${
+        item["Overall Status"]
+      }">
         <h2>${item.county}</h2>
         
-        ${(this.countyRegions) ? '<h3>' + this.translationsStrings.regionLabel + ' ' + this.countyRegions[item.county] + '</h3>' : ''}
+        ${
+          this.countyRegions
+            ? "<h3>" +
+              this.translationsStrings.regionLabel +
+              " " +
+              this.countyRegions[item.county] +
+              "</h3>"
+            : ""
+        }
 
-        ${(this.regionsclosed && this.countyRegions && this.regionsclosed.Table1.filter(r => r.region === this.countyRegions[item.county]).length > 0) ? '<p>Under <a href="/stay-home-except-for-essential-needs/#regional-stay-home-order">Regional Stay Home Order</a></p>' : ''}
+        ${
+          this.regionsclosed &&
+          this.countyRegions &&
+          this.regionsclosed.Table1.filter(
+            (r) => r.region === this.countyRegions[item.county]
+          ).length > 0
+            ? '<p>Under <a href="/stay-home-except-for-essential-needs/#regional-stay-home-order">Regional Stay Home Order</a></p>'
+            : ""
+        }
         
-        <div class="pill">${this.statusdesc.Table1[parseInt(item['Overall Status']) - 1]['County tier']}</div>
+        <div class="pill">${
+          this.statusdesc.Table1[parseInt(item["Overall Status"]) - 1][
+            "County tier"
+          ]
+        }</div>
         
-        <p>${this.statusdesc.Table1[parseInt(item['Overall Status']) - 1].description}. <a href="#county-status">${this.translationsStrings.understandTheData}</a></p>
+        <p>${
+          this.statusdesc.Table1[parseInt(item["Overall Status"]) - 1]
+            .description
+        }. <a href="#county-status">${
+        this.translationsStrings.understandTheData
+      }</a></p>
         
-        <p>${this.translationsStrings.countyRestrictionsAdvice} <a href="../get-local-information">${this.translationsStrings.countyRestrictionsCountyWebsite}</a>.</p>
+        <p>${
+          this.translationsStrings.countyRestrictionsAdvice
+        } <a href="../get-local-information">${
+        this.translationsStrings.countyRestrictionsCountyWebsite
+      }</a>.</p>
       
         </div>`;
 
-      if (this.state['activity']) {
+      if (this.state["activity"]) {
         selectedActivities = [];
-        this.allActivities.forEach(ac => {
-          if (ac["0"] == this.state['activity'] || this.state['activity'] == this.viewall) {
+        this.allActivities.forEach((ac) => {
+          if (
+            ac["0"] == this.state["activity"] ||
+            this.state["activity"] == this.viewall
+          ) {
             selectedActivities.push(ac);
           }
-        })
+        });
       }
 
-      selectedActivities.forEach(ac => {
-        if (this.regionsclosed && this.countyRegions && this.regionsclosed.Table1.filter(r => r.region === this.countyRegions[item.county]).length > 0) { // if this county is in a region which is closed we will show them the RSHO column values
+      selectedActivities.forEach((ac) => {
+        if (
+          this.regionsclosed &&
+          this.countyRegions &&
+          this.regionsclosed.Table1.filter(
+            (r) => r.region === this.countyRegions[item.county]
+          ).length > 0
+        ) {
+          // if this county is in a region which is closed we will show them the RSHO column values
           this.cardHTML += `<div class="card-activity">
             <h4>${ac["0"]}</h4>
-            <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac["6"]}</p>
-            <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.translationsStrings.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
-          </div>`
+            <p>${
+              ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac["6"]
+            }</p>
+            <p>${
+              ac["0"] === "Schools"
+                ? ""
+                : ac["5"].indexOf("href") > -1
+                ? `${
+                    this.translationsStrings.seeGuidanceText
+                  } ${replaceAllInMap(ac["5"])}`
+                : ""
+            }</p>
+          </div>`;
         } else {
           this.cardHTML += `<div class="card-activity">
             <h4>${ac["0"]}</h4>
-            <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac[item['Overall Status']]}</p>
-            <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.translationsStrings.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
-          </div>`
+            <p>${
+              ac["0"] === "Schools"
+                ? schoolShenanigans(item.county)
+                : ac[item["Overall Status"]]
+            }</p>
+            <p>${
+              ac["0"] === "Schools"
+                ? ""
+                : ac["5"].indexOf("href") > -1
+                ? `${
+                    this.translationsStrings.seeGuidanceText
+                  } ${replaceAllInMap(ac["5"])}`
+                : ""
+            }</p>
+          </div>`;
         }
-      })
+      });
     });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed
@@ -375,16 +460,18 @@ class CAGovReopening extends window.HTMLElement {
       <div class="county-color-1 county-color-2 county-color-3 county-color-4"></div>
     </div>`;
 
-    this.querySelector('.card-holder').innerHTML = `<div class="card-content">${this.cardHTML}</div>`;
+    this.querySelector(
+      ".card-holder"
+    ).innerHTML = `<div class="card-content">${this.cardHTML}</div>`;
 
-    this.querySelector('.card-holder').classList.remove('inactive');
+    this.querySelector(".card-holder").classList.remove("inactive");
 
     // Dispatch custom event so we can pick up and track this usage elsewhere.
-    const event = new window.CustomEvent('safer-economy-page-submission', {
+    const event = new window.CustomEvent("safer-economy-page-submission", {
       detail: {
         county: this.state.county,
-        activity: this.state.activity
-      }
+        activity: this.state.activity,
+      },
     });
 
     window.dispatchEvent(event);
@@ -397,27 +484,31 @@ class CAGovReopening extends window.HTMLElement {
     var countyInput = document.getElementById("location-query");
 
     if (countyInput) {
-      // Show clear btn only on input (County)
+      // Show clear button only on input (County)
       countyInput.addEventListener("input", function (e) {
         inputValueCounty();
       });
 
       //Clear buttons click events
-      document.getElementById("clearLocation").addEventListener("click", function (e) {
-        countyInput.value = '';
-        inputValueCounty(e);
-      });
+      document
+        .getElementById("clearLocation")
+        .addEventListener("click", function (e) {
+          countyInput.value = "";
+          inputValueCounty(e);
+        });
 
-      document.getElementById("clearActivity").addEventListener("click", function (e) {
-        activityInput.value = '';
-        inputValueActivity(e);
-      });
+      document
+        .getElementById("clearActivity")
+        .addEventListener("click", function (e) {
+          activityInput.value = "";
+          inputValueActivity(e);
+        });
     }
 
     // console.log("activityInput", activityInput);
 
     if (activityInput) {
-      // Show clear btn only on input (Activity)
+      // Show clear button only on input (Activity)
       activityInput.addEventListener("input", function (e) {
         inputValueActivity(e);
       });
@@ -429,7 +520,7 @@ class CAGovReopening extends window.HTMLElement {
   }
 }
 
-window.customElements.define('cagov-reopening', CAGovReopening);
+window.customElements.define("cagov-reopening", CAGovReopening);
 
 // getRemoteData() {
 // console.log("data", this.localData);

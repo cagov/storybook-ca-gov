@@ -1,5 +1,5 @@
-import { html } from 'lit-html';
-import CAGovReopening from './index';
+import { html } from "lit-html";
+import CAGovReopening from "./web-component";
 
 /**
  * Primary UI component for user interaction
@@ -7,11 +7,11 @@ import CAGovReopening from './index';
 export const WebComponent = (args) => {
   console.log("web component data", args);
   return html`
-    <cagov-reopening 
-      data-json=${JSON.stringify(args.data)}
-    >
+    <cagov-reopening data-json=${JSON.stringify(args.data)}>
       <ul>
-        <li data-label="title">Find the status for activities in your county</li>
+        <li data-label="title">
+          Find the status for activities in your county
+        </li>
         <li data-label="activityLabel">Activity</li>
         <li data-label="activityPlaceholder">Enter a business or activity</li>
         <li data-label="countyLabel">County</li>
@@ -19,11 +19,13 @@ export const WebComponent = (args) => {
         <li data-label="buttonText">Get latest risk levels</li>
         <li data-label="clearText">Clear</li>
         <li data-label="seeGuidanceText">See guidance for</li>
-        <li data-label="countyRestrictionsAdvice">Counties can restrict further. Check your</li>
+        <li data-label="countyRestrictionsAdvice">
+          Counties can restrict further. Check your
+        </li>
         <li data-label="countyRestrictionsCountyWebsite">county’s website</li>
         <li data-label="understandTheData">Understand the data.</li>
         <li data-label="regionLabel">Region:</li>
       </ul>
-    </cagov-reopening>  
+    </cagov-reopening>
   `;
 };
