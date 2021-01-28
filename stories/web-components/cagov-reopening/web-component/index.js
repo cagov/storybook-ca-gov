@@ -3,30 +3,10 @@ import template from "./template.js";
 import getTranslations from "./get-translations-list.js";
 import getScreenResize from "./get-window-size.js";
 import "./cagov-reopening.scss";
-
-// Show clear button only if there is a value (County)
-const inputValueCounty = (e) => {
-  console.log("county", e);
-  var countyInput = document.getElementById("location-query");
-  var clearCounty = document.getElementById("clearLocation");
-  if (countyInput && countyInput.value) {
-    clearCounty.classList.remove("d-none");
-  } else {
-    clearCounty.classList.add("d-none");
-  }
-};
-
-// Show clear button only if there is a value (Activity)
-const inputValueActivity = (e) => {
-  console.log("activity", e);
-  var activityInput = document.getElementById("activity-query");
-  var clearActivity = document.getElementById("clearActivity");
-  if (activityInput && activityInput.value) {
-    clearActivity.classList.remove("d-none");
-  } else {
-    clearActivity.classList.add("d-none");
-  }
-};
+import { inputValueCounty, inputValueActivity } from "./autocompleteBehavior";
+import { getCountyMap, replaceAllInMap } from "./getCountyMap";
+import { schoolReopeningStatuses } from "./schoolsStatuses";
+import { cardTemplate } from "./cardTemplate";
 
 /**
  * This component provides a county and activity/business search interface
@@ -35,8 +15,12 @@ const inputValueActivity = (e) => {
 class CAGovReopening extends window.HTMLElement {
   constructor() {
     super();
+    this.initialLoad = 0;
     // Optional state object to use for persisting data across interactions.
-    this.state = {};
+    this.state = {
+      county: document.querySelector("#location-query"),
+      activity: document.querySelector("#activity-query"),
+    };
     // Establish chart variables and settings.
     this.displayOptions = {
       screens: {
@@ -58,11 +42,13 @@ class CAGovReopening extends window.HTMLElement {
         },
       },
     };
+
+    this.getCountyMap = getCountyMap;
   }
 
   connectedCallback() {
     window.addEventListener("resize", (e) => {
-      console.log("resize");
+      // console.log("resize");
       this.handleResize(e);
     });
 
@@ -74,7 +60,7 @@ class CAGovReopening extends window.HTMLElement {
 
     // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
     this.localData = JSON.parse(this.dataset.json);
-    console.log("data", this.localData);
+    // console.log("data", this.localData);
 
     // Replace the enclosing tag element with contents of template.
     this.innerHTML = template({
@@ -84,6 +70,168 @@ class CAGovReopening extends window.HTMLElement {
 
     this.render();
     this.setupInputButtons();
+  }
+
+  /**
+   * Remove any window events on removing this component.
+   */
+  disconnectedCallback() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
+  handleResize(e) {
+    // console.log("resize");
+    getScreenResize(this);
+    this.updateScreenOptions(e);
+  }
+
+  updateScreenOptions(e) {
+    this.screenDisplayType = window.componentDisplay
+      ? window.componentDisplay.displayType
+      : "desktop";
+    this.chartBreakpointValues = this.displayOptions.screens[
+      this.screenDisplayType ? this.screenDisplayType : "desktop"
+    ];
+    // console.log(this.screenDisplayType);
+  }
+
+  getLocalData() {
+    // Get interface label strings
+    this.innerHTML = template({
+      translations: this.translationsStrings,
+      localData: this.localData,
+    });
+    // console.log("data", this.localData);
+
+    // @TODO this will come from the html page.. (I think?) I think it's page content that's spliced into the card layout
+    let theMatrix = document.querySelector(".the-matrix");
+    if (theMatrix) {
+      document.querySelector(".matrix-holder").innerHTML = theMatrix.innerHTML;
+    }
+
+    // Set up autocomplete data for county search
+    this.countyStatuses = this.localData["countystatus"].data;
+    let aList = [];
+    this.countyStatuses.forEach((c) => {
+      aList.push(c.county);
+    });
+
+    // Set up autocomplete data for activity search
+    this.allActivities = this.localData["reopening-activities"].data.Table1;
+    let bList = [];
+    // aList.push(this.viewall);
+    this.allActivities.forEach((item) => {
+      bList.push(item["0"]);
+    });
+
+    // Connect autocomplete searches to page elements.
+    this.setupAutoComplete("#location-query", "county", aList);
+    this.setupAutoCompleteActivity("#activity-query", "activity", bList);
+
+    // Assign data to local variables.
+    this.countyRegions = this.localData.countyregions.data;
+    this.regionsclosed = this.localData.regionsclosed.data;
+    this.statusdesc = this.localData.statusdescriptors.data;
+    this.schoolOKList = this.localData["schools-may-reopen"].data;
+
+
+    // reopening-activities
+    // 0: "Amusement parks"
+    // 1: "Larger parks open with modifications<br>– 25% capacity<br>– Reservations or advanced tickets required"
+    // 2: "Smaller parks open with modifications<br>– 25% capacity or 500 people, whichever is fewer<br>– Outdoor attractions only<br>– In-county visitors only<br>– Reservations or advance tickets required"
+    // 3: "Closed"
+    // 4: "Closed"
+    // 5: "&lt;a href=”https://covid19.ca.gov/industry-guidance/#theme-parks”&gt;Amusement parks and theme parks&lt;/a&gt;"
+    // 6: "Closed"
+
+
+    // @TODO see if we can keep these here or if need to come after localData
+
+  }
+
+  render() {
+
+    // console.log("innerHTML", this.translationsStrings);
+    this.getLocalData();
+
+    // Can these come here or synced after getLocalData
+    this.getCountyMap(); // Tableau map would go here (currently disabled for development efficiency)
+    this.activateForms();
+  }
+
+  setupInputButtons() {
+    console.log("setup input buttons");
+
+    // Get the input element.
+    var activityInput = document.getElementById("activity-query");
+    var countyInput = document.getElementById("location-query");
+
+    // If values preset, run the search.
+    if (
+      this.initialLoad === 0 &&
+      countyInput.value !== "" &&
+      activityInput.value === ""
+    ) {
+      this.changeLocationInput(countyInput.value);
+      this.initialLoad = 1;
+    } else if (
+      this.initialLoad === 0 &&
+      activityInput.value !== "" &&
+      countyInput.value === ""
+    ) {
+      this.changeActivityInput(activityInput.value);
+      this.initialLoad = 1;
+    } else if (
+      this.initialLoad === 0 &&
+      activityInput.value !== "" &&
+      countyInput.value !== ""
+    ) {
+      this.changeLocationInput(countyInput.value);
+      this.changeActivityInput(activityInput.value);
+      this.initialLoad = 1;
+    }
+
+    console.log(activityInput);
+    console.log(countyInput);
+
+    if (countyInput) {
+      // Show clear button only on input or blur (County)
+      countyInput.addEventListener("input", function (e) {
+        inputValueCounty();
+      });
+
+      countyInput.addEventListener("blur", function (e) {
+        inputValueCounty();
+      });
+    }
+
+    if (activityInput) {
+      // Show clear button only on input or blur (Activity)
+      activityInput.addEventListener("input", function (e) {
+        inputValueActivity(e);
+      });
+
+      activityInput.addEventListener("blur", function (e) {
+        inputValueActivity(e);
+      });
+    }
+
+    if (countyInput || activityInput) {
+      // Clear button in put on click events
+      document
+        .getElementById("clearLocation")
+        .addEventListener("click", function (e) {
+          countyInput.value = "";
+          inputValueCounty(e);
+        });
+
+      document
+        .getElementById("clearActivity")
+        .addEventListener("click", function (e) {
+          activityInput.value = "";
+          inputValueActivity(e);
+        });
+    }
   }
 
   changeLocationInput(value) {
@@ -114,73 +262,8 @@ class CAGovReopening extends window.HTMLElement {
     document.getElementById("reopening-error").style.visibility = "hidden";
   }
 
-  handleResize(e) {
-    console.log("resize");
-    getScreenResize(this);
-    this.updateScreenOptions(e);
-  }
-
-  updateScreenOptions(e) {
-    this.screenDisplayType = window.componentDisplay
-      ? window.componentDisplay.displayType
-      : "desktop";
-    this.chartBreakpointValues = this.displayOptions.screens[
-      this.screenDisplayType ? this.screenDisplayType : "desktop"
-    ];
-    // console.log(this.screenDisplayType);
-  }
-
-  /**
-   * Remove any window events on removing this component.
-   */
-  disconnectedCallback() {
-    window.removeEventListener("resize", this.handleResize);
-  }
-
-  render() {
-    this.innerHTML = template({
-      translations: this.translationsStrings,
-      localData: this.localData,
-    });
-    this.getLocalData();
-  }
-
-  getLocalData() {
-    console.log("data", this.localData);
-
-    // @TODO this will come from the html page.. (I think?)
-    let theMatrix = document.querySelector(".the-matrix");
-    if (theMatrix) {
-      document.querySelector(".matrix-holder").innerHTML = theMatrix.innerHTML;
-    }
-
-    // @TODO organize this data a little bit
-    this.countyStatuses = this.localData["countystatus"].records;
-    let aList = [];
-    this.countyStatuses.forEach((c) => {
-      aList.push(c.county);
-    });
-    this.setupAutoComplete("#location-query", "county", aList);
-
-    this.countyRegions = this.localData.countyregions.records;
-    this.regionsclosed = this.localData.regionsclosed.records;
-    this.statusdesc = this.localData.statusdescriptors.records;
-    this.schoolOKList = this.localData["schools-may-reopen"].records;
-    this.allActivities = this.localData["reopening-activities"].records.Table1;
-
-    let bList = [];
-    // aList.push(this.viewall);
-    this.allActivities.forEach((item) => {
-      bList.push(item["0"]);
-    });
-
-    this.setupAutoCompleteActivity("#activity-query", "activity", bList);
-    // Tableau map would go here
-    this.activateForms();
-  }
-
   activateForms() {
-    console.log("Activate Forms");
+    // console.log("Activate Forms");
     document.getElementById("location-query").addEventListener(
       "input",
       function (event) {
@@ -209,27 +292,40 @@ class CAGovReopening extends window.HTMLElement {
       }.bind(this)
     );
 
+    // Form submit behavior for reopening-activities form.
     document.querySelector(".reopening-activities").addEventListener(
       "submit",
       function (event) {
         event.preventDefault();
+        // Validation:
+        // If inputs are empty, Reset county value to null, it's not an error.
         if (document.querySelector("#location-query").value == "") {
           this.state["county"] = null;
         }
+        // If inputs are empty, Reset activity value to null, it's not an error.
         if (document.querySelector("#activity-query").value == "") {
           this.state["activity"] = null;
         }
+        // ?? Not sure what this was supposed to do
+        // Best guess: Show errors
+        // @TODO This looks buggy
+        // If activity and county are not set (undefined), clear the card holder (what's the card holder?)
+        // And make reopening error visible
+        
         if (!this.state["activity"] && !this.state["county"]) {
           this.querySelector(".card-holder").innerHTML = "";
           document.getElementById("reopening-error").style.visibility =
             "visible";
         } else {
+          // Render the card layouts
+          console.log("laying out cards");
           this.layoutCards();
         }
       }.bind(this)
     );
   }
 
+  // County Autocomplete
   setupAutoComplete(fieldSelector, fieldName, aList) {
     let component = this;
     const awesompleteSettings = {
@@ -242,10 +338,14 @@ class CAGovReopening extends window.HTMLElement {
       },
       replace: function (text) {
         let before = this.input.value.match(/^.+,\s*|/)[0];
+        // @TODO clean up abbreviations
         let finalval = before + text;
         this.input.value = finalval;
         component.state[fieldName] = finalval;
-        // component.layoutCards();
+        console.log("finalval", finalval);
+        // @TODO adding
+        document.querySelector(fieldSelector).blur();
+        // component.layoutCards(); // Q: Was this disabled for a reason, or is it a bug that's tracked in Jira.
       },
       list: aList,
     };
@@ -254,20 +354,16 @@ class CAGovReopening extends window.HTMLElement {
       fieldSelector,
       awesompleteSettings
     );
+
+    document
+    .querySelector(fieldSelector)
+    .addEventListener("focus", function () {
+      this.value = "";
+      window.makeAutocomplete.evaluate();
+    });
   }
 
-  tableauStuff() {
-    // var divElement = document.getElementById('viz1598633253507');
-    // var vizElement = divElement.getElementsByTagName('object')[0];
-    // if ( divElement.offsetWidth > 921 ) { vizElement.style.width='920px';vizElement.style.height='547px';}
-    // else if ( (divElement.offsetWidth > 910) && (divElement.offsetWidth < 920)) { vizElement.style.width='900px';vizElement.style.height='547px';}
-    // else if ( (divElement.offsetWidth > 700) && (divElement.offsetWidth < 899) ) { vizElement.style.width='700px';vizElement.style.height='547px';}
-    // else { vizElement.style.width='100%';vizElement.style.height='627px';}
-    // var scriptElement = document.createElement('script');
-    // scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-    // vizElement.parentNode.insertBefore(scriptElement, vizElement);
-  }
-
+  // Activity Autocomplete
   setupAutoCompleteActivity(fieldSelector, fieldName, aList) {
     let component = this;
     const awesompleteSettings = {
@@ -299,32 +395,22 @@ class CAGovReopening extends window.HTMLElement {
       awesompleteSettings
     );
 
-    document
-      .querySelector(fieldSelector)
-      .addEventListener("focus", function () {
-        this.value = "";
-        window.makeAutocomplete2.evaluate();
-      });
+    // @TODO Add here for consistency?
+    // document
+    //   .querySelector(fieldSelector)
+    //   .addEventListener("focus", function () {
+    //     this.value = "";
+    //     window.makeAutocomplete2.evaluate();
+    //   });
   }
 
   layoutCards() {
-    let replaceAllInMap = function (str) {
-      let mapObj = {
-        "&lt;": "<",
-        "&gt;": ">",
-        "’": '"',
-        "”": '"',
-      };
-      var re = new RegExp(Object.keys(mapObj).join("|"), "gi");
-      return str.replace(re, function (matched) {
-        return mapObj[matched.toLowerCase()];
-      });
-    };
-
+    this.replaceAllInMap = replaceAllInMap; // Q: What was this? for tableau map?
     this.cardHTML = "";
 
+    // Build data for cards.
     let selectedCounties = this.countyStatuses;
-
+    // Q: Was was this for? 
     if (this.state["county"]) {
       selectedCounties = [];
       this.countyStatuses.forEach((item) => {
@@ -336,137 +422,21 @@ class CAGovReopening extends window.HTMLElement {
 
     // If we are in one of these counties schools can reopen:
     const schoolOKList = this.schoolOKList;
-
     const schoolStrings = this.schoolsText;
-
-    let schoolShenanigans = function (county) {
-      if (!schoolStrings) {
-        return "";
-      }
-      if (schoolOKList.indexOf(county) > -1) {
-        return schoolStrings.schools_may_reopen + schoolStrings.schools_info;
-      }
-      return schoolStrings.schools_may_not_reopen + schoolStrings.schools_info;
-    };
-
     let selectedActivities = this.allActivities;
-    selectedCounties.forEach((item) => {
-      this.cardHTML += `<div class="card-county county-color-${
-        item["Overall Status"]
-      }">
-        <h2>${item.county}</h2>
-        
-        ${
-          this.countyRegions
-            ? "<h3>" +
-              this.translationsStrings.regionLabel +
-              " " +
-              this.countyRegions[item.county] +
-              "</h3>"
-            : ""
-        }
 
-        ${
-          this.regionsclosed &&
-          this.countyRegions &&
-          this.regionsclosed.Table1.filter(
-            (r) => r.region === this.countyRegions[item.county]
-          ).length > 0
-            ? '<p>Under <a href="/stay-home-except-for-essential-needs/#regional-stay-home-order">Regional Stay Home Order</a></p>'
-            : ""
-        }
-        
-        <div class="pill">${
-          this.statusdesc.Table1[parseInt(item["Overall Status"]) - 1][
-            "County tier"
-          ]
-        }</div>
-        
-        <p>${
-          this.statusdesc.Table1[parseInt(item["Overall Status"]) - 1]
-            .description
-        }. <a href="#county-status">${
-        this.translationsStrings.understandTheData
-      }</a></p>
-        
-        <p>${
-          this.translationsStrings.countyRestrictionsAdvice
-        } <a href="../get-local-information">${
-        this.translationsStrings.countyRestrictionsCountyWebsite
-      }</a>.</p>
-      
-        </div>`;
-
-      if (this.state["activity"]) {
-        selectedActivities = [];
-        this.allActivities.forEach((ac) => {
-          if (
-            ac["0"] == this.state["activity"] ||
-            this.state["activity"] == this.viewall
-          ) {
-            selectedActivities.push(ac);
-          }
-        });
-      }
-
-      selectedActivities.forEach((ac) => {
-        if (
-          this.regionsclosed &&
-          this.countyRegions &&
-          this.regionsclosed.Table1.filter(
-            (r) => r.region === this.countyRegions[item.county]
-          ).length > 0
-        ) {
-          // if this county is in a region which is closed we will show them the RSHO column values
-          this.cardHTML += `<div class="card-activity">
-            <h4>${ac["0"]}</h4>
-            <p>${
-              ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac["6"]
-            }</p>
-            <p>${
-              ac["0"] === "Schools"
-                ? ""
-                : ac["5"].indexOf("href") > -1
-                ? `${
-                    this.translationsStrings.seeGuidanceText
-                  } ${replaceAllInMap(ac["5"])}`
-                : ""
-            }</p>
-          </div>`;
-        } else {
-          this.cardHTML += `<div class="card-activity">
-            <h4>${ac["0"]}</h4>
-            <p>${
-              ac["0"] === "Schools"
-                ? schoolShenanigans(item.county)
-                : ac[item["Overall Status"]]
-            }</p>
-            <p>${
-              ac["0"] === "Schools"
-                ? ""
-                : ac["5"].indexOf("href") > -1
-                ? `${
-                    this.translationsStrings.seeGuidanceText
-                  } ${replaceAllInMap(ac["5"])}`
-                : ""
-            }</p>
-          </div>`;
-        }
-      });
-    });
+    this.cardHTML = cardTemplate({ selectedCounties, selectedActivities, schoolOKList, schoolStrings, schoolReopeningStatuses});
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed
-    this.cardHTML += `<div style="display:none">
-      <div class="county-color-1 county-color-2 county-color-3 county-color-4"></div>
-    </div>`;
-
+  
+    // Add card markup to card holder.
     this.querySelector(
       ".card-holder"
     ).innerHTML = `<div class="card-content">${this.cardHTML}</div>`;
 
     this.querySelector(".card-holder").classList.remove("inactive");
 
-    // Dispatch custom event so we can pick up and track this usage elsewhere.
+    // For Analytics: Dispatch custom event so we can pick up and track this usage elsewhere.
     const event = new window.CustomEvent("safer-economy-page-submission", {
       detail: {
         county: this.state.county,
@@ -476,123 +446,6 @@ class CAGovReopening extends window.HTMLElement {
 
     window.dispatchEvent(event);
   }
-
-  setupInputButtons() {
-    console.log("setup input buttons");
-
-    var activityInput = document.getElementById("activity-query");
-    var countyInput = document.getElementById("location-query");
-
-    if (countyInput) {
-      // Show clear button only on input (County)
-      countyInput.addEventListener("input", function (e) {
-        inputValueCounty();
-      });
-
-      //Clear buttons click events
-      document
-        .getElementById("clearLocation")
-        .addEventListener("click", function (e) {
-          countyInput.value = "";
-          inputValueCounty(e);
-        });
-
-      document
-        .getElementById("clearActivity")
-        .addEventListener("click", function (e) {
-          activityInput.value = "";
-          inputValueActivity(e);
-        });
-    }
-
-    // console.log("activityInput", activityInput);
-
-    if (activityInput) {
-      // Show clear button only on input (Activity)
-      activityInput.addEventListener("input", function (e) {
-        inputValueActivity(e);
-      });
-
-      activityInput.addEventListener("blur", function (e) {
-        inputValueActivity(e);
-      });
-    }
-  }
 }
 
 window.customElements.define("cagov-reopening", CAGovReopening);
-
-// getRemoteData() {
-// console.log("data", this.localData);
-// // content: "text"
-// // countystatus: {api: {…}, records: Array(58)}
-// // covid19-county-webpages: {api: {…}, records: Array(58)}
-// // pubData: {api: {…}, records: {…}}
-// // reopening-matrix-data: {api: {…}, records: {…}}
-// // reopening-roadmap-activity-data: {api: {…}, records: {…}}
-// // rsho: {api: {…}, records: {…}}
-
-// // @TODO this will come from the html page
-// // let theMatrix = document.querySelector('.the-matrix');
-// // if(theMatrix) {
-// //   document.querySelector('.matrix-holder').innerHTML = theMatrix.innerHTML;
-// // }
-
-// const hostUrl = `https://covid19.ca.gov/`
-// window.fetch(hostUrl + '/countystatus.json')
-// .then(response => response.json())
-// .then(function(data) {
-//   // @TODO organize this data a little bit
-//   this.countyStatuses = data;
-//   let aList = [];
-//   this.countyStatuses.forEach(c => { aList.push(c.county) })
-//   this.setupAutoComplete('#location-query', 'county', aList);
-// }.bind(this));
-
-// window.fetch(hostUrl + '/countyregions.json')
-// .then(response => response.json())
-// .then(function(data) {
-//   this.countyRegions = data;
-// }.bind(this));
-
-// window.fetch(hostUrl + '/regionsclosed.json')
-// .then(response => response.json())
-// .then(function(data) {
-//   this.regionsclosed = data;
-// }.bind(this));
-
-// window.fetch(hostUrl + '/statusdescriptors.json')
-// .then(response => response.json())
-// .then(function(data) {
-//   this.statusdesc = data;
-// }.bind(this));
-
-// window.fetch(hostUrl + '/schools-may-reopen.json')
-// .then(response => response.json())
-// .then(function(data) {
-//   this.schoolOKList = data;
-// }.bind(this));
-
-// window.fetch(hostUrl + '/reopening-activities.json')
-// .then(response => response.json())
-// .then(function(data) {
-//   this.allActivities = data.Table1;
-
-//   let aList = [];
-//   // aList.push(this.viewall);
-//   data.Table1.forEach(item => {
-//     aList.push(item['0'])
-//   });
-
-//   this.setupAutoCompleteActivity('#activity-query', 'activity', aList);
-
-//   // document.querySelector('.reopening-tableau-embed').innerHTML = `<div class='tableauPlaceholder' id='viz1598633253507' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pl&#47;Planforreducingcovid-19&#47;planforreducingcovid-19&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Planforreducingcovid-19&#47;planforreducingcovid-19' /><param name='tabs' value='no' /><param name='toolbar' value='no' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pl&#47;Planforreducingcovid-19&#47;planforreducingcovid-19&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /></object></div>`;
-
-//   // this.tableauStuff();
-// }.bind(this))
-// .catch(() => {
-//   //resetForm();
-// });
-
-// this.activateForms();
-// }

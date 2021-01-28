@@ -1,6 +1,7 @@
 import { withDesign } from "storybook-addon-designs";
 import { WebComponent } from './storybook-web-component';
 import { data } from "./data";
+// console.log(data);
 
 export default {
   title: 'covid19/cagov-reopening/Variants',
@@ -22,8 +23,10 @@ Template.args = {
 
 export const CountyOnlyEn = Template.bind({});
 CountyOnlyEn.args = {
+  countyValue: 'Alameda',
+  activityValue: 'Appliance Repair Shops',
   language: 'en',
-  data: data['en']
+  data: data['en'],
 };
 /**
 * Connect Figma Frame

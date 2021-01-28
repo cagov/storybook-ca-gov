@@ -1,13 +1,22 @@
 export default function getTranslations(container) {
+  console.log("get Translations");
   let translationsObj = {};
   let translateEls = container.querySelectorAll('[data-label]');
   translateEls.forEach(item => {
+    console.log(item.innerHTML);
     translationsObj[item.dataset.label] = item.innerHTML;
+    
+    // Clean up weird bug where comment strings are wrapped around code inserted (<!---->) by Storybook interface
+    // @TODO track down why/how this happens. Might be something with lit-html, Storybook controls, or loading html template. It happens somewhere before this step.
+    if (typeof translationsObj[item.dataset.label] === "string") {
+      translationsObj[item.dataset.label] = translationsObj[item.dataset.label].replace(/<!---->/gi, "");
+    }
   })
   let translateElArrays = container.querySelectorAll('[data-group]');
   translateElArrays.forEach(group => {
     let groupKey = group.getAttribute('data-group');
     let arrayItems = group.querySelectorAll('[data-item]');
+    console.log("array Items", arrayItems);
     if (groupKey !== null && arrayItems !== null) {
       let groupItems = {};
       arrayItems.forEach(item => {

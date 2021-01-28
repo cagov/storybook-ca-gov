@@ -1,13 +1,12 @@
 /**
- * A template that is used to generate the HTML markup 
+ * A template that is used to generate the HTML markup
  * @param {*} // @TODO JSDocs & hash signatures don't play nice, look up best way to document the variables here.
  */
 export default function template({
   localData = null, // Data sets passed into the web-component.
   translations = null, // Translation strings read from HTML markup, data-label and data-group attributes.
 }) {
-  console.log("translations", translations);
-  return /*html*/`
+  return /*html*/ `
 <div class="reopening-fields">
   <h2 class="subtitle-color">${translations.title || null}</h2>
   <form action="#" class="reopening-activities">
@@ -26,16 +25,23 @@ export default function template({
             role="combobox"
             type="text"
             placeholder="${translations.countyPlaceholder}"
+            value="${translations.presetValueCounty ? translations.presetValueCounty : ""}"
           />
-          <button type="button" class="clear d-none" id="clearLocation"><span class="ca-gov-icon-close-line" aria-hidden="true"></span> <span class="underline">${translations.clearText}</span></button>
+          <button type="button" class="clear d-none" id="clearLocation"><span class="ca-gov-icon-close-line" aria-hidden="true"></span> <span class="underline">${
+            translations.clearText
+          }</span></button>
+
           <ul hidden="" role="listbox" id="awesomplete_list_1"></ul>
+
           <span
           class="visually-hidden"
           role="status"
           aria-live="assertive"
           aria-atomic="true"
           >Type 2 or more characters for results.</span>
-          <div id="location-error" style="visibility: hidden" class="reopening-field-error text-danger text-small text-left">${translations.countyNotFound}</div>
+          <div id="location-error" style="visibility: hidden" class="reopening-field-error text-danger text-small text-left">${
+            translations.countyNotFound
+          }</div>
         </div>
         <ul hidden="" id="awesomplete-list-1" role="listbox"></ul>
       </div>
@@ -53,16 +59,25 @@ export default function template({
           role="combobox"
           type="text"
           placeholder="${translations.activityPlaceholder}"
+          value="${translations.presetValueActivity ? translations.presetValueActivity : ""}"
         />
-        <button type="button" class="clear d-none" id="clearActivity"><span class="ca-gov-icon-close-line" aria-hidden="true"></span> <span class="underline">${translations.clearText}</span></button>
+        <button type="button" class="clear d-none" id="clearActivity"><span class="ca-gov-icon-close-line" aria-hidden="true"></span> <span class="underline">${
+          translations.clearText
+        }</span></button>
         <ul hidden="" role="listbox" id="awesomplete_list_2"></ul>
-        <div id="activity-error" style="visibility: hidden" class="reopening-field-error text-danger text-small text-left">${translations.activityNotFound}</div>
+        <div id="activity-error" style="visibility: hidden" class="reopening-field-error text-danger text-small text-left">${
+          translations.activityNotFound
+        }</div>
       </div>
       <ul hidden="" id="awesomplete-list-2" role="listbox"></ul>
     </div>
   </div>
-  <div id="reopening-error" style="visibility: hidden" class="reopening-form-error mb-1 text-danger text-small text-center">${translations.emptySearchError}</div>
-  <button type="submit" id="reopening-submit" class="btn btn-primary">${translations.buttonText}</button>
+  <div id="reopening-error" style="visibility: hidden" class="reopening-form-error mb-1 text-danger text-small text-center">${
+    translations.emptySearchError
+  }</div>
+  <button type="submit" id="reopening-submit" class="btn btn-primary">${
+    translations.buttonText
+  }</button>
 </form>
   <div class="card-holder"></div>
 </div>`;

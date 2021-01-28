@@ -35,6 +35,9 @@ import schoolsMayReopenApi from "./api_templates/schools-may-reopen.api.json";
 import statusDescriptorsData from "./records/statusdescriptors.json";
 import statusDescriptorsApi from "./api_templates/statusdescriptors.api.json";
 
+import stateIndustryGuidance from "./records/data-covid19-state-industry-guidance.json";
+import activitySearchBusiness from "./records/data-covid19-activity-business-search-data.json";
+
 import { buildMultilingualDataObject } from "../buildMultilingualDataObject";
 
 export const data = buildMultilingualDataObject({
@@ -60,5 +63,7 @@ export const data = buildMultilingualDataObject({
     rshoApi,
     rshoData,
     pubData,
-    pubDataApi
+    pubDataApi,
+    stateIndustryGuidance,
+    activitySearchBusiness
 });

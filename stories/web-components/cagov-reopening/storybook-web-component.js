@@ -5,7 +5,7 @@ import CAGovReopening from './web-component';
  * Primary UI component for user interaction
  */
 export const WebComponent = (args) => {
-  console.log("web component data", args);
+  // console.log("web component data", args);
   return html`
     <cagov-reopening 
       data-json=${JSON.stringify(args.data)}
@@ -23,6 +23,8 @@ export const WebComponent = (args) => {
         <li data-label="countyRestrictionsCountyWebsite">county’s website</li>
         <li data-label="understandTheData">Understand the data.</li>
         <li data-label="regionLabel">Region:</li>
+        <li data-label="presetValueCounty">${args.countyValue}</li>
+        <li data-label="presetValueActivity">${args.activityValue}</li>
       </ul>
     </cagov-reopening>  
   `;
