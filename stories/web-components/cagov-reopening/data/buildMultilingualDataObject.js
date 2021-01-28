@@ -1,3 +1,6 @@
+// A mock data sample pulling in all the data used in the what's open search interface.
+// @TODO port some examples of existing translated data (if available) into Airtable & export to have some more working samples.
+
 export const buildMultilingualDataObject = ({
     countyRegionsData,
     countyRegionsApi,

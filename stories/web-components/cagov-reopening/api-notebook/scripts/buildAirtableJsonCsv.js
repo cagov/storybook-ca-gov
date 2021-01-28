@@ -22,11 +22,11 @@ const VIEW_NAME = process.env["AIRTABLE_VIEW_NAME"]; // Manually set in the base
 
 // Location of docs templates.
 const docsPath =
-  "./stories/web-components/cagov-reopening/data/api-notebook/api_templates/";
+  "./stories/web-components/cagov-reopening/api-notebook/api_templates/";
 
 // Write folder for JSON output
 const dataPath =
-  "./stories/web-components/cagov-reopening/data/api-notebook/auto-generated-data";
+  "./stories/web-components/cagov-reopening/api-notebook/auto-generated-data";
 
 // Developer NOTES:
 // Estimated total size: 500KB (JSON from Airtable)
@@ -188,7 +188,7 @@ const buildData = async () => {
       // Write file as JSON
       if (formattedApiResponse !== null) {
         fs.writeFile(
-          `${dataPath}/data-${endpoint}.json`,
+          `${dataPath}/json/data-${endpoint}.json`,
           formattedApiResponse,
           function (err) {
             if (err) return console.log(err);
@@ -282,7 +282,7 @@ const saveAsCsv = (fieldData, endpoint) => {
     let opts = Object.keys(endpoints[endpoint].fields);
     const parser = new Parser(opts);
     const csv = parser.parse(fieldData);
-    fs.writeFile(`${dataPath}/data-${endpoint}.csv`, csv, function (err) {
+    fs.writeFile(`${dataPath}/csv/data-${endpoint}.csv`, csv, function (err) {
       if (err) return console.log(err);
       console.log(`Saved CSV file: ${endpoint}.csv`);
     });
@@ -314,10 +314,10 @@ const saveAsCsv = (fieldData, endpoint) => {
 const buildStateGuidanceJSON = () => {
   try {
   let apiDoc = JSON.parse(fs.readFileSync(`${docsPath}/covid19-state-industry-guidance.api.json`));
-  let categories = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-categories.json`, "utf8"));
-  let metadata = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-related-guidance-metadata.json`, "utf8"));
-  let pdfLinks = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-pdf-links.json`, "utf8"));
-  let additionalResources = JSON.parse(fs.readFileSync(`${dataPath}/data-covid19-industry-guidance-additional-resources.json`, "utf8"));
+  let categories = JSON.parse(fs.readFileSync(`${dataPath}/json/data-covid19-industry-guidance-categories.json`, "utf8"));
+  let metadata = JSON.parse(fs.readFileSync(`${dataPath}/json/data-covid19-related-guidance-metadata.json`, "utf8"));
+  let pdfLinks = JSON.parse(fs.readFileSync(`${dataPath}/json/data-covid19-industry-guidance-pdf-links.json`, "utf8"));
+  let additionalResources = JSON.parse(fs.readFileSync(`${dataPath}/json/data-covid19-industry-guidance-additional-resources.json`, "utf8"));
   let data = {};
   categories.data.map((item) => {
     let category = item["industry_category_key"];
@@ -325,7 +325,6 @@ const buildStateGuidanceJSON = () => {
     let categoryMetadata = metadata.data.filter((dataItem) => dataItem["industry_category_key"] === category);
     let categoryPdfLinks = pdfLinks.data.filter((dataItem) => dataItem["industry_category_key"] === category);
     let categoryAdditionalResources = additionalResources.data.filter((dataItem) => dataItem["industry_category_key"] === category); // @TODO sort this one
-
 
     data[category] = {
         metadata: categoryMetadata !== null && categoryMetadata[0] !== undefined ? categoryMetadata : "",
@@ -344,7 +343,7 @@ const buildStateGuidanceJSON = () => {
   }
 
   fs.writeFile(
-    `${dataPath}/data-covid19-state-industry-guidance.json`,
+    `${dataPath}/json/data-covid19-state-industry-guidance.json`,
     JSON.stringify(apiData),
     function (err) {
       if (err) return console.log(err);
@@ -356,9 +355,7 @@ const buildStateGuidanceJSON = () => {
   }
 };
 
-
 /**
  * Run the script
  */
 buildData();
-// buildStateGuidanceJSON();

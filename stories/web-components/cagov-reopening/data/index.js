@@ -8,6 +8,7 @@ import { data as dataZhHans } from './zh-hans/data.js';
 import { data as dataZhHant } from './zh-hant/data.js';
 
 // Build multi-lingual data object.
+// Each language file aggregates the 10+ data sets used for the interface.
 export var data = {
   "ar": dataAr,
   "en": dataEn,

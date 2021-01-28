@@ -1,18 +1,83 @@
-<!--- Checkbox.stories.mdx --->
+import {
+  Meta,
+  Story,
+  Canvas,
+  Preview,
+  Source,
+  Description,
+} from "@storybook/addon-docs/blocks";
+import { html } from "lit-html";
+import CAGovReopening from "./web-component";
+import { data } from "./data";
+import Readme from "./README.md";
 
-<!--- This is your Story template function, shown here in React -->
+<Meta title="covid19/cagov-reopening/Introduction" />
 
-import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
-import { Page, CountyOnlyEn } from './intro.stories';
+<style>{`
+  .content {
+    margin: 50px;
+  }
+  h2 {
+    color: #ffcc00;
+  }
+`}</style>
 
-<Meta title="covid19/cagov-reopening/intro-mdx" component={CountyOnlyEn} />
+<div class="content">
+  <Description markdown={Readme}></Description>
+</div>
 
-# Checkbox
+## Search interface
 
-Content content content.
+<Canvas withToolbar>
+  <Story name="Reopening">
+    {html`<cagov-reopening data-json="${JSON.stringify(data["en"])}">
+      <ul>
+        <li data-label="title">
+          Find the status for activities in your county
+        </li>
+        <li data-label="activityLabel">Activity</li>
+        <li data-label="activityPlaceholder">Enter a business or activity</li>
+        <li data-label="countyLabel">County</li>
+        <li data-label="countyPlaceholder">Enter county</li>
+        <li data-label="buttonText">Get latest risk levels</li>
+        <li data-label="clearText">Clear</li>
+        <li data-label="seeGuidanceText">See guidance for</li>
+        <li data-label="countyRestrictionsAdvice">
+          Counties can restrict further. Check your
+        </li>
+        <li data-label="countyRestrictionsCountyWebsite">county’s website</li>
+        <li data-label="understandTheData">Understand the data.</li>
+        <li data-label="regionLabel">Region:</li>
+      </ul>
+    </cagov-reopening>`}
+  </Story>
+</Canvas>
 
-<Canvas>
-  <Story name="CountyOnlyEn">
-      <CountyOnlyEn />
+## Here is an example with the Activty Search selected
+
+@TODO Next: pass prop so we can always see the search result & don't have to click it to view it every time we edit the code.
+
+<Canvas withToolbar>
+  <Story name="Reopening-Activity">
+    {html`<cagov-reopening data-json="${JSON.stringify(data["en"])}">
+      <ul>
+        <li data-label="title">
+          Find the status for activities in your county
+        </li>
+        <li data-label="activityLabel">Activity</li>
+        <li data-label="activityPlaceholder">Enter a business or activity</li>
+        <li data-label="countyLabel">County</li>
+        <li data-label="countyPlaceholder">Enter county</li>
+        <li data-label="buttonText">Get latest risk levels</li>
+        <li data-label="clearText">Clear</li>
+        <li data-label="seeGuidanceText">See guidance for</li>
+        <li data-label="countyRestrictionsAdvice">
+          Counties can restrict further. Check your
+        </li>
+        <li data-label="countyRestrictionsCountyWebsite">county’s website</li>
+        <li data-label="understandTheData">Understand the data.</li>
+        <li data-label="regionLabel">Region:</li>
+      </ul>
+    </cagov-reopening>`}
   </Story>
 </Canvas>

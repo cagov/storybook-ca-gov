@@ -1,8 +1,5 @@
-# API Notebook for Reopening Roadmap Activity Data
 
-Our front-end redesign for the `/industry-guidance` is a compilation of activity and business data sets and associated guidance files.
 
-This `api-workbook` folder shows how we are documenting a compilation of data from different sources and improving data documentation.
 
 ## Data sets used to build this interface
 
@@ -112,7 +109,6 @@ Original: `/pages/wordpress-posts/reopening-roadmap-activity-data.json`
 
 ### Tableau map
 * County tier map 
-
 
 ### Page that will be updated: `https://covid19.ca.gov/safer-economy`
 : "What's open" page. Other names: "Safer Economy", "Roadmap", "Dimmer switch", "Blueprint"
