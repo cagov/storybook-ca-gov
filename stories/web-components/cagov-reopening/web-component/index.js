@@ -3,10 +3,13 @@ import template from "./template.js";
 import getTranslations from "./get-translations-list.js";
 import getScreenResize from "./get-window-size.js";
 import "./cagov-reopening.scss";
-import { inputValueCounty, inputValueActivity } from "./autocompleteButtonBehavior";
+import {
+  inputValueCounty,
+  inputValueActivity,
+} from "./autocompleteButtonBehavior";
 import { getCountyMap, replaceAllInMap } from "./getCountyMap";
 import { schoolReopeningStatuses } from "./schoolsStatuses";
-import { cardTemplate } from "./cardTemplate";
+import { cardTemplate } from "./cardTemplateSaferEconomy";
 
 /**
  * This component provides a county and activity/business search interface
@@ -18,8 +21,14 @@ class CAGovReopening extends window.HTMLElement {
     this.initialLoad = 0;
     // Optional state object to use for persisting data across interactions.
     this.state = {
-      county: document.querySelector("#location-query") !== null ? document.querySelector("#location-query").value : null,
-      activity: document.querySelector("#activity-query") !== null ? document.querySelector("#activity-query").value : null,
+      county:
+        document.querySelector("#location-query") !== null
+          ? document.querySelector("#location-query").value
+          : null,
+      activity:
+        document.querySelector("#activity-query") !== null
+          ? document.querySelector("#activity-query").value
+          : null,
     };
     console.log("STATE", this.state);
     // Establish chart variables and settings.
@@ -58,8 +67,14 @@ class CAGovReopening extends window.HTMLElement {
     // Render the chart for the first time.
 
     this.state = {
-      county: document.querySelector("#location-query") !== null ? document.querySelector("#location-query").value : null,
-      activity: document.querySelector("#activity-query") !== null ? document.querySelector("#activity-query").value : null,
+      county:
+        document.querySelector("#location-query") !== null
+          ? document.querySelector("#location-query").value
+          : null,
+      activity:
+        document.querySelector("#activity-query") !== null
+          ? document.querySelector("#activity-query").value
+          : null,
     };
 
     // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
@@ -123,7 +138,6 @@ class CAGovReopening extends window.HTMLElement {
     // Set up autocomplete data for activity search
     this.allActivities = this.localData["reopening-activities"].data.Table1;
     let bList = [];
-    // aList.push(this.viewall);
     this.allActivities.forEach((item) => {
       bList.push(item["0"]);
     });
@@ -133,10 +147,11 @@ class CAGovReopening extends window.HTMLElement {
     this.setupAutoCompleteActivity("#activity-query", "activity", bList);
 
     // Assign data to local variables.
+    console.log("localData", this.localData);
     this.countyRegions = this.localData.countyregions.data;
     this.regionsclosed = this.localData.regionsclosed.data;
     this.statusdesc = this.localData.statusdescriptors.data;
-    this.schoolOKList = this.localData["schools-may-reopen"].data;
+    this.schoolsCanReopenList = this.localData["schools-may-reopen"].data;
 
     // reopening-activities
     // 0: "Amusement parks"
@@ -165,7 +180,7 @@ class CAGovReopening extends window.HTMLElement {
     // Get the input element.
     var countyInput = document.getElementById("location-query");
     var activityInput = document.getElementById("activity-query");
-    
+
     if (countyInput) {
       // Show clear button only on input or blur (County)
       countyInput.addEventListener("input", function (e) {
@@ -191,7 +206,7 @@ class CAGovReopening extends window.HTMLElement {
         inputValueActivity(e);
       });
     }
-  
+
     console.log("countyInput.value", countyInput.value);
     // If values preset, run the search.
     if (
@@ -334,7 +349,7 @@ class CAGovReopening extends window.HTMLElement {
         // @TODO This looks buggy
         // If activity and county are not set (undefined), clear the card holder (what's the card holder?)
         // And make reopening error visible
-        
+
         if (!this.state["activity"] && !this.state["county"]) {
           this.querySelector(".card-holder").innerHTML = "";
           document.getElementById("reopening-error").style.visibility =
@@ -364,9 +379,9 @@ class CAGovReopening extends window.HTMLElement {
       replace: function (text) {
         let before = this.input.value.match(/^.+,\s*|/)[0];
         // @TODO clean up abbreviations
-        let finalval = before + text;
-        this.input.value = finalval;
-        component.state[fieldName] = finalval;
+        let autocompleteValue = before + text;
+        this.input.value = autocompleteValue;
+        component.state[fieldName] = autocompleteValue;
         component.layoutCards();
         document.querySelector(fieldSelector).blur();
       },
@@ -398,9 +413,9 @@ class CAGovReopening extends window.HTMLElement {
       replace: function (text) {
         let before = this.input.value.match(/^.+,\s*|/)[0];
         // @TODO clean up abbreviations
-        let finalval = before + text;
-        this.input.value = finalval;
-        component.state[fieldName] = finalval;
+        let autocompleteValue = before + text;
+        this.input.value = autocompleteValue;
+        component.state[fieldName] = autocompleteValue;
         component.layoutCards();
         document.querySelector(fieldSelector).blur();
       },
@@ -412,7 +427,6 @@ class CAGovReopening extends window.HTMLElement {
       awesompleteSettings
     );
 
-    // @TODO Add here for consistency?
     document
       .querySelector(fieldSelector)
       .addEventListener("focus", function () {
@@ -427,7 +441,7 @@ class CAGovReopening extends window.HTMLElement {
 
     // Build data for cards.
     let selectedCounties = this.countyStatuses;
-    // Q: Was was this for? 
+    // Q: How many statuses are supported? Had there been a plan to show multiple counties?
     if (this.state["county"]) {
       selectedCounties = [];
       this.countyStatuses.forEach((item) => {
@@ -437,15 +451,22 @@ class CAGovReopening extends window.HTMLElement {
       });
     }
 
-    // If we are in one of these counties schools can reopen:
-    const schoolOKList = this.schoolOKList;
-    const schoolStrings = this.schoolsText;
-    let selectedActivities = this.allActivities;
-
-    this.cardHTML = cardTemplate({ selectedCounties, selectedActivities, schoolOKList, schoolStrings, schoolReopeningStatuses});
+    this.cardHTML = cardTemplate({
+      selectedCounties, // array of objects
+      selectedActivities: this.allActivities, // array
+      schoolsCanReopenList: this.schoolsCanReopenList, // array?
+      schoolLabels: this.schoolsText, // ? 
+      schoolReopeningStatuses, // function
+      countyRegions: this.countyRegions,
+      statusdesc: this.statusdesc,
+      regionLabel: this.translationsStrings.regionLabel,
+      regionsclosed: this.regionsclosed,
+      activity: this.state["activity"],
+      allActivities: this.allActivities,
+    });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed
-  
+
     // Add card markup to card holder.
     this.querySelector(
       ".card-holder"

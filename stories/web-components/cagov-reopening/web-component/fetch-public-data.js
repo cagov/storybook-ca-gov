@@ -55,7 +55,7 @@
 // window.fetch(hostUrl + '/schools-may-reopen.json')
 // .then(response => response.json())
 // .then(function(data) {
-//   this.schoolOKList = data;
+//   this.schoolsCanReopenList = data;
 // }.bind(this));
 
 // window.fetch(hostUrl + '/reopening-activities.json')

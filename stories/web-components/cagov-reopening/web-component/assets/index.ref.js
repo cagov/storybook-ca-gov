@@ -48,7 +48,7 @@ class CAGovReopening extends window.HTMLElement {
   //   window.fetch('/schools-may-reopen.json')
   //   .then(response => response.json())
   //   .then(function(data) {
-  //     this.schoolOKList = data;
+  //     this.schoolsCanReopenList = data;
   //   }.bind(this));
 
   //   window.fetch('/reopening-activities.json')
@@ -141,8 +141,8 @@ class CAGovReopening extends window.HTMLElement {
   //     },
   //     replace: function (text) {
   //       let before = this.input.value.match(/^.+,\s*|/)[0];
-  //       let finalval = before + text;
-  //       component.changeLocationInput(finalval);
+  //       let autocompleteValue = before + text;
+  //       component.changeLocationInput(autocompleteValue);
   //       // component.layoutCards();
   //     },
   //     list: aList
@@ -178,8 +178,8 @@ class CAGovReopening extends window.HTMLElement {
   //     },
   //     replace: function (text) {
   //       let before = this.input.value.match(/^.+,\s*|/)[0];
-  //       let finalval = before + text;
-  //       component.changeActivityInput(finalval);
+  //       let autocompleteValue = before + text;
+  //       component.changeActivityInput(autocompleteValue);
   //       // component.layoutCards();
   //       // document.querySelector(fieldSelector).blur();
   //     },
@@ -255,11 +255,11 @@ class CAGovReopening extends window.HTMLElement {
   //   this.cardHTML = '';
 
   //   // if we are in one of these counties schools can reopen:
-  //   const schoolOKList = this.schoolOKList;
+  //   const schoolsCanReopenList = this.schoolsCanReopenList;
   //   let schoolShenanigans = function(county) {
   //     const schoolFooter = `<p>See <a href="https://covid19.ca.gov/industry-guidance/#schools-guidance">schools guidance</a>, <a href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Schools-FAQ.aspx">schools FAQ</a>, and <a href="https://files.covid19.ca.gov/pdf/guidance-schools-cohort-FAQ.pdf">cohorting FAQs</a>.`;
 
-  //     if(schoolOKList.indexOf(county) > -1) {
+  //     if(schoolsCanReopenList.indexOf(county) > -1) {
   //       return 'Schools may reopen fully for in-person instruction. Local school officials will decide whether and when that will occur.'
   //       + schoolFooter;
   //     }

@@ -1,9 +1,13 @@
+/**
+ * @TODO add an example of what this looks like
+ * @param {string} county
+ */
 let schoolReopeningStatuses = function (county) {
-    if (!schoolStrings) {
-      return "";
-    }
-    if (schoolOKList.indexOf(county) > -1) {
-      return schoolStrings.schools_may_reopen + schoolStrings.schools_info;
-    }
-    return schoolStrings.schools_may_not_reopen + schoolStrings.schools_info;
-  };
+  if (!schoolLabels) {
+    return "";
+  }
+  if (schoolsCanReopenList.indexOf(county) > -1) {
+    return schoolLabels.schools_may_reopen + schoolLabels.schools_info;
+  }
+  return schoolLabels.schools_may_not_reopen + schoolLabels.schools_info;
+};
