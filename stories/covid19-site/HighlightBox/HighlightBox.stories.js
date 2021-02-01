@@ -11,8 +11,3 @@ Highlight.args = {
   primary: true,
   classname: 'highlight'
 };
-
-export const HighlightBlue = Template.bind({});
-HighlightBlue.args = {
-  classname: 'highlight-lightblue'
-};
