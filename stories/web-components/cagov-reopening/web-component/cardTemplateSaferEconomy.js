@@ -3,6 +3,38 @@
  * return cardHtml
  * */
 
+ /**
+  * ROADMAP
+  * 
+  * 1. Finish pulling apart the display elements
+  * 2. Clean up the data connection and labels
+  * 3. Make the logic for the different displays more clear
+  * 4. Get original version working in original layout.
+  * 5. Connect to new data sources
+  * 6. Add function to process the related guidance
+  * 7. Add function to build dropdown 
+  * 8. Separate scss for the elements that will become their own webcomponents (we will split them out later)
+  * 9. Add some props to control complexity of related guidance display
+  * 10. See if there is a mobile layout
+  * 11. Check the external links
+  * 12. Duplicate as new component for IG page & another that's the content in other languages
+  * 13. When reviewed and more or less correct, make new branch off covid19 master
+  * 14. Create a staging area (name tbd)
+  * 15. Copy components to new location to complete integration work
+  * 16. Copy an html page for what's open and new IG pages
+  * 17. Add copy changes
+  * 18. Add component
+  * 19. Add new data sources to covid-static & fetch from there. Send content off for translation.
+  * 20. Review & QA
+  * 21. Fix bugs / content changes
+  * 22. Content freeze / final review
+  * 23. Get translations back, test translations (import into Airtable)
+  * 24. When ready to launch, Preprod / review against master (do not crawl)
+  * 25. In the meantime, work on the update pipeline
+  * 26. Once update pipeline is done, add Airtable review & publish buttons
+  */
+ 
+
 // @TODO Look up prop types for web components & see how to document / type check them
 export const cardTemplate = ({
   selectedCounties = [],
@@ -45,11 +77,9 @@ export const cardTemplate = ({
         activity,
         allActivities,
       });
-      console.log("card", card);
       cards.push(card);
     });
     console.log("cards", cards);
-    //.length > 0 ? cards.join("") : null
     return cards.join('');
   }
   return ``;
@@ -85,17 +115,18 @@ const buildCard = ({
     understandTheData,
     countyRestrictionsAdvice
   });
-//   let activityCards = buildActivityCard({
-//     activity,
-//     allActivities,
-//     showSchool: true,
-//     regionsclosed
-//   });
+  let activityCards = buildActivityCard({
+    activity,
+    allActivities,
+    showSchool: true,
+    seeGuidanceText,
+    regionsclosed,
+  });
   return `
   ${tierCard}
 
   `;
-//   ${activityCards}
+  ${activityCards}
 };
 
 // Generate tier status display component.
