@@ -3,7 +3,7 @@ import template from "./template.js";
 import getTranslations from "./get-translations-list.js";
 import getScreenResize from "./get-window-size.js";
 import "./cagov-reopening.scss";
-import { inputValueCounty, inputValueActivity } from "./autocompleteBehavior";
+import { inputValueCounty, inputValueActivity } from "./autocompleteButtonBehavior";
 import { getCountyMap, replaceAllInMap } from "./getCountyMap";
 import { schoolReopeningStatuses } from "./schoolsStatuses";
 import { cardTemplate } from "./cardTemplate";
@@ -18,9 +18,10 @@ class CAGovReopening extends window.HTMLElement {
     this.initialLoad = 0;
     // Optional state object to use for persisting data across interactions.
     this.state = {
-      county: document.querySelector("#location-query"),
-      activity: document.querySelector("#activity-query"),
+      county: document.querySelector("#location-query") !== null ? document.querySelector("#location-query").value : null,
+      activity: document.querySelector("#activity-query") !== null ? document.querySelector("#activity-query").value : null,
     };
+    console.log("STATE", this.state);
     // Establish chart variables and settings.
     this.displayOptions = {
       screens: {
@@ -56,7 +57,10 @@ class CAGovReopening extends window.HTMLElement {
     this.translationsStrings = getTranslations(this);
     // Render the chart for the first time.
 
-    this.state = {};
+    this.state = {
+      county: document.querySelector("#location-query") !== null ? document.querySelector("#location-query").value : null,
+      activity: document.querySelector("#activity-query") !== null ? document.querySelector("#activity-query").value : null,
+    };
 
     // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
     this.localData = JSON.parse(this.dataset.json);
@@ -134,7 +138,6 @@ class CAGovReopening extends window.HTMLElement {
     this.statusdesc = this.localData.statusdescriptors.data;
     this.schoolOKList = this.localData["schools-may-reopen"].data;
 
-
     // reopening-activities
     // 0: "Amusement parks"
     // 1: "Larger parks open with modifications<br>– 25% capacity<br>– Reservations or advanced tickets required"
@@ -144,13 +147,10 @@ class CAGovReopening extends window.HTMLElement {
     // 5: "&lt;a href=”https://covid19.ca.gov/industry-guidance/#theme-parks”&gt;Amusement parks and theme parks&lt;/a&gt;"
     // 6: "Closed"
 
-
     // @TODO see if we can keep these here or if need to come after localData
-
   }
 
   render() {
-
     // console.log("innerHTML", this.translationsStrings);
     this.getLocalData();
 
@@ -163,17 +163,47 @@ class CAGovReopening extends window.HTMLElement {
     console.log("setup input buttons");
 
     // Get the input element.
-    var activityInput = document.getElementById("activity-query");
     var countyInput = document.getElementById("location-query");
+    var activityInput = document.getElementById("activity-query");
+    
+    if (countyInput) {
+      // Show clear button only on input or blur (County)
+      countyInput.addEventListener("input", function (e) {
+        console.log("input county input");
+        inputValueCounty(e);
+      });
 
+      countyInput.addEventListener("blur", function (e) {
+        console.log("blurred county input");
+        inputValueCounty(e);
+      });
+    }
+
+    if (activityInput) {
+      // Show clear button only on input or blur (Activity)
+      activityInput.addEventListener("input", function (e) {
+        console.log("input activity input");
+        inputValueActivity(e);
+      });
+
+      activityInput.addEventListener("blur", function (e) {
+        console.log("input activity blur");
+        inputValueActivity(e);
+      });
+    }
+  
+    console.log("countyInput.value", countyInput.value);
     // If values preset, run the search.
     if (
       this.initialLoad === 0 &&
       countyInput.value !== "" &&
       activityInput.value === ""
     ) {
+      console.log("has county data");
       this.changeLocationInput(countyInput.value);
       this.initialLoad = 1;
+      this.layoutCards();
+      document.getElementById("location-query").blur();
     } else if (
       this.initialLoad === 0 &&
       activityInput.value !== "" &&
@@ -181,6 +211,8 @@ class CAGovReopening extends window.HTMLElement {
     ) {
       this.changeActivityInput(activityInput.value);
       this.initialLoad = 1;
+      this.layoutCards();
+      document.getElementById("activity-query").blur();
     } else if (
       this.initialLoad === 0 &&
       activityInput.value !== "" &&
@@ -189,32 +221,13 @@ class CAGovReopening extends window.HTMLElement {
       this.changeLocationInput(countyInput.value);
       this.changeActivityInput(activityInput.value);
       this.initialLoad = 1;
+      this.layoutCards();
+      document.getElementById("location-query").blur();
+      document.getElementById("activity-query").blur();
     }
 
-    console.log(activityInput);
-    console.log(countyInput);
-
-    if (countyInput) {
-      // Show clear button only on input or blur (County)
-      countyInput.addEventListener("input", function (e) {
-        inputValueCounty();
-      });
-
-      countyInput.addEventListener("blur", function (e) {
-        inputValueCounty();
-      });
-    }
-
-    if (activityInput) {
-      // Show clear button only on input or blur (Activity)
-      activityInput.addEventListener("input", function (e) {
-        inputValueActivity(e);
-      });
-
-      activityInput.addEventListener("blur", function (e) {
-        inputValueActivity(e);
-      });
-    }
+    console.log("activityInput", activityInput);
+    console.log("countyInput", countyInput);
 
     if (countyInput || activityInput) {
       // Clear button in put on click events
@@ -246,6 +259,11 @@ class CAGovReopening extends window.HTMLElement {
     }
     document.getElementById("location-error").style.visibility = "hidden";
     document.getElementById("reopening-error").style.visibility = "hidden";
+    if (this.state.county.length === 0 && this.state.activity.length === 0) {
+      this.querySelector(".card-holder").innerHTML = "";
+    } else {
+      this.layoutCards();
+    }
   }
 
   changeActivityInput(value) {
@@ -260,6 +278,11 @@ class CAGovReopening extends window.HTMLElement {
     }
     document.getElementById("activity-error").style.visibility = "hidden";
     document.getElementById("reopening-error").style.visibility = "hidden";
+    if (this.state.county.length === 0 && this.state.activity.length === 0) {
+      this.querySelector(".card-holder").innerHTML = "";
+    } else {
+      this.layoutCards();
+    }
   }
 
   activateForms() {
@@ -330,6 +353,8 @@ class CAGovReopening extends window.HTMLElement {
     let component = this;
     const awesompleteSettings = {
       autoFirst: true,
+      minChars: 0,
+      maxItems: 99,
       filter: function (text, input) {
         return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
       },
@@ -342,29 +367,20 @@ class CAGovReopening extends window.HTMLElement {
         let finalval = before + text;
         this.input.value = finalval;
         component.state[fieldName] = finalval;
-        console.log("finalval", finalval);
-        // @TODO adding
+        component.layoutCards();
         document.querySelector(fieldSelector).blur();
-        // component.layoutCards(); // Q: Was this disabled for a reason, or is it a bug that's tracked in Jira.
       },
       list: aList,
     };
 
-    const makeAutocomplete = new Awesomplete(
+    window.makeAutocomplete = new Awesomplete(
       fieldSelector,
       awesompleteSettings
     );
-
-    document
-    .querySelector(fieldSelector)
-    .addEventListener("focus", function () {
-      this.value = "";
-      window.makeAutocomplete.evaluate();
-    });
   }
 
   // Activity Autocomplete
-  setupAutoCompleteActivity(fieldSelector, fieldName, aList) {
+  setupAutoCompleteActivity(fieldSelector, fieldName, bList) {
     let component = this;
     const awesompleteSettings = {
       autoFirst: true,
@@ -381,13 +397,14 @@ class CAGovReopening extends window.HTMLElement {
       },
       replace: function (text) {
         let before = this.input.value.match(/^.+,\s*|/)[0];
+        // @TODO clean up abbreviations
         let finalval = before + text;
         this.input.value = finalval;
         component.state[fieldName] = finalval;
         component.layoutCards();
         document.querySelector(fieldSelector).blur();
       },
-      list: aList,
+      list: bList,
     };
 
     window.makeAutocomplete2 = new Awesomplete(
@@ -396,12 +413,12 @@ class CAGovReopening extends window.HTMLElement {
     );
 
     // @TODO Add here for consistency?
-    // document
-    //   .querySelector(fieldSelector)
-    //   .addEventListener("focus", function () {
-    //     this.value = "";
-    //     window.makeAutocomplete2.evaluate();
-    //   });
+    document
+      .querySelector(fieldSelector)
+      .addEventListener("focus", function () {
+        this.value = "";
+        window.makeAutocomplete2.evaluate();
+      });
   }
 
   layoutCards() {
