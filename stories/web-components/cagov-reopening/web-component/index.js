@@ -30,7 +30,7 @@ class CAGovReopening extends window.HTMLElement {
           ? document.querySelector("#activity-query").value
           : null,
     };
-    console.log("STATE", this.state);
+    // console.log("STATE", this.state);
     // Establish chart variables and settings.
     this.displayOptions = {
       screens: {
@@ -120,7 +120,7 @@ class CAGovReopening extends window.HTMLElement {
       translations: this.translationsStrings,
       localData: this.localData,
     });
-    // console.log("data", this.localData);
+    console.log("data", this.localData);
 
     // @TODO this will come from the html page.. (I think?) I think it's page content that's spliced into the card layout
     let theMatrix = document.querySelector(".the-matrix");
@@ -168,7 +168,6 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   render() {
-    // console.log("innerHTML", this.translationsStrings);
     this.getLocalData();
 
     // Can these come here or synced after getLocalData
@@ -453,6 +452,8 @@ class CAGovReopening extends window.HTMLElement {
     }
 
     this.cardHTML = cardTemplate({
+      county: this.state["county"],
+      activity: this.state["activity"],
       selectedCounties, // array of objects
       selectedActivities: this.allActivities, // array
       schoolsCanReopenList: this.schoolsCanReopenList, // array?
@@ -462,8 +463,12 @@ class CAGovReopening extends window.HTMLElement {
       statusdesc: this.statusdesc,
       regionLabel: this.translationsStrings.regionLabel,
       regionsclosed: this.regionsclosed,
-      activity: this.state["activity"],
       allActivities: this.allActivities,
+      understandTheData: this.translationsStrings.understandTheData,
+      countyRestrictionsAdvice: this.translationsStrings.countyRestrictionsAdvice,
+      countyRestrictionsCountyWebsiteLabel: this.translationsStrings.countyRestrictionsCountyWebsiteLabel,
+      seeGuidanceText: this.translationsStrings.seeGuidanceText,
+      countyWebpages: this.localData['covid19-county-webpages'].data, // all data
     });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed

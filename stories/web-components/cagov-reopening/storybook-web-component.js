@@ -20,8 +20,9 @@ export const WebComponent = (args) => {
         <li data-label="clearText">Clear</li>
         <li data-label="seeGuidanceText">See guidance for</li>
         <li data-label="countyRestrictionsAdvice">Counties can restrict further. Check your</li>
-        <li data-label="countyRestrictionsCountyWebsite">county’s website</li>
+        <li data-label="countyRestrictionsCountyWebsiteLabel">county’s website</li>
         <li data-label="understandTheData">Understand the data.</li>
+        <li data-label="understandTheDataLink">#county-status</li>
         <li data-label="regionLabel">Region:</li>
         <li data-label="presetValueCounty">${args.countyValue}</li>
         <li data-label="presetValueActivity">${args.activityValue}</li>
