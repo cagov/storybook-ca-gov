@@ -1,39 +1,40 @@
+import { replaceAllInMap } from "./getCountyMap";
+import { buildSchoolsCanReopen } from "./buildSchoolsCanReopen";
 /**
  * Output results of What's Open Search
  * return cardHtml
  * */
 
- /**
-  * ROADMAP
-  * 
-  * 1. Finish pulling apart the display elements
-  * 2. Clean up the data connection and labels
-  * 3. Make the logic for the different displays more clear
-  * 4. Get original version working in original layout.
-  * 5. Connect to new data sources
-  * 6. Add function to process the related guidance
-  * 7. Add function to build dropdown 
-  * 8. Separate scss for the elements that will become their own webcomponents (we will split them out later)
-  * 9. Add some props to control complexity of related guidance display
-  * 10. See if there is a mobile layout
-  * 11. Check the external links
-  * 12. Duplicate as new component for IG page & another that's the content in other languages
-  * 13. When reviewed and more or less correct, make new branch off covid19 master
-  * 14. Create a staging area (name tbd)
-  * 15. Copy components to new location to complete integration work
-  * 16. Copy an html page for what's open and new IG pages
-  * 17. Add copy changes
-  * 18. Add component
-  * 19. Add new data sources to covid-static & fetch from there. Send content off for translation.
-  * 20. Review & QA
-  * 21. Fix bugs / content changes
-  * 22. Content freeze / final review
-  * 23. Get translations back, test translations (import into Airtable)
-  * 24. When ready to launch, Preprod / review against master (do not crawl)
-  * 25. In the meantime, work on the update pipeline
-  * 26. Once update pipeline is done, add Airtable review & publish buttons
-  */
- 
+/**
+ * ROADMAP
+ *
+ * 1. Finish pulling apart the display elements
+ * 2. Clean up the data connection and labels
+ * 3. Make the logic for the different displays more clear
+ * 4. Get original version working in original layout.
+ * 5. Connect to new data sources
+ * 6. Add function to process the related guidance
+ * 7. Add function to build dropdown
+ * 8. Separate scss for the elements that will become their own webcomponents (we will split them out later)
+ * 9. Add some props to control complexity of related guidance display
+ * 10. See if there is a mobile layout
+ * 11. Check the external links
+ * 12. Duplicate as new component for IG page & another that's the content in other languages
+ * 13. When reviewed and more or less correct, make new branch off covid19 master
+ * 14. Create a staging area (name tbd)
+ * 15. Copy components to new location to complete integration work
+ * 16. Copy an html page for what's open and new IG pages
+ * 17. Add copy changes
+ * 18. Add component
+ * 19. Add new data sources to covid-static & fetch from there. Send content off for translation.
+ * 20. Review & QA
+ * 21. Fix bugs / content changes
+ * 22. Content freeze / final review
+ * 23. Get translations back, test translations (import into Airtable)
+ * 24. When ready to launch, Preprod / review against master (do not crawl)
+ * 25. In the meantime, work on the update pipeline
+ * 26. Once update pipeline is done, add Airtable review & publish buttons
+ */
 
 // @TODO Look up prop types for web components & see how to document / type check them
 export const cardTemplate = ({
@@ -80,7 +81,7 @@ export const cardTemplate = ({
       cards.push(card);
     });
     console.log("cards", cards);
-    return cards.join('');
+    return cards.join("");
   }
   return ``;
 };
@@ -113,7 +114,7 @@ const buildCard = ({
     countyRestrictionsCountyWebsite,
     stayAtHomeOrder,
     understandTheData,
-    countyRestrictionsAdvice
+    countyRestrictionsAdvice,
   });
   let activityCards = buildActivityCard({
     activity,
@@ -121,12 +122,14 @@ const buildCard = ({
     showSchool: true,
     seeGuidanceText,
     regionsclosed,
+    countyRegions,
+    selectedCounty,
+    schoolLabels,
   });
   return `
   ${tierCard}
-
-  `;
   ${activityCards}
+  `;
 };
 
 // Generate tier status display component.
@@ -199,46 +202,34 @@ const buildTierCard = ({
     </div>`;
 };
 
-const buildCountyWebsiteLink = ({ countyRestrictionsCountyWebsite }) => {
-  // @TODO get new county website (look up by county)
-  // Get the URL
-  // Document where the data comes from
-  let url = "../get-local-information";
-  return `<p>
-    <a href="${url}">${countyRestrictionsCountyWebsite}</a>.
-</p>`;
-};
-
-const selectedCountyInRegionalStayAtHomeOrder = ({
-  regionsclosed,
-  countyRegions,
-}) => {
-  if (regionsclosed && countyRegions) {
-    return (
-      this.regionsclosed.Table1.filter(
-        (r) => r.region === countyRegions[selectedCounty.county]
-      ).length > 0
-    );
-  }
-};
-
 const buildActivityCard = ({
-  activity,
-  allActivities,
+  activity = null,
+  allActivities = null,
   showSchool = false,
-  seeGuidanceText,
-  regionsclosed
+  seeGuidanceText = null,
+  regionsclosed = null,
+  countyRegions = null,
+  selectedCounty = null,
+  viewAll = false,
+  schoolLabels = null,
 }) => {
   let isUnderRSHO = selectedCountyInRegionalStayAtHomeOrder({
     regionsclosed,
     countyRegions,
+    selectedCounty,
   }); // bool
 
   if (activity) {
-    selectedActivities = [];
-    this.allActivities.forEach((searchResultData) => {
-      if (searchResultData["0"] == activity || activity == this.viewall) {
+    let selectedActivities = [];
+    allActivities.forEach((searchResultData) => {
+      let activityLabel = searchResultData["0"]; // ??
+
+      if (searchResultData["0"] == activity || activity == viewAll) {
         selectedActivities.push(searchResultData);
+      }
+
+      if (showSchool === true) {
+        // let schoolCard = buildSchoolCard({seeGuidanceText})
       }
 
       if (isUnderRSHO === true) {
@@ -246,45 +237,34 @@ const buildActivityCard = ({
           activityLabel,
           searchResultData,
           seeGuidanceText,
-          replaceAllInMap,
+          selectedCounty,
+          schoolLabels
         });
       } else {
         return buildTierRestrictionActivityDisplay({
           activityLabel,
           searchResultData,
           seeGuidanceText,
-          replaceAllInMap,
           county,
           selectedCounty,
         });
       }
     });
   }
-
-  let activityLabel = searchResultData["0"]; // ??
-
-  if (showSchool === true) {
-    // let schoolCard = buildSchoolCard({seeGuidanceText})
-  }
-
-  return `
-  <div class="card-activity">
-  <h4>${activityLabel}</h4>
-  </div>`;
 };
 
 const buildRSHOActivityDisplay = ({
   activityLabel = null,
   searchResultData = null,
   seeGuidanceText = null,
-  replaceAllInMap = null,
-  getSchoolsCanReopen = null,
+  selectedCounty = null,
+  schoolLabels = null
 }) => {
   return `<div class="card-activity">
             <h4>${activityLabel}</h4>
             <p>${
               activityLabel === "Schools"
-                ? getSchoolsCanReopen({
+                ? buildSchoolsCanReopen({
                     county: selectedCounty.county,
                     schoolLabels,
                   })
@@ -305,15 +285,14 @@ const buildTierRestrictionActivityDisplay = ({
   searchResultData = null,
   seeGuidanceText = null,
   replaceAllInMap = null,
-  getSchoolsCanReopen = null,
   county = null,
-  selectedCounty = null,
+  selectedCounty = null
 }) => {
   return `<div class="card-activity">
     <h4>${searchResultData["0"]}</h4>
     <p>${
       searchResultData["0"] === "Schools"
-        ? getSchoolsCanReopen({ county, schoolLabels })
+        ? buildSchoolsCanReopen({ county, schoolLabels })
         : searchResultData[selectedCounty["Overall Status"]]
     }</p>
     <p>${
@@ -326,23 +305,13 @@ const buildTierRestrictionActivityDisplay = ({
   </div>`;
 };
 
-const getSchoolsCanReopen = ({ county, schoolLabels }) => {
-  if (!schoolLabels.schools_may_reopen) {
-    return "";
-  }
-  if (schoolOKList.indexOf(county) > -1) {
-    return `<p>${schoolLabels.schools_may_reopen}</p> <p>${schoolLabels.schools_info}`;
-  }
-  return `<p>${schoolLabels.schools_may_not_reopen}</p> <p>${schoolLabels.schools_info}`;
-};
-
 const buildSchoolCard = ({ seeGuidanceText }) => {
   // searchResultData[selectedCounty["Overall Status"]]
   // searchResultData["6"] ??
 
   let schoolsDisplay =
     searchResultData["0"] === "Schools"
-      ? getSchoolsCanReopen({ county: selectedCounty.county, schoolLabels })
+      ? buildSchoolsCanReopen({ county: selectedCounty.county, schoolLabels })
       : searchResultData["6"]; // ?
   let guidanceDisplay =
     searchResultData["5"].indexOf("href") > -1
@@ -352,4 +321,33 @@ const buildSchoolCard = ({ seeGuidanceText }) => {
   return `
     <p>${schoolsDisplay}</p>
     `;
+};
+
+const buildCountyWebsiteLink = ({ countyRestrictionsCountyWebsite }) => {
+  // @TODO get new county website (look up by county)
+  // Get the URL
+  // Document where the data comes from
+  let url = "../get-local-information";
+  return `<p>
+      <a href="${url}">${countyRestrictionsCountyWebsite}</a>.
+  </p>`;
+};
+
+const selectedCountyInRegionalStayAtHomeOrder = ({
+  regionsclosed = null,
+  countyRegions = null,
+  selectedCounty = null,
+}) => {
+  try {
+    if (regionsclosed && countyRegions && selectedCounty) {
+      return (
+        regionsclosed.Table1.filter(
+          (r) => r.region === countyRegions[selectedCounty.county]
+        ).length > 0
+      );
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  return false;
 };

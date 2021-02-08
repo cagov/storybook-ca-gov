@@ -64,7 +64,7 @@
 //   this.allActivities = data.Table1;
 
 //   let aList = [];
-//   // aList.push(this.viewall);
+//   // aList.push(this.viewAll);
 //   data.Table1.forEach(item => {
 //     aList.push(item['0'])
 //   });

@@ -7,7 +7,7 @@ import {
   inputValueCounty,
   inputValueActivity,
 } from "./autocompleteButtonBehavior";
-import { getCountyMap, replaceAllInMap } from "./getCountyMap";
+import { getCountyMap } from "./getCountyMap";
 import { schoolReopeningStatuses } from "./schoolsStatuses";
 import { cardTemplate } from "./cardTemplateSaferEconomy";
 
@@ -152,7 +152,9 @@ class CAGovReopening extends window.HTMLElement {
     this.regionsclosed = this.localData.regionsclosed.data;
     this.statusdesc = this.localData.statusdescriptors.data;
     this.schoolsCanReopenList = this.localData["schools-may-reopen"].data;
+    // this.localData["schools"[]
 
+    // this.schoolsText = this.dataset.schools? JSON.parse(this.dataset.schools) : {};
     // reopening-activities
     // 0: "Amusement parks"
     // 1: "Larger parks open with modifications<br>– 25% capacity<br>– Reservations or advanced tickets required"
@@ -436,7 +438,6 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   layoutCards() {
-    this.replaceAllInMap = replaceAllInMap; // Q: What was this? for tableau map?
     this.cardHTML = "";
 
     // Build data for cards.
