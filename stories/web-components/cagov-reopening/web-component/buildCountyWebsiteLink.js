@@ -20,10 +20,14 @@ export const buildCountyWebsiteLink = ({
   if (county !== null && countyWebpages !== null) {
     url = lookupCountyWebsite({ county, countyWebpages });
   }
+
   // @TODO Add external link class handling.
-  return `<p>
+  let link = `<p>
       <a href="${url}">${countyRestrictionsCountyWebsiteLabel}</a>.
   </p>`;
+  // @TODO Insert county name into county link. data-attribute="county"
+  return link;
+
 };
 
 /**

@@ -50,7 +50,7 @@ export const buildTierCard = ({
     console.error("Error rendering tier card", error);
   }
 
-  return `<div class="card-county county-color-${tierStatus}">
+  return `<div class="card-county">
   
           <h2>${selectedCounty.county}</h2>
           
@@ -73,12 +73,13 @@ export const buildTierCard = ({
               ? stayAtHomeOrder
               : ""
           }
-          
-          <div class="pill">${countyTier}</div>
-          
-          <p>${countyTierDescription}. 
-              <a href="${understandTheDataLink}">${understandTheData}</a>
-          </p>
+          <div class="county-color-${tierStatus}">
+            <div class="pill">${countyTier}</div>
+            
+            <p>${countyTierDescription}. 
+                <a href="${understandTheDataLink}">${understandTheData}</a>
+            </p>
+          </div>
           
           <p>
               ${countyRestrictionsAdvice} 

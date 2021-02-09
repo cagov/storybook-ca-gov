@@ -1,20 +1,19 @@
-
 import { replaceAllInMap } from "./getCountyMap";
 import { buildSchoolsCanReopen } from "./buildSchoolsCanReopen";
 
 /**
- * 
- * @param {*} param0 
+ *
+ * @param {*} param0
  * @return HTML markup
  */
-export const buildRSHOActivityDisplay = ({
-    activityLabel = null,
-    searchResultData = null,
-    seeGuidanceText = null,
-    selectedCounty = null,
-    schoolLabels = null,
-  }) => {
-    return `<div class="card-activity">
+export const buildSchoolActivityDisplay = ({
+  activityLabel = null,
+  searchResultData = null,
+  seeGuidanceText = null,
+  selectedCounty = null,
+  schoolLabels = null,
+}) => {
+  return `<div class="card-activity">
               <h4>${activityLabel}</h4>
               <p>${
                 activityLabel === "Schools"
@@ -28,8 +27,10 @@ export const buildRSHOActivityDisplay = ({
                 activityLabel === "Schools"
                   ? ""
                   : searchResultData["5"].indexOf("href") > -1
-                  ? `${seeGuidanceText} ${replaceAllInMap(searchResultData["5"])}`
+                  ? `${seeGuidanceText} ${replaceAllInMap(
+                      searchResultData["5"]
+                    )}`
                   : ""
               }</p>
             </div>`;
-  };
+};
