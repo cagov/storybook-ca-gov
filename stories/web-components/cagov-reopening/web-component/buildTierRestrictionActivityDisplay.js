@@ -1,10 +1,13 @@
+import { replaceAllInMap } from "./getCountyMap";
+import { buildSchoolsCanReopen } from "./buildSchoolsCanReopen";
+
 export const buildTierRestrictionActivityDisplay = ({
   activityLabel = null,
   searchResultData = null,
   seeGuidanceText = null,
-  replaceAllInMap = null,
   county = null,
   selectedCounty = null,
+  schoolLabels = null
 }) => {
   return `<div class="card-activity">
     <h4>${searchResultData["0"]}</h4>

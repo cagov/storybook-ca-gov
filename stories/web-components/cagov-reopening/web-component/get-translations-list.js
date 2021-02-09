@@ -1,9 +1,7 @@
 export default function getTranslations(container) {
-  console.log("get Translations");
   let translationsObj = {};
   let translateEls = container.querySelectorAll('[data-label]');
   translateEls.forEach(item => {
-    console.log(item.innerHTML);
     translationsObj[item.dataset.label] = item.innerHTML;
     
     // Clean up weird bug where comment strings are wrapped around code inserted (<!---->) by Storybook interface
@@ -16,7 +14,6 @@ export default function getTranslations(container) {
   translateElArrays.forEach(group => {
     let groupKey = group.getAttribute('data-group');
     let arrayItems = group.querySelectorAll('[data-item]');
-    console.log("array Items", arrayItems);
     if (groupKey !== null && arrayItems !== null) {
       let groupItems = {};
       arrayItems.forEach(item => {

@@ -18,9 +18,7 @@ export const buildCountyWebsiteLink = ({
   // Document where the data comes from
   let url = defaultUrl;
   if (county !== null && countyWebpages !== null) {
-    console.log("countyWebpages", countyWebpages, county);
     url = lookupCountyWebsite({ county, countyWebpages });
-    console.log("url", url);
   }
   // @TODO Add external link class handling.
   return `<p>

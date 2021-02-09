@@ -1,10 +1,5 @@
-import { replaceAllInMap } from "./getCountyMap";
-import { buildSchoolsCanReopen } from "./buildSchoolsCanReopen";
 import { buildTierCard } from "./buildTierCard";
 import { buildActivityCard } from "./buildActivityCard";
-import { buildRSHOActivityDisplay } from "./buildRSHOActivityDisplay";
-import { buildTierRestrictionActivityDisplay } from "./buildTierRestrictionActivityDisplay";
-import { buildSchoolCard } from "./buildSchoolCard";
 import { buildCountyWebsiteLink } from "./buildCountyWebsiteLink";
 
 /**
@@ -73,9 +68,6 @@ export const cardTemplate = ({
   allActivities = null,
   countyWebpages = null,
 }) => {
-  console.log("selectedCounties", selectedCounties);
-  console.log("countyWebpages", countyWebpages);
-
   if (selectedCounties.length > 0) {
     let cards = [];
     selectedCounties.forEach((selectedCounty) => {
@@ -101,7 +93,6 @@ export const cardTemplate = ({
       });
       cards.push(card);
     });
-    console.log("cards", cards);
     return cards.join("");
   }
   return ``;
@@ -149,22 +140,22 @@ const buildCard = ({
     countyWebsiteLink,
   });
 
-  // // Build the activity card.
-  // let activityCards = buildActivityCard({
-  //   activity,
-  //   allActivities,
-  //   showSchool: true,
-  //   seeGuidanceText,
-  //   regionsclosed,
-  //   countyRegions,
-  //   selectedCounty,
-  //   schoolLabels,
-  //   schoolsCanReopenList,
-  // });
+  // Build the activity card.
+  let activityCards = buildActivityCard({
+    activity,
+    allActivities,
+    showSchool: true,
+    seeGuidanceText,
+    regionsclosed,
+    countyRegions,
+    selectedCounty,
+    schoolLabels,
+    schoolsCanReopenList,
+    county
+  });
 
-  //
-  // ${activityCards}
   return `
     ${tierCard}
+    ${activityCards}
   `;
 };

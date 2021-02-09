@@ -39,11 +39,11 @@ export const buildTierCard = ({
   try {
     // @TODO the colors are flipped, we will try to flip them back.
     countyTier =
-      statusdesc.Table1[parseInt(selectedCounty["Overall Status"]) - 1][
+      statusdesc[parseInt(selectedCounty["Overall Status"]) - 1][
         "County tier"
       ];
     countyTierDescription =
-      statusdesc.Table1[parseInt(selectedCounty["Overall Status"]) - 1]
+      statusdesc[parseInt(selectedCounty["Overall Status"]) - 1]
         .description;
     tierStatus = selectedCounty["Overall Status"];
   } catch (error) {
@@ -67,7 +67,7 @@ export const buildTierCard = ({
           ${
             regionsclosed &&
             countyRegions &&
-            regionsclosed.Table1.filter(
+            regionsclosed.filter(
               (r) => r.region === countyRegions[selectedCounty.county]
             ).length > 0
               ? stayAtHomeOrder

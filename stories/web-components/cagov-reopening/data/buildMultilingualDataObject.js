@@ -27,6 +27,8 @@ export const buildMultilingualDataObject = ({
     pubDataApi,
     stateIndustryGuidance, // These are already compiled in the new v2 format
     activitySearchBusiness, // These are already compiled in the new v2 format
+    commonPageLabels,
+    commonPageLabelsApi,
 }) => {
     return  {
         content: "text",
@@ -77,5 +79,9 @@ export const buildMultilingualDataObject = ({
         },
         "activity-business-search-data": activitySearchBusiness,
         "state-industry-guidance": stateIndustryGuidance,
+        "common-page-labels": {
+            docs: commonPageLabelsApi,
+            data: commonPageLabels
+        }
     };
 }

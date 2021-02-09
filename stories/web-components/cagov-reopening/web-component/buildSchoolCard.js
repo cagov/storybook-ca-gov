@@ -1,5 +1,12 @@
 
-export const buildSchoolCard = ({ seeGuidanceText }) => {
+import { buildSchoolsCanReopen } from "./buildSchoolsCanReopen";
+
+export const buildSchoolCard = ({ 
+  seeGuidanceText, 
+  searchResultData,
+  selectedCounty,
+  schoolLabels
+}) => {
     // searchResultData[selectedCounty["Overall Status"]]
     // searchResultData["6"] ??
   
@@ -9,7 +16,7 @@ export const buildSchoolCard = ({ seeGuidanceText }) => {
         : searchResultData["6"]; // ?
     let guidanceDisplay =
       searchResultData["5"].indexOf("href") > -1
-        ? this.translationsStrings.seeGuidanceText
+        ? seeGuidanceText
         : ``; // ?
   
     return `

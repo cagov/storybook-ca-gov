@@ -1,4 +1,12 @@
 
+import { replaceAllInMap } from "./getCountyMap";
+import { buildSchoolsCanReopen } from "./buildSchoolsCanReopen";
+
+/**
+ * 
+ * @param {*} param0 
+ * @return HTML markup
+ */
 export const buildRSHOActivityDisplay = ({
     activityLabel = null,
     searchResultData = null,

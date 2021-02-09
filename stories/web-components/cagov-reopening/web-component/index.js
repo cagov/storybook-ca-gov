@@ -122,6 +122,11 @@ class CAGovReopening extends window.HTMLElement {
     });
     console.log("data", this.localData);
 
+    // data-json="{{pubData[language.id].saferEconomyLang.Table1[0] | dump | escape}}" data-schools="{{pubData['en'].commonPageLabels.Table6[0] | dump | escape}}">
+
+    // https://as-go-covid19-d-001.azurewebsites.net/wp-admin/post.php?post=6125&action=edit
+    // There are several tables, number 6 has three labels for schools
+
     // @TODO this will come from the html page.. (I think?) I think it's page content that's spliced into the card layout
     let theMatrix = document.querySelector(".the-matrix");
     if (theMatrix) {
@@ -147,24 +152,12 @@ class CAGovReopening extends window.HTMLElement {
     this.setupAutoCompleteActivity("#activity-query", "activity", bList);
 
     // Assign data to local variables.
-    console.log("localData", this.localData);
+    // console.log("localData", this.localData);
     this.countyRegions = this.localData.countyregions.data;
-    this.regionsclosed = this.localData.regionsclosed.data;
-    this.statusdesc = this.localData.statusdescriptors.data;
+    this.regionsclosed = this.localData.regionsclosed.data.Table1; // {array}
+    this.statusdesc = this.localData.statusdescriptors.data.Table1;
     this.schoolsCanReopenList = this.localData["schools-may-reopen"].data;
-    // this.localData["schools"[]
-
-    // this.schoolsText = this.dataset.schools? JSON.parse(this.dataset.schools) : {};
-    // reopening-activities
-    // 0: "Amusement parks"
-    // 1: "Larger parks open with modifications<br>– 25% capacity<br>– Reservations or advanced tickets required"
-    // 2: "Smaller parks open with modifications<br>– 25% capacity or 500 people, whichever is fewer<br>– Outdoor attractions only<br>– In-county visitors only<br>– Reservations or advance tickets required"
-    // 3: "Closed"
-    // 4: "Closed"
-    // 5: "&lt;a href=”https://covid19.ca.gov/industry-guidance/#theme-parks”&gt;Amusement parks and theme parks&lt;/a&gt;"
-    // 6: "Closed"
-
-    // @TODO see if we can keep these here or if need to come after localData
+    this.schoolsText = this.localData["common-page-labels"].data.Table6[0];
   }
 
   render() {
