@@ -26,6 +26,17 @@ export const WebComponent = (args) => {
         <li data-label="regionLabel">Region:</li>
         <li data-label="presetValueCounty">${args.countyValue}</li>
         <li data-label="presetValueActivity">${args.activityValue}</li>
+        <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
+        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
+        <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
+
+        
+
+        
+        
       </ul>
     </cagov-reopening>  
   `;

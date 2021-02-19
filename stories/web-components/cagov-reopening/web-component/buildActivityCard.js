@@ -2,9 +2,28 @@ import { buildSchoolActivityDisplay } from "./buildSchoolActivityDisplay";
 import { buildTierRestrictionActivityDisplay } from "./buildTierRestrictionActivityDisplay";
 import { buildSchoolCard } from "./buildSchoolCard";
 import { buildStateIndustryGuidanceCard } from "./buildStateIndustryGuidanceCard";
+
 /**
  * Get Activity data, including schools and RSHO information.
- * @param {*} param0
+ * @param {*} param.county - 
+ * @param {*} param.selectedCounty - 
+ * @param {*} param.selectedActivity - 
+ * @param {*} param.selectedActivities - 
+ * @param {*} param.allActivities - 
+ * @param {*} param.showSchool - 
+ * @param {*} param.seeGuidanceText - 
+ * @param {*} param.regionsclosed - 
+ * @param {*} param.countyRegions - 
+ * @param {*} param.viewAll - 
+ * @param {*} param.schoolLabels - 
+ * @param {*} param.schoolsCanReopenList - 
+ * @param {*} param.seeStateIndustryGuidanceLabel - (v2 label)
+ * @param {*} param.guidanceTemplate - (v2 label)
+ * @param {*} param.industryGuidancePdfLabel - (v2 label)
+ * @param {*} param.checklistPdfLabel - (v2 label)
+ * @param {*} param.additionalGuidanceLabel - (v2 label)
+ * stateIndustryGuidanceData
+ 
  * @return HTML markup
  */
 export const buildActivityCard = ({
@@ -20,6 +39,12 @@ export const buildActivityCard = ({
   viewAll = false,
   schoolLabels = null,
   schoolsCanReopenList = null,
+  seeStateIndustryGuidanceLabel = null,
+  stateIndustryGuidanceData = null,
+  guidanceTemplate = null,
+  industryGuidancePdfLabel = null,
+  checklistPdfLabel = null,
+  additionalGuidanceLabel = null,
 }) => {
 
   let isUnderRSHO = selectedCountyInRegionalStayAtHomeOrder({
@@ -28,6 +53,8 @@ export const buildActivityCard = ({
     selectedCounty,
   });
 
+  console.log("activity card", selectedActivity);
+
   let activityCards = [];
 
   if (selectedActivity !== null) {
@@ -35,6 +62,8 @@ export const buildActivityCard = ({
     if (selectedActivities.length > 0) {
       selectedActivities.forEach((searchResultData) => {
         let activityLabel = searchResultData["0"];
+
+        console.log("activity label", activityLabel);
         let schoolCard = "";
         if (showSchool === true) {
           schoolCard = buildSchoolCard({
@@ -74,39 +103,38 @@ export const buildActivityCard = ({
           //     <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac[item['Overall Status']]}</p>
           //     <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.json.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
           //   </div>`
-        } else {
-          activityCard = buildTierRestrictionActivityDisplay({
-            activityLabel,
-            searchResultData,
-            seeGuidanceText,
-            county,
-            selectedCounty,
-            schoolLabels,
-          });
-          // console.log("activityCard (tier restriction):", activityCard);
-        }
 
-        let stateGuidanceCard = "";
-        stateGuidanceCard = buildStateIndustryGuidanceCard({
+        } 
+
+        activityCard = buildTierRestrictionActivityDisplay({
           activityLabel,
-          // county,
-          // stateIndustryGuidanceData,
-          // seeStateGuidance, // = "See state industry guidance", // @TODO add as data label
-          // guidanceTemplate, // = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span>`,
-          // moreLanguages, // = "More languages",
-          // industryGuidancePdfLabel, // = `Industry guidance for <span data-attribute="activityLabel"></span>`,
-          // checklistPdfLabel, // = `Checklist for <span data-attribute="activityLabel"></span>`,
-          // additionalGuidanceLabel, // = "Depending on your business operations, other guidance may apply",
+          searchResultData,
+          seeGuidanceText,
+          county,
+          selectedCounty,
+          schoolLabels,
         });
 
-        // activityCards.push(`
-        //     ${schoolCard}
-        //     ${activityCard}
-        //     ${stateGuidanceCard}
-        //   `);
+        let stateGuidanceCard = "";
+
+
+        // Build state guidance results
+        stateGuidanceCard = buildStateIndustryGuidanceCard({
+          activityLabel,
+          county,
+          stateIndustryGuidanceData,
+          seeStateIndustryGuidanceLabel,
+          guidanceTemplate,
+          industryGuidancePdfLabel,
+          checklistPdfLabel,
+          additionalGuidanceLabel,
+          resultType: "default"
+        });
 
         activityCards.push(`
+          ${schoolCard}
           ${activityCard}
+          ${stateGuidanceCard}
         `);
       });
     }
@@ -138,3 +166,17 @@ const selectedCountyInRegionalStayAtHomeOrder = ({
   }
   return false;
 };
+
+/**
+ * 
+ * @param {array} param.data — Array of objects with languages
+ * @return 
+ */
+const buildMoreLanguages = ({
+  data = null,
+  allowedLanguages = null,
+
+}) => {
+
+  return "languages";
+}

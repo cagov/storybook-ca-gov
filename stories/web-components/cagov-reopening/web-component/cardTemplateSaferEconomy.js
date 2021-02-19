@@ -67,6 +67,12 @@ export const cardTemplate = ({
   selectedActivity = null,
   allActivities = null,
   countyWebpages = null,
+  seeStateIndustryGuidanceLabel = null,
+  guidanceTemplate = null,
+  industryGuidancePdfLabel = null,
+  checklistPdfLabel = null,
+  additionalGuidanceLabel = null,
+  stateIndustryGuidanceData = null,
 }) => {
   console.log(
     "cardTemplate selectedCounties",
@@ -82,9 +88,13 @@ export const cardTemplate = ({
   );
   let cards = [];
 
-  if (selectedCounties.length > 0) {
+  if (selectedCounties.length > 0 && selectedActivities.length > 0) {
     // Some county selected
+    console.log("selectedCounties and activities", selectedCounties);
+
     selectedCounties.forEach((selectedCounty) => {
+      console.log("county Select", selectedCounty);
+
       let card = buildCard({
         selectedCounty,
         selectedActivity,
@@ -105,14 +115,24 @@ export const cardTemplate = ({
         countyWebpages,
         countyRestrictionsCountyWebsiteLabel,
         seeGuidanceText,
+        seeStateIndustryGuidanceLabel,
+        guidanceTemplate,
+        industryGuidancePdfLabel,
+        checklistPdfLabel,
+        additionalGuidanceLabel,
+        stateIndustryGuidanceData
       });
       cards.push(card);
     });
-  } else {
-    // No county selected
-    selectedActivities.forEach((selectedActivity) => {
+  } else if (selectedCounties.length > 0 && selectedActivities.length === 0) {
+    // Some county selected
+    console.log("selectedCounties ", selectedCounties);
+
+    selectedCounties.forEach((selectedCounty) => {
+      console.log("county Select", selectedCounty);
+
       let card = buildCard({
-        selectedCounty: null,
+        selectedCounty,
         selectedActivity,
         selectedActivities,
         allActivities,
@@ -131,6 +151,49 @@ export const cardTemplate = ({
         countyWebpages,
         countyRestrictionsCountyWebsiteLabel,
         seeGuidanceText,
+        seeStateIndustryGuidanceLabel,
+        guidanceTemplate,
+        industryGuidancePdfLabel,
+        checklistPdfLabel,
+        additionalGuidanceLabel,
+        stateIndustryGuidanceData
+      });
+      cards.push(card);
+    });
+  } else {
+
+    console.log("selectedActivities", selectedActivities);
+
+    // No county selected
+    selectedActivities.forEach((selectedActivity) => {
+      let card = buildCard({
+        selectedCounty: {
+          county: ""
+        },
+        selectedActivity,
+        selectedActivities,
+        allActivities,
+        selectedCounties,
+        schoolsCanReopenList,
+        schoolLabels,
+        schoolReopeningStatuses,
+        county,
+        countyRegions,
+        regionsclosed,
+        tierStatusDescriptors,
+        regionLabel,
+        understandTheData,
+        understandTheDataLink,
+        countyRestrictionsAdvice,
+        countyWebpages,
+        countyRestrictionsCountyWebsiteLabel,
+        seeGuidanceText,
+        seeStateIndustryGuidanceLabel,
+        guidanceTemplate,
+        industryGuidancePdfLabel,
+        checklistPdfLabel,
+        additionalGuidanceLabel,
+        stateIndustryGuidanceData,
       });
       cards.push(card);
     });
@@ -159,6 +222,12 @@ const buildCard = ({
   seeGuidanceText = null,
   stayAtHomeOrder = `<p>Under <a href="/stay-home-except-for-essential-needs/#regional-stay-home-order">Regional Stay Home Order</a></p>`,
   countyWebpages = null,
+  seeStateIndustryGuidanceLabel = null,
+  guidanceTemplate = null,
+  industryGuidancePdfLabel = null,
+  checklistPdfLabel = null,
+  additionalGuidanceLabel = null,
+  stateIndustryGuidanceData = null,
 }) => {
   
   // Create link to county covid-19 website.
@@ -188,6 +257,7 @@ const buildCard = ({
     selectedActivity,
     selectedActivities,
     allActivities,
+    stateIndustryGuidanceData,
     showSchool: true,
     seeGuidanceText,
     regionsclosed,
@@ -196,6 +266,11 @@ const buildCard = ({
     selectedCounty,
     schoolLabels,
     schoolsCanReopenList,
+    seeStateIndustryGuidanceLabel,
+    guidanceTemplate,
+    industryGuidancePdfLabel,
+    checklistPdfLabel,
+    additionalGuidanceLabel,
   });
 
   return `

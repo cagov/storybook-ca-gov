@@ -47,7 +47,7 @@ export const buildTierCard = ({
   console.log("tier card selectedCounty", selectedCounty);
   try {
     // @TODO the colors are flipped, we will try to flip them back this time to match what's in Snowflake
-    if (selectedCounty !== null) {
+    if (selectedCounty.length > 0 && selectedCounty !== null) {
       countyTier =
         tierStatusDescriptors[parseInt(selectedCounty["Overall Status"]) - 1][
           "County tier"
@@ -57,12 +57,15 @@ export const buildTierCard = ({
           .description;
 
       tierStatus = selectedCounty["Overall Status"];
-    }
 
-  return `<div class="card-county">
+      return `<div class="card-county">
 
           ${
-            selectedCounty !== null && selectedCounty.county !== undefined ? `<h2>${selectedCounty.county}</h2>` : ""
+            selectedCounty !== undefined &&
+            selectedCounty.county !== undefined &&
+            selectedCounty !== null
+              ? `<h2>${selectedCounty.county}</h2>`
+              : ""
           }
         
           ${
@@ -85,24 +88,31 @@ export const buildTierCard = ({
               : ""
           }
 
-          ${tierStatus !== null ? 
-          `<div class="county-color-${tierStatus}">
+          ${
+            tierStatus !== null
+              ? `<div class="county-color-${tierStatus}">
             <div class="pill">${countyTier}</div>
             
             <p>${countyTierDescription}. 
                 <a href="${understandTheDataLink}">${understandTheData}</a>
             </p>
-          </div>` : null
-            }
+          </div>`
+              : null
+          }
           
           <p>
               ${countyRestrictionsAdvice} 
               ${countyWebsiteLink}
           </p>
       </div>`;
+    } else {
+      // No Tier Status
+      // return `<div class="card-county">
 
-    } catch (error) {
-      console.error("Error rendering tier card", error);
+      // </div>`;
     }
-    return ``;
+  } catch (error) {
+    console.error("Error rendering tier card", error);
+  }
+  return ``;
 };

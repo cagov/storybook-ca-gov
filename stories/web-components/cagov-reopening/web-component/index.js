@@ -277,7 +277,6 @@ class CAGovReopening extends window.HTMLElement {
     if (this.state.county.length === 0 && this.state.activity.length === 0) {
       this.querySelector(".card-holder").innerHTML = "";
     } else {
-      
       this.layoutCards();
     }
   }
@@ -532,6 +531,12 @@ class CAGovReopening extends window.HTMLElement {
       countyRestrictionsCountyWebsiteLabel: this.translationsStrings.countyRestrictionsCountyWebsiteLabel,
       seeGuidanceText: this.translationsStrings.seeGuidanceText,
       countyWebpages: this.localData['covid19-county-webpages'].data, // all data
+      seeStateIndustryGuidanceLabel: this.translationsStrings.seeStateIndustryGuidanceLabel,
+      guidanceTemplate: this.translationsStrings.guidanceTemplate,
+      industryGuidancePdfLabel: this.translationsStrings.industryGuidancePdfLabel,
+      checklistPdfLabel: this.translationsStrings.checklistPdfLabel,
+      additionalGuidanceLabel: this.translationsStrings.additionalGuidanceLabel,
+      stateIndustryGuidanceData: this.localData['state-industry-guidance'].data,
     });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed:
