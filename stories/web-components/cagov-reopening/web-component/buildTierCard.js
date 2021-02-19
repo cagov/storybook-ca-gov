@@ -69,7 +69,6 @@ export const buildTierCard = ({
       tierStatus = selectedCounty["Overall Status"];
 
       return `<div class="card-county">
-          County result
           ${
             selectedCounty !== undefined &&
             selectedCounty !== null &&
@@ -118,7 +117,6 @@ export const buildTierCard = ({
     } else {
       // No Tier Status
       return `<div class="card-county">
-        No Selected County
       </div>`;
     }
   } catch (error) {

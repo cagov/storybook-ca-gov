@@ -1,9 +1,9 @@
 // Show clear button only if there is a value (County)
-export const inputValueCounty = (e) => {
+export const inputValueCounty = (e, hasCountyInput) => {
   // console.log("county", e);
   var countyInput = document.getElementById("location-query");
   var clearCounty = document.getElementById("clearLocation");
-  if (countyInput && countyInput.value) {
+  if (hasCountyInput === true) {
     clearCounty.classList.remove("d-none");
   } else {
     clearCounty.classList.add("d-none");
@@ -11,11 +11,11 @@ export const inputValueCounty = (e) => {
 };
 
 // Show clear button only if there is a value (Activity)
-export const inputValueActivity = (e) => {
+export const inputValueActivity = (e, hasActivityInput) => {
   console.log("activity", e);
   var activityInput = document.getElementById("activity-query");
   var clearActivity = document.getElementById("clearActivity");
-  if (activityInput && activityInput.value) {
+  if (hasActivityInput === true) {
     clearActivity.classList.remove("d-none");
   } else {
     clearActivity.classList.add("d-none");

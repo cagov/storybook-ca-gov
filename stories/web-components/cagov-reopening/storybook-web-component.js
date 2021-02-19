@@ -32,11 +32,8 @@ export const WebComponent = (args) => {
         <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
         <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
         <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
-
-        
-
-        
-        
+        <li data-label="emptySearchError">No County or Activity Selected</li>
+        <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
       </ul>
     </cagov-reopening>  
   `;

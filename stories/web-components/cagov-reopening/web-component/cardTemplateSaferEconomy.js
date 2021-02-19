@@ -73,6 +73,8 @@ export const cardTemplate = ({
   checklistPdfLabel = null,
   additionalGuidanceLabel = null,
   stateIndustryGuidanceData = null,
+  hasActivityInput = null,
+  hasCountyInput = null,
 }) => {
   // console.log(
   //   "cardTemplate selectedCounties",
@@ -120,7 +122,9 @@ export const cardTemplate = ({
         industryGuidancePdfLabel,
         checklistPdfLabel,
         additionalGuidanceLabel,
-        stateIndustryGuidanceData
+        stateIndustryGuidanceData,
+        hasActivityInput,
+        hasCountyInput,
       });
       cards.push(card);
     });
@@ -156,7 +160,9 @@ export const cardTemplate = ({
         industryGuidancePdfLabel,
         checklistPdfLabel,
         additionalGuidanceLabel,
-        stateIndustryGuidanceData
+        stateIndustryGuidanceData,
+        hasActivityInput,
+        hasCountyInput,
       });
       cards.push(card);
     });
@@ -194,6 +200,8 @@ export const cardTemplate = ({
         checklistPdfLabel,
         additionalGuidanceLabel,
         stateIndustryGuidanceData,
+        hasActivityInput,
+        hasCountyInput,
       });
       cards.push(card);
     });
@@ -228,6 +236,8 @@ const buildCard = ({
   checklistPdfLabel = null,
   additionalGuidanceLabel = null,
   stateIndustryGuidanceData = null,
+  hasActivityInput,
+  hasCountyInput,
 }) => {
   
   // Create link to county covid-19 website.
@@ -250,6 +260,8 @@ const buildCard = ({
     countyRestrictionsAdvice,
     county,
     countyWebsiteLink,
+    hasActivityInput,
+    hasCountyInput,
   });
 
   // Build the activity card.
@@ -271,6 +283,8 @@ const buildCard = ({
     industryGuidancePdfLabel,
     checklistPdfLabel,
     additionalGuidanceLabel,
+    hasActivityInput,
+    hasCountyInput,
   });
 
   return `

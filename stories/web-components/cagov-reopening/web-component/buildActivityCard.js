@@ -45,6 +45,8 @@ export const buildActivityCard = ({
   industryGuidancePdfLabel = null,
   checklistPdfLabel = null,
   additionalGuidanceLabel = null,
+  hasActivityInput = false,
+  hasCountyInput = false,
 }) => {
   // Set up strings to render conditionally.
   let schoolCard = "";
@@ -64,10 +66,10 @@ export const buildActivityCard = ({
   let activityCards = [];
 
   console.log("Build Activity Card", selectedActivity, county)
-  if (selectedActivity !== null && selectedActivity !== "" && selectedActivity.length > 0) {
+  if (hasActivityInput === true) {
     // We have selected activities
     console.log("has selected activity")
-  } else if (county !== null) {
+  } else if (hasCountyInput === true && hasActivityInput === false) {
     // We have a county selected, but not activities, show them all.
     selectedActivities = allActivities;
     console.log(selectedActivities.length);

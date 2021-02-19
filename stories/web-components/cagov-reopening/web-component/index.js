@@ -143,7 +143,7 @@ class CAGovReopening extends window.HTMLElement {
     this.countyStatuses.forEach((c) => {
       countyAutocompleteList.push(c.county);
     });
-
+    console.log("countyAutocompleteList", countyAutocompleteList);
     // Set up autocomplete data for activity search
     this.allActivities = this.localData["reopening-activities"].data.Table1;
 
@@ -179,20 +179,22 @@ class CAGovReopening extends window.HTMLElement {
     // Get the input element.
     var countyInput = document.getElementById("location-query");
     var activityInput = document.getElementById("activity-query");
-
+    
+    let hasCountyInput = this.hasCountyInput();
+    let hasActivityInput = this.hasActivityInput();
     // @TODO Add enter form submission for accessibility for all interactions
 
     if (countyInput) {
       // Show clear button only on input or blur (County)
       countyInput.addEventListener("input", function (e) {
         console.log("input county input", e);
-        inputValueCounty(e);
+        inputValueCounty(e, hasCountyInput);
         // this.changeLocationInput(countyInput.value);
       });
 
       countyInput.addEventListener("blur", function (e) {
         console.log("blurred county input", e);
-        inputValueCounty(e);
+        inputValueCounty(e, hasCountyInput);
         // this.changeLocationInput(countyInput.value);
       });
     }
@@ -201,19 +203,18 @@ class CAGovReopening extends window.HTMLElement {
       // Show clear button only on input or blur (Activity)
       activityInput.addEventListener("input", function (e) {
         console.log("input activity input", e);
-        inputValueActivity(e);
+        inputValueActivity(e, hasActivityInput);
         // this.changeActivityInput(activityInput.value);
       });
 
       activityInput.addEventListener("blur", function (e) {
         console.log("input activity blur", e);
-        inputValueActivity(e);
+        inputValueActivity(e, hasActivityInput);
         // this.changeActivityInput(activityInput.value);
       });
     }
 
-    let hasCountyInput = this.hasCountyInput();
-    let hasActivityInput = this.hasActivityInput();
+
     console.log("hasCountyInput", hasCountyInput, "hasActivityInput", hasActivityInput, this.initialLoad);
 
     // If values preset, run the search.
@@ -396,6 +397,9 @@ class CAGovReopening extends window.HTMLElement {
         component.layoutCards();
         document.querySelector(fieldSelector).blur();
       },
+      sort: (a, b) => {
+        return countyAutocompleteList.indexOf(a.label) < countyAutocompleteList.indexOf(b.label) ? -1 : 1;
+      },
       list: countyAutocompleteList,
     };
 
@@ -511,7 +515,7 @@ class CAGovReopening extends window.HTMLElement {
         // console.log("viewAllActivities", viewAllActivities, "viewAllCounties", viewAllCounties);
     
         // Q: How many statuses are supported? Had there been a plan to show multiple counties?
-        if (this.state["county"]) {
+        if (this.hasCountyInput()) {
           selectedCounties = [];
           this.countyStatuses.forEach((item) => {
             if (item.county == this.state["county"] || viewAllCounties === true) {
@@ -520,7 +524,7 @@ class CAGovReopening extends window.HTMLElement {
           });
         }
     
-        if (this.state["activity"]) {
+        if (this.hasActivityInput()) {
           // Build list of selected activities
           this.allActivities.forEach((searchResultData) => {
             if (searchResultData["0"] === this.state["activity"] || viewAllActivities === true) {
@@ -534,13 +538,12 @@ class CAGovReopening extends window.HTMLElement {
         this.selectedCounties = selectedCounties;
         this.viewAllActivities = viewAllActivities;
         this.viewAllCounties = viewAllCounties;
-
-        // console.log("selectedCounties", this.selectedCounties, "selectedActivities", this.selectedActivities);
   }
 
   layoutCards() {
 
-    // console.log("laying out cards", this.localData);
+    console.log("laying out cards", this.localData);
+    console.log("state", this.state);
 
     this.cardHTML = "";
 
@@ -570,6 +573,8 @@ class CAGovReopening extends window.HTMLElement {
       industryGuidancePdfLabel: this.translationsStrings.industryGuidancePdfLabel,
       checklistPdfLabel: this.translationsStrings.checklistPdfLabel,
       additionalGuidanceLabel: this.translationsStrings.additionalGuidanceLabel,
+      hasCountyInput: this.hasCountyInput(),
+      hasActivityInput: this.hasActivityInput(),
     });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed:

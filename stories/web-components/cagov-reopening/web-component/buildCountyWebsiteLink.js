@@ -19,6 +19,7 @@ export const buildCountyWebsiteLink = ({
   let url = defaultUrl;
   if (county !== null && countyWebpages !== null) {
     url = lookupCountyWebsite({ county, countyWebpages });
+    console.log("county url", url);
   }
 
   // @TODO Add external link class handling.
@@ -100,10 +101,13 @@ const replaceMarkupAttributeContent = ({
  */
 const lookupCountyWebsite = ({ county = null, countyWebpages = null }) => {
   let result = null;
+  console.log("countyWebpages", countyWebpages, county);
   if (countyWebpages !== null && county !== null) {
     let countyWebpage = countyWebpages.filter((page) => {
-      return page.fields.id === county;
+      console.log("match", page.fields.id, county, page.fields.id === county );
+      return page.fields.county_label === county;
     });
+    console.log("countyWebpage", countyWebpage);
     if (
       countyWebpage !== undefined &&
       countyWebpage.length > 0 &&

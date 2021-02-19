@@ -26,8 +26,8 @@ export default function template(json) {
               role="status"
               aria-live="assertive"
               aria-atomic="true"
-              >Type 2 or more characters for results.</span
-            >
+              >${json.enterMoreCharacters}
+            </span>
             <div id="location-error" style="visibility: hidden" class="reopening-field-error text-danger text-small text-left">${json.countyNotFound}</div>
           </div>
         </div>
@@ -47,12 +47,14 @@ export default function template(json) {
               type="text"
               placeholder="${json.activityPlaceholder}"
             />
+            
             <button type="button" class="clear d-none" id="clearActivity"><span class="ca-gov-icon-close-line" aria-hidden="true"></span> <span class="underline">${json.clearText}</span></button>
+
             <div id="activity-error" style="visibility: hidden" class="reopening-field-error text-danger text-small text-left">${json.activityNotFound}</div>
           </div>
         </div>
       </div>
-      <div id="reopening-error" style="visibility: hidden" class="reopening-form-error mb-1 text-danger text-small text-center">${json.emptySearchError}</div>
+      <div id="reopening-error" style="visibility: hidden" class="reopening-form-error mb-1 text-danger text-small text-center">${json.emptySearchError !== undefined ? json.emptySearchError : ""}</div>
       <button type="submit" id="reopening-submit" class="btn btn-primary">${json.buttonText}</button>
     </form>
     <div class="card-holder"></div>
