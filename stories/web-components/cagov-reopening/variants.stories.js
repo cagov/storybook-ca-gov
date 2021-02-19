@@ -50,13 +50,13 @@ CountyActivityEn.args = {
 /**
 * Connect Figma Frame
 */
-CountyActivityEn.parameters = {
-  design: {
-    type: "figma",
-    url:
-      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A168",
-  },
-};
+// CountyActivityEn.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A168",
+//   },
+// };
 
 export const ActivityOnlyEn = Template.bind({});
 ActivityOnlyEn.args = {
@@ -69,16 +69,16 @@ ActivityOnlyEn.args = {
 /**
 * Connect Figma Frame
 */
-ActivityOnlyEn.parameters = {
-  design: {
-    type: "figma",
-    url:
-      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
-  },
-};
+// ActivityOnlyEn.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+//   },
+// };
 
 export const NoCountyActivityEn = Template.bind({});
-ActivityOnlyEn.args = {
+NoCountyActivityEn.args = {
   countyValue: '',
   activityValue: '',
   language: 'en',
@@ -88,10 +88,109 @@ ActivityOnlyEn.args = {
 /**
 * Connect Figma Frame
 */
-NoCountyActivityEn.parameters = {
-  design: {
-    type: "figma",
-    url:
-      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
-  },
+// NoCountyActivityEn.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+//   },
+// };
+
+export const SchoolsCountyEn = Template.bind({});
+SchoolsCountyEn.args = {
+  countyValue: 'Alameda',
+  activityValue: 'Schools',
+  language: 'en',
+  data: data['en'],
 };
+
+/**
+* Connect Figma Frame
+*/
+// SchoolsCountyEn.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+//   },
+// };
+
+export const SchoolsNoCountyEn = Template.bind({});
+SchoolsNoCountyEn.args = {
+  countyValue: '',
+  activityValue: 'Schools',
+  language: 'en',
+  data: data['en'],
+};
+
+/**
+* Connect Figma Frame
+*/
+// SchoolsNoCountyEn.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+//   },
+// };
+
+
+export const RSHOActivityCountyEn = Template.bind({});
+RSHOActivityCountyEn.args = {
+  countyValue: 'Yolo',
+  activityValue: 'Aquariums',
+  isUnderRSHO: true,
+  language: 'en',
+  data: data['en'],
+};
+
+/**
+* Connect Figma Frame
+*/
+// RSHOActivityCountyEn.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+//   },
+// };
+
+export const RSHOSchoolsCountyEn = Template.bind({});
+RSHOSchoolsCountyEn.args = {
+  countyValue: 'Yolo',
+  activityValue: 'Schools',
+  isUnderRSHO: true,
+  language: 'en',
+  data: data['en'],
+};
+
+/**
+* Connect Figma Frame
+*/
+// RSHOActivityCountyEn.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+//   },
+// };
+
+export const RSHOSchoolsNoCountyEn = Template.bind({});
+RSHOSchoolsNoCountyEn.args = {
+  countyValue: '',
+  activityValue: 'Schools',
+  isUnderRSHO: true,
+  language: 'en',
+  data: data['en'],
+};
+
+/**
+* Connect Figma Frame
+*/
+// RSHOActivityCountyEn.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+//   },
+// };
