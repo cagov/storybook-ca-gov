@@ -1,7 +1,6 @@
 import { withDesign } from "storybook-addon-designs";
 import { WebComponentTranslated as WebComponent } from './storybook-web-component';
 import { data } from "./data";
-// console.log(data);
 
 export default {
   title: 'covid19/cagov-reopening/Variants',
@@ -40,8 +39,8 @@ CountyOnlyEn.parameters = {
 };
 
 export const CountyOnlyEs = Template.bind({});
-CountyOnlyEn.args = {
-  countyValue: 'Alameda',
+CountyOnlyEs.args = {
+  countyValue: 'San Francisco',
   activityValue: '',
   language: 'es',
   data: data['es'],
@@ -49,13 +48,13 @@ CountyOnlyEn.args = {
 /**
 * Connect Figma Frame
 */
-CountyOnlyEs.parameters = {
-  design: {
-    type: "figma",
-    url:
-      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
-  },
-};
+// CountyOnlyEs.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
+//   },
+// };
 
 export const CountyOnlyTl = Template.bind({});
 CountyOnlyEn.args = {
