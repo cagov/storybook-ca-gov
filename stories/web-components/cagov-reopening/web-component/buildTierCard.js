@@ -39,73 +39,62 @@ export const buildTierCard = ({
   countyRestrictionsAdvice = null,
   county = null,
   countyWebsiteLink = null,
+  hasActivityInput = false,
+  hasCountyInput = false,
+  policies = null,
 }) => {
-  let countyTier = null;
+  let countyTierData = null;
   let countyTierDescription = null;
   let tierStatus = null;
-
+  let isUnderRSHO = false;
   // console.log("tier card selectedCounty", selectedCounty.county, selectedCounty);
 
   try {
+    if (policies !== null) {
+      if (policies.isUnderRSHO !== undefined) {
+        isUnderRSHO == policies.isUnderRSHO;
+      }
+    }
+
     // @TODO the colors are flipped, we will try to flip them back this time to match what's in Snowflake
-    if (
-      selectedCounty !== undefined &&
-      selectedCounty !== null &&
-      selectedCounty.county !== undefined &&
-      selectedCounty.county !== null &&
-      selectedCounty.county.length > 0
-    ) {
-
+    if (hasCountyInput === true) {
       // @TODO the status descriptors are probably flipped
-
-      countyTier =
-        tierStatusDescriptors[parseInt(selectedCounty["Overall Status"]) - 1][
-          "County tier"
-        ];
-      countyTierDescription =
-        tierStatusDescriptors[parseInt(selectedCounty["Overall Status"]) - 1]
-          .description;
-
       tierStatus = selectedCounty["Overall Status"];
+      countyTierData = getCountyTier({
+        tierStatusDescriptors,
+        tierStatus,
+        selectedCounty
+      });
 
       return `<div class="card-county">
-          ${
-            selectedCounty !== undefined &&
-            selectedCounty !== null &&
-            selectedCounty.county !== undefined
-              ? `<h2>${selectedCounty.county}</h2>`
-              : ""
-          }
+          ${hasCountyInput === true ? `<h2>${selectedCounty.county}</h2>` : ""}
         
           ${
-            countyRegions
-              ? "<h3>" +
-                regionLabel +
-                " " +
-                countyRegions[selectedCounty.county] +
-                "</h3>"
+            isUnderRSHO && countyRegions
+              ? `<h3>${regionLabel} ${
+                  countyRegions[selectedCounty.county]
+                }</h3>`
               : ""
           }
     
-          ${
-            regionsclosed &&
-            countyRegions &&
-            regionsclosed.filter(
-              (r) => r.region === countyRegions[selectedCounty.county]
-            ).length > 0
-              ? stayAtHomeOrder
-              : ""
-          }
+          ${isUnderRSHO ? stayAtHomeOrder : ""}
 
           ${
             tierStatus !== null
               ? `<div class="county-color-${tierStatus}">
-            <div class="pill">${countyTier}</div>
-            
-            <p>${countyTierDescription}. 
-                <a href="${understandTheDataLink}">${understandTheData}</a>
-            </p>
-          </div>`
+                  ${
+                    countyTierData.countyTier !== null
+                      ? `<div class="pill">${countyTierData.countyTier}</div>`
+                      : ""
+                  }
+                  ${
+                    countyTierData.countyTierDescription !== null
+                      ? `<p>${countyTierData.countyTierDescription}. 
+                      <a href="${understandTheDataLink}">${understandTheData}</a>
+                  </p>`
+                      : ""
+                  }
+                </div>`
               : null
           }
           
@@ -123,4 +112,27 @@ export const buildTierCard = ({
     console.error("Error rendering tier card", error);
   }
   return ``;
+};
+
+const getCountyTier = ({ tierStatusDescriptors = null, tierStatus = null, selectedCounty = null }) => {
+  try {
+    let countyTier = "";
+    let countyTierDescription = "";
+
+    if (tierStatusDescriptors !== null && tierStatus !== null) {
+      let currentStatus = parseInt(selectedCounty["Overall Status"]) - 1;
+      if (tierStatusDescriptors[currentStatus] !== undefined) {
+        countyTier = tierStatusDescriptors[currentStatus]["County tier"];
+        countyTierDescription =
+          tierStatusDescriptors[currentStatus].description;
+        return {
+          countyTier,
+          countyTierDescription,
+        };
+      }
+    }
+  } catch (error) {
+    console.error("Error getCountyTier", error);
+    return null;
+  }
 };

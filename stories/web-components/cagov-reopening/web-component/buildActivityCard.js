@@ -47,6 +47,7 @@ export const buildActivityCard = ({
   additionalGuidanceLabel = null,
   hasActivityInput = false,
   hasCountyInput = false,
+  policies = null,
 }) => {
   // Set up strings to render conditionally.
   let schoolCard = "";
@@ -54,14 +55,6 @@ export const buildActivityCard = ({
   let activityCard = "";
   let rshoCard = "";
   let stateGuidanceCard = "";
-
-  // Check regional stay at home order status for this county
-  // (...and other policy checks as needed)
-  let isUnderRSHO = selectedCountyInRegionalStayAtHomeOrder({
-    regionsclosed,
-    countyRegions,
-    selectedCounty,
-  });
 
   let activityCards = [];
 
@@ -85,9 +78,7 @@ export const buildActivityCard = ({
           searchResultData,
           selectedCounty,
           schoolLabels,
-          policies: {
-            isUnderRSHO: isUnderRSHO,
-          },
+          policies,
         });
       }
 
@@ -99,9 +90,7 @@ export const buildActivityCard = ({
         schoolLabels,
         schoolsCanReopenList,
         county,
-        policies: {
-          isUnderRSHO: isUnderRSHO,
-        },
+        policies,
       });
 
       activityCard = buildTierRestrictionActivityDisplay({
@@ -111,9 +100,7 @@ export const buildActivityCard = ({
         county,
         selectedCounty,
         schoolLabels,
-        policies: {
-          isUnderRSHO: isUnderRSHO,
-        },
+        policies,
       });
 
       // Build state guidance results
@@ -127,9 +114,7 @@ export const buildActivityCard = ({
         checklistPdfLabel,
         additionalGuidanceLabel,
         resultType: "default",
-        policies: {
-          isUnderRSHO: isUnderRSHO,
-        },
+        policies,
       });
       activityCards.push(`
           ${schoolCard}
@@ -139,30 +124,6 @@ export const buildActivityCard = ({
     });
   }
   return activityCards.join("");
-};
-
-/**
- * Check if the current selected county is in one of the RSHO closed regions.
- * @param {*} param0
- * @return {bool}
- */
-const selectedCountyInRegionalStayAtHomeOrder = ({
-  regionsclosed = null,
-  countyRegions = null,
-  selectedCounty = null,
-}) => {
-  try {
-    if (regionsclosed && countyRegions && selectedCounty) {
-      return (
-        regionsclosed.filter(
-          (r) => r.region === countyRegions[selectedCounty.county]
-        ).length > 0
-      );
-    }
-  } catch (error) {
-    console.error(error);
-  }
-  return false;
 };
 
 /**

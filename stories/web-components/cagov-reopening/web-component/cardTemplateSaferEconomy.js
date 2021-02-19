@@ -75,6 +75,7 @@ export const cardTemplate = ({
   stateIndustryGuidanceData = null,
   hasActivityInput = null,
   hasCountyInput = null,
+  policies = null,
 }) => {
   // console.log(
   //   "cardTemplate selectedCounties",
@@ -125,6 +126,7 @@ export const cardTemplate = ({
         stateIndustryGuidanceData,
         hasActivityInput,
         hasCountyInput,
+        policies
       });
       cards.push(card);
     });
@@ -163,6 +165,7 @@ export const cardTemplate = ({
         stateIndustryGuidanceData,
         hasActivityInput,
         hasCountyInput,
+        policies
       });
       cards.push(card);
     });
@@ -202,6 +205,7 @@ export const cardTemplate = ({
         stateIndustryGuidanceData,
         hasActivityInput,
         hasCountyInput,
+        policies
       });
       cards.push(card);
     });
@@ -238,6 +242,7 @@ const buildCard = ({
   stateIndustryGuidanceData = null,
   hasActivityInput,
   hasCountyInput,
+  policies,
 }) => {
   
   // Create link to county covid-19 website.
@@ -262,6 +267,7 @@ const buildCard = ({
     countyWebsiteLink,
     hasActivityInput,
     hasCountyInput,
+    policies,
   });
 
   // Build the activity card.
@@ -285,6 +291,7 @@ const buildCard = ({
     additionalGuidanceLabel,
     hasActivityInput,
     hasCountyInput,
+    policies
   });
 
   return `

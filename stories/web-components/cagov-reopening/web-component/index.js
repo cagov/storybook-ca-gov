@@ -549,6 +549,14 @@ class CAGovReopening extends window.HTMLElement {
 
     this.cardDisplayLogic();
 
+    let policies = {
+      isUnderRSHO: this.selectedCountyInRegionalStayAtHomeOrder({
+        regionsclosed: this.regionsclosed,
+        countyRegions: this.countyRegions,
+        selectedCounty: this.state["county"],
+      })
+    }
+
     this.cardHTML = cardTemplate({
       county: this.state["county"],
       selectedActivity: this.state["activity"],
@@ -563,6 +571,7 @@ class CAGovReopening extends window.HTMLElement {
       regionsclosed: this.regionsclosed,
       allActivities: this.allActivities,
       understandTheData: this.translationsStrings.understandTheData,
+      understandTheDataLink: this.translationsStrings.understandTheDataLink,
       countyRestrictionsAdvice: this.translationsStrings.countyRestrictionsAdvice,
       countyRestrictionsCountyWebsiteLabel: this.translationsStrings.countyRestrictionsCountyWebsiteLabel,
       seeGuidanceText: this.translationsStrings.seeGuidanceText,
@@ -595,6 +604,32 @@ class CAGovReopening extends window.HTMLElement {
     });
     window.dispatchEvent(event);
   }
+
+
+/**
+ * Check if the current selected county is in one of the RSHO closed regions.
+ * @param {*} param0
+ * @return {bool}
+ */
+selectedCountyInRegionalStayAtHomeOrder({
+  regionsclosed = null,
+  countyRegions = null,
+  selectedCounty = null,
+}) {
+  try {
+    if (regionsclosed && countyRegions && selectedCounty) {
+      return (
+        regionsclosed.filter(
+          (r) => r.region === countyRegions[selectedCounty.county]
+        ).length > 0
+      );
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  return false;
+};
+
 }
 
 window.customElements.define("cagov-reopening", CAGovReopening);
