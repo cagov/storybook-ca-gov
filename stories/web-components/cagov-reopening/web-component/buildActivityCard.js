@@ -32,7 +32,6 @@ export const buildActivityCard = ({
   selectedActivity = null,
   selectedActivities = null,
   allActivities = null,
-  showSchool = false,
   seeGuidanceText = null,
   regionsclosed = null,
   countyRegions = null,
@@ -74,7 +73,7 @@ export const buildActivityCard = ({
     selectedActivities.forEach((searchResultData) => {
       let activityLabel = searchResultData["activity_search_autocomplete"];
 
-      if (showSchool === true) {
+      if (activityLabel === "Schools") {
         schoolCard = buildSchoolCard({
           seeGuidanceText,
           searchResultData,
@@ -120,10 +119,22 @@ export const buildActivityCard = ({
         policies,
       });
 
+      rshoCard = searchResultData["RSHO"];
+
       activityCards.push(`
-          school: ${schoolCard}
-          activity: ${activityCard}
-          state-guidance: ${stateGuidanceCard}
+          school:<br/> ${schoolCard}
+          <br/>
+          schoolActivityCard:<br/>
+          ${schoolActivityCard}
+          <br/>
+          rshoCard:<br/>
+          ${rshoCard}
+          <br/>
+          activity:<br/>
+          ${activityCard}
+          <br/>
+          state-guidance:<br/>
+          ${stateGuidanceCard}
         `);
     });
   }

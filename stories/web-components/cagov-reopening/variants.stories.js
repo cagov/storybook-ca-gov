@@ -157,7 +157,7 @@ RSHOActivityCountyEn.args = {
 
 export const RSHOSchoolsCountyEn = Template.bind({});
 RSHOSchoolsCountyEn.args = {
-  countyValue: 'Yolo',
+  countyValue: 'San Francisco',
   activityValue: 'Schools',
   isUnderRSHO: true,
   language: 'en',

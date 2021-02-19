@@ -24,16 +24,17 @@ export const buildSchoolActivityDisplay = ({
   
 
   return `<div class="card-activity">
+  school activity display
+  buildschoolactivtiy display: 
+  <h4>${activityLabel}</h4>
 
-              <h4>${activityLabel}</h4>
-
-              <p>${
-                activityLabel === "Schools"
-                  ? buildSchoolsCanReopen({
-                      county: selectedCounty.county,
-                      schoolLabels,
-                    })
-                  : searchResultData["RSHO"]
-              }</p>
-            </div>`;
+  <p>${
+  activityLabel === "Schools"
+    ? buildSchoolsCanReopen({
+        county: selectedCounty.county,
+        schoolLabels,
+      })
+    : searchResultData["RSHO"]
+  }</p>
+  </div>`;
 };

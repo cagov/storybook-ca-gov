@@ -1,6 +1,7 @@
 import { buildTierCard } from "./buildTierCard";
 import { buildActivityCard } from "./buildActivityCard";
 import { buildCountyWebsiteLink } from "./buildCountyWebsiteLink";
+import { select } from "d3";
 
 /**
  * Output results of What's Open Search
@@ -276,7 +277,6 @@ const buildCard = ({
     selectedActivities,
     allActivities,
     stateIndustryGuidanceData,
-    showSchool: true,
     seeGuidanceText,
     regionsclosed,
     countyRegions,

@@ -596,6 +596,7 @@ class CAGovReopening extends window.HTMLElement {
       additionalGuidanceLabel: this.translationsStrings.additionalGuidanceLabel,
       hasCountyInput: this.hasCountyInput(),
       hasActivityInput: this.hasActivityInput(),
+      policies
     });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed:
@@ -629,7 +630,9 @@ selectedCountyInRegionalStayAtHomeOrder({
   selectedCounty = null,
 }) {
   try {
-    if (regionsclosed && countyRegions && selectedCounty) {
+    console.log(regionsclosed, countyRegions);
+
+    if (regionsclosed && countyRegions && selectedCounty && selectedCounty.county) {
       return (
         regionsclosed.filter(
           (r) => r.region === countyRegions[selectedCounty.county]
@@ -637,7 +640,7 @@ selectedCountyInRegionalStayAtHomeOrder({
       );
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error settings regional stay at home order", error);
   }
   return false;
 };

@@ -23,13 +23,11 @@ export const buildCountyWebsiteLink = ({
   }
 
   // @TODO Add external link class handling.
-  let link = `<p>
-      <a href="${url}">${replaceMarkupAttributeContent({
+  let link = `<a href="${url}">${replaceMarkupAttributeContent({
     markup: countyRestrictionsCountyWebsiteLabel,
     selector: "[data-attribute=county]",
     content: county,
-  })}</a>.
-  </p>`;
+  })}</a>.`;
   // @TODO Insert county name into county link. data-attribute="county"
   return link;
 };
@@ -95,6 +93,20 @@ const replaceMarkupAttributeContent = ({
  * @param {array} param.countyWebpages - Data set of COVID-19 County Webpages from ...
  * @param {string} param.county - Currently selected county.
  *
+ * 
+ * For @example / test
+    [{
+      "id": "rec0729VPjP4XjcoM",
+      "fields": {
+          "id": "Lake",
+          "county_label": "Lake County",
+          "county_covid19_website": "http://health.co.lake.ca.us/Coronavirus/Businesses.htm",
+          "county_department": "Lake County Public Health",
+          "last_modified_time": "2020-12-24T00:17:00.000Z"
+      },
+      "createdTime": "2020-12-18T15:20:26.000Z"
+    }],
+
  * @TODO make this return an error if the data source format changes.
  * @TODO add a test with mock data samples
  * @return {string} Url of the currently selected county webpage.
@@ -119,15 +131,3 @@ const lookupCountyWebsite = ({ county = null, countyWebpages = null }) => {
   }
   return result;
 };
-// For @example / test
-// [{
-//   "id": "rec0729VPjP4XjcoM",
-//   "fields": {
-//       "id": "Lake",
-//       "county_label": "Lake County",
-//       "county_covid19_website": "http://health.co.lake.ca.us/Coronavirus/Businesses.htm",
-//       "county_department": "Lake County Public Health",
-//       "last_modified_time": "2020-12-24T00:17:00.000Z"
-//   },
-//   "createdTime": "2020-12-18T15:20:26.000Z"
-// }],

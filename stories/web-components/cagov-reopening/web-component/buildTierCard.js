@@ -70,14 +70,14 @@ export const buildTierCard = ({
           ${hasCountyInput === true ? `<h2>${selectedCounty.county}</h2>` : ""}
         
           ${
-            isUnderRSHO && countyRegions
+            countyRegions
               ? `<h3>${regionLabel} ${
                   countyRegions[selectedCounty.county]
                 }</h3>`
               : ""
           }
     
-          ${isUnderRSHO ? stayAtHomeOrder : ""}
+          ${isUnderRSHO === true ? stayAtHomeOrder : ""}
 
           ${
             tierStatus !== null
@@ -89,9 +89,8 @@ export const buildTierCard = ({
                   }
                   ${
                     countyTierData.countyTierDescription !== null
-                      ? `<p>${countyTierData.countyTierDescription}. 
-                      <a href="${understandTheDataLink}">${understandTheData}</a>
-                  </p>`
+                      ? `<p>
+                      ${countyTierData.countyTierDescription}. <a href="${understandTheDataLink}">${understandTheData}</a></p>`
                       : ""
                   }
                 </div>`
@@ -99,8 +98,7 @@ export const buildTierCard = ({
           }
           
           <p>
-              ${countyRestrictionsAdvice} 
-              ${countyWebsiteLink}
+              ${countyRestrictionsAdvice} ${countyWebsiteLink}
           </p>
       </div>`;
     } else {
