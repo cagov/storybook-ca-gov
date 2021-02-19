@@ -17,8 +17,8 @@ const buildStateGuidanceJSON = ({language = null}) => {
   try {
     // Load api template
     // Up to date metadata comes from our covid19.ca.gov data documentation content.  
-    console.log(docsPath);
-    console.log(dataPath);
+    // console.log(docsPath);
+    // console.log(dataPath);
 
     let apiDoc = JSON.parse(
       fs.readFileSync(`${docsPath}/covid19-state-industry-guidance.api.json`)

@@ -78,7 +78,7 @@ const replaceMarkupAttributeContent = ({
       childElement.innerHTML = content !== null ? content : "";
       response = body.outerHTML;
     }
-    console.log("response", response);
+    // console.log("response", response);
   } catch (error) {
     console.error("Could not replaceMarkupAttributeContent", error);
   }

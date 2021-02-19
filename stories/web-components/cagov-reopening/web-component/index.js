@@ -474,8 +474,8 @@ class CAGovReopening extends window.HTMLElement {
           viewAllActivities = false;
         }
     
-        console.log("activity", this.state["activity"], "county", this.state["county"]);
-        console.log("viewAllActivities", viewAllActivities, "viewAllCounties", viewAllCounties);
+        // console.log("activity", this.state["activity"], "county", this.state["county"]);
+        // console.log("viewAllActivities", viewAllActivities, "viewAllCounties", viewAllCounties);
     
         // Q: How many statuses are supported? Had there been a plan to show multiple counties?
         if (this.state["county"]) {
@@ -502,12 +502,12 @@ class CAGovReopening extends window.HTMLElement {
         this.viewAllActivities = viewAllActivities;
         this.viewAllCounties = viewAllCounties;
 
-        console.log("selectedCounties", this.selectedCounties, "selectedActivities", this.selectedActivities);
+        // console.log("selectedCounties", this.selectedCounties, "selectedActivities", this.selectedActivities);
   }
 
   layoutCards() {
 
-    console.log("laying out cards");
+    console.log("laying out cards", this.localData);
 
     this.cardHTML = "";
 
@@ -531,17 +531,15 @@ class CAGovReopening extends window.HTMLElement {
       countyRestrictionsCountyWebsiteLabel: this.translationsStrings.countyRestrictionsCountyWebsiteLabel,
       seeGuidanceText: this.translationsStrings.seeGuidanceText,
       countyWebpages: this.localData['covid19-county-webpages'].data, // all data
+      stateIndustryGuidanceData: this.localData['state-industry-guidance'].data,
       seeStateIndustryGuidanceLabel: this.translationsStrings.seeStateIndustryGuidanceLabel,
       guidanceTemplate: this.translationsStrings.guidanceTemplate,
       industryGuidancePdfLabel: this.translationsStrings.industryGuidancePdfLabel,
       checklistPdfLabel: this.translationsStrings.checklistPdfLabel,
       additionalGuidanceLabel: this.translationsStrings.additionalGuidanceLabel,
-      stateIndustryGuidanceData: this.localData['state-industry-guidance'].data,
     });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed:
-
-    console.log("this.cardHTML", this.cardHTML);
 
     // Add card markup to card holder.
     this.querySelector(

@@ -44,10 +44,20 @@ export const buildTierCard = ({
   let countyTierDescription = null;
   let tierStatus = null;
 
-  console.log("tier card selectedCounty", selectedCounty);
+  console.log("tier card selectedCounty", selectedCounty.county, selectedCounty);
+
   try {
     // @TODO the colors are flipped, we will try to flip them back this time to match what's in Snowflake
-    if (selectedCounty.length > 0 && selectedCounty !== null) {
+    if (
+      selectedCounty !== undefined &&
+      selectedCounty !== null &&
+      selectedCounty.county !== undefined &&
+      selectedCounty.county !== null &&
+      selectedCounty.county.length > 0
+    ) {
+
+      // @TODO the status descriptors are probably flipped
+
       countyTier =
         tierStatusDescriptors[parseInt(selectedCounty["Overall Status"]) - 1][
           "County tier"
@@ -59,11 +69,11 @@ export const buildTierCard = ({
       tierStatus = selectedCounty["Overall Status"];
 
       return `<div class="card-county">
-
+          County result
           ${
             selectedCounty !== undefined &&
-            selectedCounty.county !== undefined &&
-            selectedCounty !== null
+            selectedCounty !== null &&
+            selectedCounty.county !== undefined
               ? `<h2>${selectedCounty.county}</h2>`
               : ""
           }
@@ -107,9 +117,9 @@ export const buildTierCard = ({
       </div>`;
     } else {
       // No Tier Status
-      // return `<div class="card-county">
-
-      // </div>`;
+      return `<div class="card-county">
+        No Selected County
+      </div>`;
     }
   } catch (error) {
     console.error("Error rendering tier card", error);

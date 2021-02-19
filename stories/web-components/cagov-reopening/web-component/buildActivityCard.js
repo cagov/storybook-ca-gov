@@ -46,100 +46,96 @@ export const buildActivityCard = ({
   checklistPdfLabel = null,
   additionalGuidanceLabel = null,
 }) => {
+  // Set up strings to render conditionally.
+  let schoolCard = "";
+  let schoolActivityCard = "";
+  let activityCard = "";
+  let rshoCard = "";
+  let stateGuidanceCard = "";
 
+  // Check regional stay at home order status for this county
+  // (...and other policy checks as needed)
   let isUnderRSHO = selectedCountyInRegionalStayAtHomeOrder({
     regionsclosed,
     countyRegions,
     selectedCounty,
   });
 
-  console.log("activity card", selectedActivity);
-
   let activityCards = [];
 
-  if (selectedActivity !== null) {
-    // Generate card layouts for selected activities
-    if (selectedActivities.length > 0) {
-      selectedActivities.forEach((searchResultData) => {
-        let activityLabel = searchResultData["0"];
+  console.log("Build Activity Card", selectedActivity, county, allActivities)
+  if (selectedActivity !== null && selectedActivity !== "" && selectedActivity.length > 0) {
 
-        console.log("activity label", activityLabel);
-        let schoolCard = "";
-        if (showSchool === true) {
-          schoolCard = buildSchoolCard({
-            seeGuidanceText,
-            searchResultData,
-            selectedCounty,
-            schoolLabels,
-          });
-        }
+  } else if (county !== null) {
+    selectedActivities = allActivities;
+    console.log(selectedActivities.length);
+  } else {
 
-        let schoolActivityCard = "";
-        schoolActivityCard = buildSchoolActivityDisplay({
-          activityLabel,
-          searchResultData,
+  }
+  // Generate card layouts for selected activities
+  if (selectedActivities.length > 0) {
+    selectedActivities.forEach((searchResultData) => {
+      let activityLabel = searchResultData["0"];
+
+      if (showSchool === true) {
+        schoolCard = buildSchoolCard({
           seeGuidanceText,
+          searchResultData,
           selectedCounty,
           schoolLabels,
-          schoolsCanReopenList,
-          county,
+          policies: {
+            isUnderRSHO: isUnderRSHO,
+          },
         });
+      }
 
-        let activityCard = "";
-        let rshoCard = "";
-        // console.log("activitySchoolCard:", activityCard);
-        if (isUnderRSHO !== true) {
-          // Debugging
-          // Reference
-          // if(this.regionsclosed && this.countyRegions && this.regionsclosed.Table1.filter(r => r.region === this.countyRegions[item.county]).length > 0) { // if this county is in a region which is closed we will show them the RSHO column values
-          //   this.cardHTML += `<div class="card-activity">
-          //     <h4>${ac["0"]}</h4>
-          //     <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac["6"]}</p>
-          //     <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.json.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
-          //   </div>`
-          // } else {
-          //   this.cardHTML += `<div class="card-activity">
-          //     <h4>${ac["0"]}</h4>
-          //     <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac[item['Overall Status']]}</p>
-          //     <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.json.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
-          //   </div>`
+      schoolActivityCard = buildSchoolActivityDisplay({
+        activityLabel,
+        searchResultData,
+        seeGuidanceText,
+        selectedCounty,
+        schoolLabels,
+        schoolsCanReopenList,
+        county,
+        policies: {
+          isUnderRSHO: isUnderRSHO,
+        },
+      });
 
-        } 
+      activityCard = buildTierRestrictionActivityDisplay({
+        activityLabel,
+        searchResultData,
+        seeGuidanceText,
+        county,
+        selectedCounty,
+        schoolLabels,
+        policies: {
+          isUnderRSHO: isUnderRSHO,
+        },
+      });
 
-        activityCard = buildTierRestrictionActivityDisplay({
-          activityLabel,
-          searchResultData,
-          seeGuidanceText,
-          county,
-          selectedCounty,
-          schoolLabels,
-        });
-
-        let stateGuidanceCard = "";
-
-
-        // Build state guidance results
-        stateGuidanceCard = buildStateIndustryGuidanceCard({
-          activityLabel,
-          county,
-          stateIndustryGuidanceData,
-          seeStateIndustryGuidanceLabel,
-          guidanceTemplate,
-          industryGuidancePdfLabel,
-          checklistPdfLabel,
-          additionalGuidanceLabel,
-          resultType: "default"
-        });
-
-        activityCards.push(`
+      // Build state guidance results
+      stateGuidanceCard = buildStateIndustryGuidanceCard({
+        activityLabel,
+        county,
+        stateIndustryGuidanceData,
+        seeStateIndustryGuidanceLabel,
+        guidanceTemplate,
+        industryGuidancePdfLabel,
+        checklistPdfLabel,
+        additionalGuidanceLabel,
+        resultType: "default",
+        policies: {
+          isUnderRSHO: isUnderRSHO,
+        },
+      });
+      activityCards.push(`
           ${schoolCard}
           ${activityCard}
           ${stateGuidanceCard}
         `);
-      });
-    }
+    });
   }
-
   return activityCards.join("");
 };
 
@@ -168,15 +164,10 @@ const selectedCountyInRegionalStayAtHomeOrder = ({
 };
 
 /**
- * 
+ *
  * @param {array} param.data — Array of objects with languages
- * @return 
+ * @return
  */
-const buildMoreLanguages = ({
-  data = null,
-  allowedLanguages = null,
-
-}) => {
-
+const buildMoreLanguages = ({ data = null, allowedLanguages = null }) => {
   return "languages";
-}
+};
