@@ -8,12 +8,15 @@ export const buildSchoolCard = ({
   schoolLabels
 }) => {
   
-    let schoolsDisplay =
-      searchResultData["activity_search_autocomplete"] === "Schools"
+    let schoolsDisplay = searchResultData["activity_search_autocomplete"] === "Schools"
         ? buildSchoolsCanReopen({ county: selectedCounty.county, schoolLabels })
-        : searchResultData["6"]; // ?
-
+        : ""
     return `
       <p>${schoolsDisplay}</p>
       `;
   };
+
+  // Schools map?
+  // `${replaceAllInMap(
+  //   searchResultData["5"]
+  // )}`

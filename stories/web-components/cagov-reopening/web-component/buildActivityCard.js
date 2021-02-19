@@ -61,14 +61,14 @@ export const buildActivityCard = ({
   // console.log("Build Activity Card", selectedActivity, county)
   if (hasActivityInput === true) {
     // We have selected activities
-    // console.log("has selected activity")
+    console.log("has selected activity")
   } else if (hasCountyInput === true && hasActivityInput === false) {
     // We have a county selected, but not activities, show them all.
     selectedActivities = allActivities;
-    // console.log(selectedActivities.length);
+    console.log(selectedActivities.length);
   }
 
-  console.log("selectedActivities", selectedActivities);
+  // console.log("selectedActivities", selectedActivities);
   // Generate card layouts for selected activities
   if (selectedActivities.length > 0) {
     selectedActivities.forEach((searchResultData) => {
@@ -82,19 +82,18 @@ export const buildActivityCard = ({
           schoolLabels,
           policies,
         });
-      }
 
-      // @TODO Figure out what this was
-      // schoolActivityCard = buildSchoolActivityDisplay({
-      //   activityLabel,
-      //   searchResultData,
-      //   seeGuidanceText,
-      //   selectedCounty,
-      //   schoolLabels,
-      //   schoolsCanReopenList,
-      //   county,
-      //   policies,
-      // });
+        schoolActivityCard = buildSchoolActivityDisplay({
+          activityLabel,
+          searchResultData,
+          seeGuidanceText,
+          selectedCounty,
+          schoolLabels,
+          schoolsCanReopenList,
+          county,
+          policies,
+        });
+    }
 
       activityCard = buildTierRestrictionActivityDisplay({
         activityLabel,
@@ -120,10 +119,11 @@ export const buildActivityCard = ({
         resultType: "default",
         policies,
       });
+
       activityCards.push(`
-          ${schoolCard}
-          ${activityCard}
-          ${stateGuidanceCard}
+          school: ${schoolCard}
+          activity: ${activityCard}
+          state-guidance: ${stateGuidanceCard}
         `);
     });
   }
