@@ -17,6 +17,7 @@ export default function template({
           <input
             aria-expanded="false"
             aria-owns="awesomplete_list_1"
+            aria-controls="awesomplete_list_1"
             autocomplete="off"
             class="form-control"
             data-list=""
@@ -46,11 +47,12 @@ export default function template({
         <ul hidden="" id="awesomplete-list-1" role="listbox"></ul>
       </div>
       <div class="form-group col-md-6 reopening-form-group">
-      <label for="activity">${translations.activityLabel}</label>
+      <label for="activity-query">${translations.activityLabel}</label>
       <div class="awesomplete">
         <input
           aria-expanded="false"
           aria-owns="awesomplete_list_2"
+          aria-controls="awesomplete_list_2"
           autocomplete="off"
           class="form-control"
           data-list=""

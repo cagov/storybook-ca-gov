@@ -165,7 +165,7 @@ const buildCard = ({
   let countyWebsiteLink = buildCountyWebsiteLink({
     countyRestrictionsCountyWebsiteLabel,
     countyWebpages,
-    county,
+    county: `${county} County`,
   });
 
   // Build the tier card.
