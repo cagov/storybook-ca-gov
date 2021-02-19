@@ -1,30 +1,20 @@
+import { replaceMarkupAttributeContent } from "./replaceMarkupAttributeContent";
+
 export const buildStateIndustryGuidanceCard = ({
   activityLabel,
   county,
   stateIndustryGuidanceData,
   searchResultData,
   seeStateIndustryGuidanceLabel = "See state industry guidance", // @TODO add as data label
-  guidanceTemplate = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span>`,
-
+  guidanceTemplate = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
   industryGuidancePdfLabel = `Industry guidance for <span data-attribute="activityLabel"></span>`,
   checklistPdfLabel = `Checklist for <span data-attribute="activityLabel"></span>`,
   additionalGuidanceLabel = "Depending on your business operations, other guidance may apply",
   resultType = "default",
   language = "en",
 }) => {
-  // @TODO Add accordion syntax
+  // @TODO Add accordion syntax (cagov-accordion or make a new variation)
   // @TODO Add dropdown interactive list box
-  // Check external link
-
-  let moreLanguages = `
-    <ul class="dropdown-menu-inline">
-      <li><a href="http://files">Language</a></li>
-      <li><a href="#">Language</a></li>
-      <li><a href="#">Language</a></li>
-      <li><a href="#">Language</a></li>
-      <li><a href="#">Language</a></li>
-    </ul>
-    `;
 
   try {
     if (resultType === "default") {
@@ -34,6 +24,7 @@ export const buildStateIndustryGuidanceCard = ({
         searchResultData,
         language,
         additionalGuidanceLabel,
+        guidanceTemplate,
       });
       //   <cagov-accordion>
       return `<div class="state-guidance">
@@ -54,7 +45,7 @@ export const buildStateIndustryGuidanceCard = ({
     } else if (resultType === "simple") {
       // Example: for industry guidance display
       return `<div class="state-guidance">
-            ${additionalGuidanceLabel}
+        
         </div>`;
     }
   } catch (error) {
@@ -64,16 +55,41 @@ export const buildStateIndustryGuidanceCard = ({
   return ``;
 };
 
+/**
+ *
+ * @param {object} param.stateIndustryGuidanceData - All state industry guidance
+ */
 const getDefaultAccordionContent = ({
   stateIndustryGuidanceData,
   activityLabel,
   searchResultData,
   language = "en",
   additionalGuidanceLabel,
+  guidanceTemplate = null,
 }) => {
   // console.log("default accordion", activityLabel);
   // console.log("stateIndustryGuidanceData", stateIndustryGuidanceData);
   // console.log("searchResultData", searchResultData);
+
+  // <span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>
+
+  let guidances = "";
+
+  // Get meta content
+
+  // @TODO add messages
+
+  let guidanceMessage = replaceMarkupAttributeContent({
+    markup: guidanceTemplate,
+    selector: "[data-attribute=activityLabel]",
+    content: activityLabel,
+  });
+
+  guidanceMessage = replaceMarkupAttributeContent({
+    markup: guidanceMessage,
+    selector: "[data-attribute=guidances]",
+    content: guidances,
+  });
 
   let primaryGuidance = getPrimaryGuidance({
     data: stateIndustryGuidanceData,
@@ -101,6 +117,55 @@ const getDefaultAccordionContent = ({
   </div>`;
 };
 
+const getListGuidances = ({
+  data = null,
+  searchResultData = null,
+  language = "en",
+}) => {
+  try {
+    if (
+      data !== undefined &&
+      data !== null &&
+      searchResultData !== undefined &&
+      searchResultData !== null
+    ) {
+      let results = [];
+      // console.log("searchR", searchResultData);
+      let guidances = searchResultData.primary_guidance.split(",");
+      // console.log(guidances, "guid");
+
+      // @TODO use meta
+      // guidances.map((guidance) => {
+      //   let currentGuidance = data[guidance];
+      //   // console.log("currentGuidance primary", guidance, currentGuidance);
+      //   if (currentGuidance !== undefined && currentGuidance !== null) {
+      //     currentGuidance.pdf.map((resource) => {
+      //       // console.log("resource", resource);
+      //       if (resource.language === "English") {
+      //         // if (languages[resource.language] === language) { @TODO add lang code in API)
+      //         results.push(
+      //           `${resource.industry_category_key}`
+      //         );
+      //       }
+      //       return false;
+      //     });
+      //   }
+      //   return false;
+      // });
+      // console.log("results", results);
+      return results.join("");
+    }
+  } catch (error) {
+    console.error("Error in getPrimaryGuidance", error);
+  }
+  return "";
+
+}
+
+/**
+ *
+ * @param {object} param.data - Set of PDF Links
+ */
 const getPrimaryGuidance = ({
   data = null,
   searchResultData = null,
@@ -145,7 +210,7 @@ const getPrimaryGuidance = ({
         }
         return false;
       });
-      console.log("results", results);
+      // console.log("results", results);
       return results.join("");
     }
   } catch (error) {
@@ -154,6 +219,10 @@ const getPrimaryGuidance = ({
   return "";
 };
 
+/**
+ *
+ * @param {object} param.data - Set of PDF Links
+ */
 const getSecondaryGuidance = ({
   data = null,
   searchResultData = null,
@@ -198,7 +267,7 @@ const getSecondaryGuidance = ({
         }
         return false;
       });
-      console.log("results", results);
+      // console.log("results", results);
       return results.join("");
     }
   } catch (error) {
@@ -207,13 +276,16 @@ const getSecondaryGuidance = ({
   return "";
 };
 
+/**
+ *
+ * @param {object} param.data - Set of PDF Links
+ */
 const getAdditionalGuidance = ({
   data = null,
   searchResultData = null,
   language = "en",
-  additionalGuidanceLabel = null
+  additionalGuidanceLabel = null,
 }) => {
-
   try {
     if (
       data !== undefined &&
@@ -234,7 +306,7 @@ const getAdditionalGuidance = ({
           currentGuidance.additional_resources.length > 0
         ) {
           currentGuidance.additional_resources.map((resource) => {
-            console.log("resource", resource);
+            // console.log("resource", resource);
             results.push(`<li data-updated="${resource.date_last_modified}">
               <a href="${resource.url}">${resource.file_title}</a>
             </li>`);
@@ -250,4 +322,17 @@ const getAdditionalGuidance = ({
     console.error("Error in getAdditionalGuidance", error);
   }
   return "";
+};
+
+// @TODO Set up
+const getMoreLanguages = () => {
+  return `
+  <ul class="dropdown-menu-inline">
+    <li><a href="http://files">Language</a></li>
+    <li><a href="#">Language</a></li>
+    <li><a href="#">Language</a></li>
+    <li><a href="#">Language</a></li>
+    <li><a href="#">Language</a></li>
+  </ul>
+  `;
 };

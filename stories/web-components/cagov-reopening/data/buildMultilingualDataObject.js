@@ -6,8 +6,6 @@ export const buildMultilingualDataObject = ({
     countyRegionsApi,
     regionsClosedData,
     regionsClosedApi,
-    // reopeningActivitiesData,
-    // reopeningActivitiesApi,
     schoolsMayReopenData,
     schoolsMayReopenApi,
     tierStatusDescriptorsData,
@@ -16,15 +14,8 @@ export const buildMultilingualDataObject = ({
     countyCovid19Webpages,
     countyStatusApi,
     countyStatus,
-    // reopeningMatrixDataApi,
-    // reopeningMatrixData,
-    // reopeningRoadmapActivityDataApi,
-    // reopeningRoadmapActivityDataPage1,
-    // reopeningRoadmapActivityDataPage2,
     rshoApi,
     rshoData,
-    // pubData,
-    // pubDataApi,
     stateIndustryGuidance, // These are already compiled in the new v2 format
     activitySearchBusiness, // These are already compiled in the new v2 format
     commonPageLabels,
@@ -44,19 +35,6 @@ export const buildMultilingualDataObject = ({
         //     docs: reopeningMatrixDataApi,
         //     data: reopeningMatrixData
         // },
-        // Concatenate data from Airtable into one blob
-        // Autocomplete search data
-        // @TODO Not needed, can deprecate
-        // "reopening-roadmap-activity-data": {
-        //     docs: reopeningRoadmapActivityDataApi,
-        //     data: Object.assign({}, reopeningRoadmapActivityDataPage1.records, reopeningRoadmapActivityDataPage2.records)
-        // },
-
-        // Labels  - trying to deprecate
-        // "pubData": {
-        //     docs: pubDataApi,
-        //     data: pubData
-        // },
         // Which regions counties belong to
         "countyregions": {
             docs: countyRegionsApi,
@@ -72,11 +50,6 @@ export const buildMultilingualDataObject = ({
             docs: rshoApi,
             data: rshoData
         },
-        // Original V1 dataset
-        // "reopening-activities": {
-        //     docs: reopeningActivitiesApi,
-        //     data: reopeningActivitiesData
-        // },
         // Schools can reopen in which counties
         // Pulls from table data, schools-may-reopen-in-these-counties.json
         // Which 11ty rewrites and returns as a simple array.
@@ -93,12 +66,13 @@ export const buildMultilingualDataObject = ({
             docs: commonPageLabelsApi,
             data: commonPageLabels
         },
-        // Data from Table 1 is used to build tier status cards.
+        // Data from Wordpress Data Table 1 is used to build tier status cards.
         "tier-status-descriptors": {
             docs: tierStatusDescriptorsApi,
             data: tierStatusDescriptorsData
         },
         // County Health Department web pages
+        // Data managed in Airtable
         "covid19-county-webpages": {
             docs: countyCovid19WebpagesApi,
             data: countyCovid19Webpages.records

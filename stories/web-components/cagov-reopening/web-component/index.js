@@ -571,7 +571,7 @@ class CAGovReopening extends window.HTMLElement {
       })
     }
 
-    console.log("Policies", policies);
+    // console.log("Policies", policies);
 
     // Map data sources and labels to card responses.
     this.cardHTML = cardTemplate({
@@ -641,7 +641,7 @@ selectedCountyInRegionalStayAtHomeOrder({
   selectedCounty = null,
 }) {
   try {
-    console.log("regions closed", regionsclosed, countyRegions, selectedCounty);
+    // console.log("regions closed", regionsclosed, countyRegions, selectedCounty);
 
     if (regionsclosed && countyRegions && selectedCounty) {
       return (

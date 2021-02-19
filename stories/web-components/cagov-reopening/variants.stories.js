@@ -1,5 +1,5 @@
 import { withDesign } from "storybook-addon-designs";
-import { WebComponent } from './storybook-web-component';
+import { WebComponentTranslated as WebComponent } from './storybook-web-component';
 import { data } from "./data";
 // console.log(data);
 
@@ -32,6 +32,60 @@ CountyOnlyEn.args = {
 * Connect Figma Frame
 */
 CountyOnlyEn.parameters = {
+  design: {
+    type: "figma",
+    url:
+      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
+  },
+};
+
+export const CountyOnlyEs = Template.bind({});
+CountyOnlyEn.args = {
+  countyValue: 'Alameda',
+  activityValue: '',
+  language: 'es',
+  data: data['es'],
+};
+/**
+* Connect Figma Frame
+*/
+CountyOnlyEs.parameters = {
+  design: {
+    type: "figma",
+    url:
+      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
+  },
+};
+
+export const CountyOnlyTl = Template.bind({});
+CountyOnlyEn.args = {
+  countyValue: 'Alameda',
+  activityValue: '',
+  language: 'tl',
+  data: data['tl'],
+};
+/**
+* Connect Figma Frame
+*/
+CountyOnlyTl.parameters = {
+  design: {
+    type: "figma",
+    url:
+      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
+  },
+};
+
+export const CountyOnlyAr = Template.bind({});
+CountyOnlyAr.args = {
+  countyValue: 'Alameda',
+  activityValue: '',
+  language: 'ar',
+  data: data['ar'],
+};
+/**
+* Connect Figma Frame
+*/
+CountyOnlyAr.parameters = {
   design: {
     type: "figma",
     url:

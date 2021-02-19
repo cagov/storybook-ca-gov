@@ -63,7 +63,7 @@ We insert this code snippet on Wordpress pages.
         <li data-label="understandTheDataLink">#county-status</li>
         <li data-label="regionLabel">Region:</li>
         <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
-        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span></li>
         <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
         <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
         <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
