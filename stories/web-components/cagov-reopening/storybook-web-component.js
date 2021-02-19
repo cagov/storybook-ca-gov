@@ -11,6 +11,8 @@ export const WebComponent = (args) => {
       data-json=${JSON.stringify(args.data)}
     >
       <ul>
+        <li data-label="presetValueCounty">${args.countyValue}</li>
+        <li data-label="presetValueActivity">${args.activityValue}</li>
         <li data-label="title">Find the status for activities in your county</li>
         <li data-label="activityLabel">Activity</li>
         <li data-label="activityPlaceholder">Enter a business or activity</li>
@@ -24,8 +26,6 @@ export const WebComponent = (args) => {
         <li data-label="understandTheData">Understand the data.</li>
         <li data-label="understandTheDataLink">#county-status</li>
         <li data-label="regionLabel">Region:</li>
-        <li data-label="presetValueCounty">${args.countyValue}</li>
-        <li data-label="presetValueActivity">${args.activityValue}</li>
         <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
         <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span></li>
         <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
@@ -35,6 +35,6 @@ export const WebComponent = (args) => {
         <li data-label="emptySearchError">No County or Activity Selected</li>
         <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
       </ul>
-    </cagov-reopening>  
+    </cagov-reopening>
   `;
 };

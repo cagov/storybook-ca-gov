@@ -24,7 +24,7 @@ Template.args = {
 export const CountyOnlyEn = Template.bind({});
 CountyOnlyEn.args = {
   countyValue: 'Alameda',
-  activityValue: 'Appliance repair shops',
+  activityValue: '',
   language: 'en',
   data: data['en'],
 };
@@ -41,8 +41,10 @@ CountyOnlyEn.parameters = {
 
 export const CountyActivityEn = Template.bind({});
 CountyActivityEn.args = {
+  countyValue: 'Alameda',
+  activityValue: 'Appliance repair shops',
   language: 'en',
-  data: data['en']
+  data: data['en'],
 };
 
 /**
@@ -58,14 +60,35 @@ CountyActivityEn.parameters = {
 
 export const ActivityOnlyEn = Template.bind({});
 ActivityOnlyEn.args = {
+  countyValue: '',
+  activityValue: 'Appliance repair shops',
   language: 'en',
-  data: data['en']
+  data: data['en'],
 };
 
 /**
 * Connect Figma Frame
 */
 ActivityOnlyEn.parameters = {
+  design: {
+    type: "figma",
+    url:
+      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3813%3A309",
+  },
+};
+
+export const NoCountyActivityEn = Template.bind({});
+ActivityOnlyEn.args = {
+  countyValue: '',
+  activityValue: '',
+  language: 'en',
+  data: data['en'],
+};
+
+/**
+* Connect Figma Frame
+*/
+NoCountyActivityEn.parameters = {
   design: {
     type: "figma",
     url:

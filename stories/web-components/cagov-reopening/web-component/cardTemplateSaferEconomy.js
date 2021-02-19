@@ -171,7 +171,7 @@ export const cardTemplate = ({
     });
   } else {
 
-    // console.log("selectedActivities", selectedActivities);
+    console.log("selectedActivities cardTemplate", selectedActivities);
 
     // No county selected
     selectedActivities.forEach((selectedActivity) => {

@@ -67,10 +67,12 @@ export const buildActivityCard = ({
     selectedActivities = allActivities;
     // console.log(selectedActivities.length);
   }
+
+  console.log("selectedActivities", selectedActivities);
   // Generate card layouts for selected activities
   if (selectedActivities.length > 0) {
     selectedActivities.forEach((searchResultData) => {
-      let activityLabel = searchResultData["0"];
+      let activityLabel = searchResultData["activity_search_autocomplete"];
 
       if (showSchool === true) {
         schoolCard = buildSchoolCard({
@@ -82,16 +84,17 @@ export const buildActivityCard = ({
         });
       }
 
-      schoolActivityCard = buildSchoolActivityDisplay({
-        activityLabel,
-        searchResultData,
-        seeGuidanceText,
-        selectedCounty,
-        schoolLabels,
-        schoolsCanReopenList,
-        county,
-        policies,
-      });
+      // @TODO Figure out what this was
+      // schoolActivityCard = buildSchoolActivityDisplay({
+      //   activityLabel,
+      //   searchResultData,
+      //   seeGuidanceText,
+      //   selectedCounty,
+      //   schoolLabels,
+      //   schoolsCanReopenList,
+      //   county,
+      //   policies,
+      // });
 
       activityCard = buildTierRestrictionActivityDisplay({
         activityLabel,

@@ -75,9 +75,9 @@ const getDefaultAccordionContent = ({
   activityLabel,
   searchResultData
 }) => {
-  console.log("default accordion", activityLabel);
-  console.log("stateIndustryGuidanceData", stateIndustryGuidanceData);
-  console.log("searchResultData",  searchResultData);
+  // console.log("default accordion", activityLabel);
+  // console.log("stateIndustryGuidanceData", stateIndustryGuidanceData);
+  // console.log("searchResultData",  searchResultData);
 
   return "";
 };

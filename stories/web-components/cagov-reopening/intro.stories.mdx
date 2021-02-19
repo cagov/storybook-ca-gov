@@ -17,9 +17,6 @@ import Readme from "./README.md";
   .content {
     margin: 50px;
   }
-  h2 {
-    color: #ffcc00;
-  }
 `}</style>
 
 <div class="content">
@@ -32,9 +29,9 @@ import Readme from "./README.md";
   <Story name="Reopening">
     {html`<cagov-reopening data-json="${JSON.stringify(data["en"])}">
       <ul>
-        <li data-label="title">
-          Find the status for activities in your county
-        </li>
+        <li data-label="presetValueCounty">Alameda</li>
+        <li data-label="presetValueActivity"></li>
+        <li data-label="title">Find the status for activities in your county</li>
         <li data-label="activityLabel">Activity</li>
         <li data-label="activityPlaceholder">Enter a business or activity</li>
         <li data-label="countyLabel">County</li>
@@ -42,13 +39,19 @@ import Readme from "./README.md";
         <li data-label="buttonText">Get latest risk levels</li>
         <li data-label="clearText">Clear</li>
         <li data-label="seeGuidanceText">See guidance for</li>
-        <li data-label="countyRestrictionsAdvice">
-          Counties can restrict further.
-        </li>
-        <li data-label="countyRestrictionsCountyWebsiteLabel">Note: Check <span data-attribute="county"></span>’s COVID-19 website</li>
+        <li data-label="countyRestrictionsAdvice">Counties can restrict further.</li>
+        <li data-label="countyRestrictionsCountyWebsiteLabel">Check <span data-attribute="county"></span>’s COVID-19 website</li>
         <li data-label="understandTheData">Understand the data.</li>
         <li data-label="understandTheDataLink">#county-status</li>
         <li data-label="regionLabel">Region:</li>
+        <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
+        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
+        <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
+        <li data-label="emptySearchError">No County or Activity Selected</li>
+        <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
       </ul>
     </cagov-reopening>`}
   </Story>
@@ -62,9 +65,9 @@ import Readme from "./README.md";
   <Story name="Reopening-Activity">
     {html`<cagov-reopening data-json="${JSON.stringify(data["en"])}">
       <ul>
-        <li data-label="title">
-          Find the status for activities in your county
-        </li>
+        <li data-label="presetValueCounty">Alameda</li>
+        <li data-label="presetValueActivity">Amusement theme parks</li>
+        <li data-label="title">Find the status for activities in your county</li>
         <li data-label="activityLabel">Activity</li>
         <li data-label="activityPlaceholder">Enter a business or activity</li>
         <li data-label="countyLabel">County</li>
@@ -72,10 +75,19 @@ import Readme from "./README.md";
         <li data-label="buttonText">Get latest risk levels</li>
         <li data-label="clearText">Clear</li>
         <li data-label="seeGuidanceText">See guidance for</li>
-        <li data-label="countyRestrictionsAdvice">Note: Counties can restrict further.</li>
+        <li data-label="countyRestrictionsAdvice">Counties can restrict further.</li>
         <li data-label="countyRestrictionsCountyWebsiteLabel">Check <span data-attribute="county"></span>’s COVID-19 website</li>
         <li data-label="understandTheData">Understand the data.</li>
+        <li data-label="understandTheDataLink">#county-status</li>
         <li data-label="regionLabel">Region:</li>
+        <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
+        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
+        <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
+        <li data-label="emptySearchError">No County or Activity Selected</li>
+        <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
       </ul>
     </cagov-reopening>`}
   </Story>

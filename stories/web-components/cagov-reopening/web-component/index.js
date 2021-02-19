@@ -137,7 +137,7 @@ class CAGovReopening extends window.HTMLElement {
       document.querySelector(".matrix-holder").innerHTML = theMatrix.innerHTML;
     }
 
-    // Set up autocomplete data for county search
+    // Set up autocomplete data for county search (list of counties)
     this.countyStatuses = this.localData["countystatus"].data;
     let countyAutocompleteList = [];
     this.countyStatuses.forEach((c) => {
@@ -145,11 +145,25 @@ class CAGovReopening extends window.HTMLElement {
     });
     // console.log("countyAutocompleteList", countyAutocompleteList);
     // Set up autocomplete data for activity search
-    this.allActivities = this.localData["reopening-activities"].data.Table1;
+    this.allActivities = this.localData["activity-business-search-data"].data; // Version 2
+    // this.allActivities = this.localData["reopening-activities"].data.Table1; // Version 1
+
+    // 1 - MINIMAL: ""
+    // 2 - MODERATE: ""
+    // 3 - SUBSTANTIAL: ""
+    // 4 - WIDESPREAD: ""
+    // RSHO: ""
+    // activity_key: "agriculture"
+    // activity_reference_key: "agriculture"
+    // activity_search_autocomplete: "Agriculture and livestock"
+    // last_modified: "2021-01-15T19:44:00.000Z"
+    // override_industry_guidance_label: ""
+    // primary_guidance: "agriculture"
+    // secondary_guidance: ""
 
     let activityAutocompleteList = [];
     this.allActivities.forEach((item) => {
-      activityAutocompleteList.push(item["0"]);
+      activityAutocompleteList.push(item.activity_search_autocomplete);
     });
 
     // Connect autocomplete searches to page elements.
@@ -157,7 +171,6 @@ class CAGovReopening extends window.HTMLElement {
     this.setupAutoCompleteActivity("#activity-query", "activity", activityAutocompleteList);
 
     // Assign data to local variables.
-    // console.log("localData", this.localData);
     this.countyRegions = this.localData.countyregions.data;
     this.regionsclosed = this.localData.regionsclosed.data.Table1; // {array}
     this.tierStatusDescriptors = this.localData["tier-status-descriptors"].data.Table1; // was statusdesc
@@ -362,13 +375,13 @@ class CAGovReopening extends window.HTMLElement {
         // If activity and county are not set (undefined), clear the card holder (what's the card holder?)
         // And make reopening error visible
 
-        if (!this.state["activity"] && !this.state["county"]) {
+        if (this.hasActivityInput() === false && this.hasCountyInput() === false) {
           this.querySelector(".card-holder").innerHTML = "";
           document.getElementById("reopening-error").style.visibility =
             "visible";
         } else {
           // Render the card layouts
-          // console.log("laying out cards");
+          console.log("laying out cards");
           this.layoutCards();
         }
       }.bind(this)
@@ -417,10 +430,10 @@ class CAGovReopening extends window.HTMLElement {
       minChars: 0,
       maxItems: 99,
       sort: function (a, b) {
-        if (a["0"] < b["0"]) {
+        if (a["activity_search_autocomplete"] < b["activity_search_autocomplete"]) {
           return -1;
         }
-        if (a["0"] > b["0"]) {
+        if (a["activity_search_autocomplete"] > b["activity_search_autocomplete"]) {
           return 1;
         }
         return 0;
@@ -526,7 +539,7 @@ class CAGovReopening extends window.HTMLElement {
         if (this.hasActivityInput()) {
           // Build list of selected activities
           this.allActivities.forEach((searchResultData) => {
-            if (searchResultData["0"] === this.state["activity"] || viewAllActivities === true) {
+            if (searchResultData["activity_search_autocomplete"] === this.state["activity"] || viewAllActivities === true) {
               selectedActivities.push(searchResultData);
             }
           });

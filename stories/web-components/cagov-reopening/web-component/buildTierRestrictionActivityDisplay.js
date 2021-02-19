@@ -24,29 +24,39 @@ export const buildTierRestrictionActivityDisplay = ({
     <p></p>
   </div>`;
   } else {
-    // console.log("county", county, searchResultData);
 
-    let modificationStatus = "";
+    let tierModificationStatus = "";
     if (
       county !== null &&
       selectedCounty !== undefined &&
       selectedCounty !== null &&
       selectedCounty["Overall Status"] !== undefined
     ) {
-      modificationStatus = searchResultData[selectedCounty["Overall Status"]];
+
+      let statusMap = null;
+
+      if (selectedCounty["Overall Status"] === "4") {
+        statusMap = "4 - WIDESPREAD";
+      } else if (selectedCounty["Overall Status"] === "3") {
+        statusMap = "3 - SUBSTANTIAL";
+      } else if (selectedCounty["Overall Status"] === "2") {
+        statusMap = "2 - MODERATE";
+      } else if (selectedCounty["Overall Status"] === "1") {
+        statusMap = "1 - MINIMAL";
+      }
+
+      // @TODO RSHO?
+
+      if (statusMap !== null) {
+        tierModificationStatus = searchResultData[statusMap];
+      }
     }
 
     return `<div class="card-activity">
     
     <h4>${activityLabel}</h4>
 
-    <p>${modificationStatus}</p>
-
-    <p>${
-      searchResultData["5"].indexOf("href") > -1
-        ? `${seeGuidanceText} ${replaceAllInMap(searchResultData["5"])}`
-        : ""
-    }</p>
+    <p>${tierModificationStatus}</p>
 
   </div>`;
   }
