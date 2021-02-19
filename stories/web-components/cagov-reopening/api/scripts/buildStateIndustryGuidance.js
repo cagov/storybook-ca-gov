@@ -16,6 +16,7 @@ const dataPath =
 const buildStateGuidanceJSON = ({language = null}) => {
   try {
     // Load api template
+    
     // Up to date metadata comes from our covid19.ca.gov data documentation content.  
     // console.log(docsPath);
     // console.log(dataPath);

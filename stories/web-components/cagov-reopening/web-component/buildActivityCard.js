@@ -119,7 +119,9 @@ export const buildActivityCard = ({
         policies,
       });
 
-      rshoCard = searchResultData["RSHO"];
+      if (policies.isUnderRSHO !== undefined && policies.isUnderRSHO === true) {
+        rshoCard = searchResultData["RSHO"];
+      }
 
       activityCards.push(`
           school:<br/> ${schoolCard}

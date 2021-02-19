@@ -32,7 +32,8 @@ export const buildStateIndustryGuidanceCard = ({
         stateIndustryGuidanceData,
         activityLabel,
         searchResultData,
-        language
+        language,
+        additionalGuidanceLabel,
       });
       //   <cagov-accordion>
       return `<div class="state-guidance">
@@ -45,7 +46,6 @@ export const buildStateIndustryGuidanceCard = ({
                   <div class="card-container" aria-hidden="true">
                     <div class="card-body">
                       ${accordionContent}
-                      ${additionalGuidanceLabel}
                     </div>
                   </div>
                 </div>
@@ -68,7 +68,8 @@ const getDefaultAccordionContent = ({
   stateIndustryGuidanceData,
   activityLabel,
   searchResultData,
-  language = "en"
+  language = "en",
+  additionalGuidanceLabel,
 }) => {
   // console.log("default accordion", activityLabel);
   // console.log("stateIndustryGuidanceData", stateIndustryGuidanceData);
@@ -77,29 +78,34 @@ const getDefaultAccordionContent = ({
   let primaryGuidance = getPrimaryGuidance({
     data: stateIndustryGuidanceData,
     searchResultData,
-    language
+    language,
   });
 
-  let secondaryGuidance = getPrimaryGuidance({
+  let secondaryGuidance = getSecondaryGuidance({
     data: stateIndustryGuidanceData,
     searchResultData,
-    language
+    language,
   });
 
   let additionalGuidance = getAdditionalGuidance({
     data: stateIndustryGuidanceData,
     searchResultData,
-    language
+    language,
+    additionalGuidanceLabel,
   });
-//    ${secondaryGuidance}
+
   return `<div class="state-guidance-content">
     ${primaryGuidance}
-
+    ${secondaryGuidance}
     ${additionalGuidance}
   </div>`;
 };
 
-const getPrimaryGuidance = ({ data = null, searchResultData = null, language = "en" }) => {
+const getPrimaryGuidance = ({
+  data = null,
+  searchResultData = null,
+  language = "en",
+}) => {
   try {
     if (
       data !== undefined &&
@@ -115,7 +121,6 @@ const getPrimaryGuidance = ({ data = null, searchResultData = null, language = "
         let currentGuidance = data[guidance];
         // console.log("currentGuidance primary", guidance, currentGuidance);
         if (currentGuidance !== undefined && currentGuidance !== null) {
-
           // accessibility_links: ""
           // filename: "checklist-limited-services--th.pdf"
           // git_date_updated: "2020-09-03 11:56:06 -0700"
@@ -130,8 +135,10 @@ const getPrimaryGuidance = ({ data = null, searchResultData = null, language = "
           currentGuidance.pdf.map((resource) => {
             // console.log("resource", resource);
             if (resource.language === "English") {
-            // if (languages[resource.language] === language) { @TODO add lang code in API)
-              results.push(`<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${resource.git_pdf_template_type}</a>  [MORE LANGUAGES]</li>`);
+              // if (languages[resource.language] === language) { @TODO add lang code in API)
+              results.push(
+                `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${resource.git_pdf_template_type}</a>  [MORE LANGUAGES]</li>`
+              );
             }
             return false;
           });
@@ -139,7 +146,7 @@ const getPrimaryGuidance = ({ data = null, searchResultData = null, language = "
         return false;
       });
       console.log("results", results);
-      return results.join("")
+      return results.join("");
     }
   } catch (error) {
     console.error("Error in getPrimaryGuidance", error);
@@ -147,7 +154,11 @@ const getPrimaryGuidance = ({ data = null, searchResultData = null, language = "
   return "";
 };
 
-const getSecondaryGuidance = ({ data = null, searchResultData = null, language = "en" }) => {
+const getSecondaryGuidance = ({
+  data = null,
+  searchResultData = null,
+  language = "en",
+}) => {
   try {
     if (
       data !== undefined &&
@@ -155,16 +166,40 @@ const getSecondaryGuidance = ({ data = null, searchResultData = null, language =
       searchResultData !== undefined &&
       searchResultData !== null
     ) {
-      
+      let results = [];
+      // console.log("searchR", searchResultData);
       let guidances = searchResultData.secondary_guidance.split(",");
-      return guidances.map((guidance) => {
+      // console.log(guidances, "guid");
+      guidances.map((guidance) => {
         let currentGuidance = data[guidance];
-        // console.log("currentGuidance secondary", guidance, currentGuidance);
+        // console.log("currentGuidance primary", guidance, currentGuidance);
         if (currentGuidance !== undefined && currentGuidance !== null) {
+          // accessibility_links: ""
+          // filename: "checklist-limited-services--th.pdf"
+          // git_date_updated: "2020-09-03 11:56:06 -0700"
+          // git_pdf_template_type: "Checklist"
+          // id: "checklist-limited-services--th.pdf"
+          // industry_category_key: "limited-services"
+          // language: "Thai"
+          // pdf_publication_date: ""
+          // permalink: "https://files.covid19.ca.gov/pdf/checklist-limited-services--th.pdf"
+          // summary_of_changes: ""
 
+          currentGuidance.pdf.map((resource) => {
+            // console.log("resource", resource);
+            if (resource.language === "English") {
+              // if (languages[resource.language] === language) { @TODO add lang code in API)
+              results.push(
+                `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${resource.git_pdf_template_type}</a>  [MORE LANGUAGES]</li>`
+              );
+            }
+            return false;
+          });
         }
-        return null;
+        return false;
       });
+      console.log("results", results);
+      return results.join("");
     }
   } catch (error) {
     console.error("Error in getSecondaryGuidance", error);
@@ -172,7 +207,13 @@ const getSecondaryGuidance = ({ data = null, searchResultData = null, language =
   return "";
 };
 
-const getAdditionalGuidance = ({ data = null, searchResultData = null, language = "en" }) => {
+const getAdditionalGuidance = ({
+  data = null,
+  searchResultData = null,
+  language = "en",
+  additionalGuidanceLabel = null
+}) => {
+
   try {
     if (
       data !== undefined &&
@@ -180,41 +221,30 @@ const getAdditionalGuidance = ({ data = null, searchResultData = null, language 
       searchResultData !== undefined &&
       searchResultData !== null
     ) {
-      
+      let results = [];
       let guidances = searchResultData.primary_guidance.split(",");
-      console.log(guidances, "guid");
-      return guidances.map((guidance) => {
+
+      guidances.map((guidance) => {
         let currentGuidance = data[guidance];
-        // console.log(
-        //   "currentGuidance additional resources",
-        //   guidance,
-        //   currentGuidance
-        // );
         if (
           currentGuidance !== undefined &&
           currentGuidance !== null &&
-          currentGuidance.additional_resources !== undefined && 
-          currentGuidance.additional_resources !== null && 
+          currentGuidance.additional_resources !== undefined &&
+          currentGuidance.additional_resources !== null &&
           currentGuidance.additional_resources.length > 0
         ) {
-          
-          // date_last_modified: "2021-01-16T01:46:00.000Z"
-          // file_title: "COVID-19 and Reopening In-Person Instruction Framework & Public Health Guidance for K-12 Schools in California, 2020-2021 School Year"
-          // id: 35
-          // industry_category_key: "schools"
-          // language: "English"
-          // message: ""
-          // order: 1
-          // type: "guidance"
-          // url: "https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/COVID-19/Conso
-
-          return currentGuidance.additional_resources.map((resource) => {
+          currentGuidance.additional_resources.map((resource) => {
             console.log("resource", resource);
-            return `<li data-updated="${resource.date_last_modified}"><a href="${resource.url}">${resource.file_title}</a></li>`;
+            results.push(`<li data-updated="${resource.date_last_modified}">
+              <a href="${resource.url}">${resource.file_title}</a>
+            </li>`);
           });
         }
-        return null;
       });
+      return `
+        ${results.length > 0 ? additionalGuidanceLabel : ""}
+        ${results.join("")}
+      `;
     }
   } catch (error) {
     console.error("Error in getAdditionalGuidance", error);

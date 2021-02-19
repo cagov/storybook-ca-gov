@@ -1,13 +1,13 @@
 // A mock data sample pulling in all the data used in the what's open search interface.
-// @TODO port some examples of existing translated data (if available) into Airtable & export to have some more working samples.
+// Used also to help us map & document the display data
 
 export const buildMultilingualDataObject = ({
     countyRegionsData,
     countyRegionsApi,
     regionsClosedData,
     regionsClosedApi,
-    reopeningActivitiesData,
-    reopeningActivitiesApi,
+    // reopeningActivitiesData,
+    // reopeningActivitiesApi,
     schoolsMayReopenData,
     schoolsMayReopenApi,
     tierStatusDescriptorsData,
@@ -16,15 +16,15 @@ export const buildMultilingualDataObject = ({
     countyCovid19Webpages,
     countyStatusApi,
     countyStatus,
-    reopeningMatrixDataApi,
-    reopeningMatrixData,
-    reopeningRoadmapActivityDataApi,
-    reopeningRoadmapActivityDataPage1,
-    reopeningRoadmapActivityDataPage2,
+    // reopeningMatrixDataApi,
+    // reopeningMatrixData,
+    // reopeningRoadmapActivityDataApi,
+    // reopeningRoadmapActivityDataPage1,
+    // reopeningRoadmapActivityDataPage2,
     rshoApi,
     rshoData,
-    pubData,
-    pubDataApi,
+    // pubData,
+    // pubDataApi,
     stateIndustryGuidance, // These are already compiled in the new v2 format
     activitySearchBusiness, // These are already compiled in the new v2 format
     commonPageLabels,
@@ -32,56 +32,76 @@ export const buildMultilingualDataObject = ({
 }) => {
     return  {
         content: "text",
-        pubData: null, // @TODO What was this?
-        "covid19-county-webpages": {
-            docs: countyCovid19WebpagesApi,
-            data: countyCovid19Webpages.records
-        },
+
+        // Recent County Tier Status
         "countystatus": {
             docs: countyStatusApi,
             data: countyStatus
         },
-        "reopening-matrix-data": {
-            docs: reopeningMatrixDataApi,
-            data: reopeningMatrixData
-        },
-        "reopening-roadmap-activity-data": {
-            docs: reopeningRoadmapActivityDataApi,
-            data: Object.assign({}, reopeningRoadmapActivityDataPage1.records, reopeningRoadmapActivityDataPage2.records)
-        },
-        "rsho": {
-            docs: rshoApi,
-            data: rshoData
-        },
-        "pubData": {
-            docs: pubDataApi,
-            data: pubData
-        },
+        // Not needed in search, used for reopening-matrix.njk
+        // Leaving here in case design changes
+        // "reopening-matrix-data": {
+        //     docs: reopeningMatrixDataApi,
+        //     data: reopeningMatrixData
+        // },
+        // Concatenate data from Airtable into one blob
+        // Autocomplete search data
+        // @TODO Not needed, can deprecate
+        // "reopening-roadmap-activity-data": {
+        //     docs: reopeningRoadmapActivityDataApi,
+        //     data: Object.assign({}, reopeningRoadmapActivityDataPage1.records, reopeningRoadmapActivityDataPage2.records)
+        // },
+
+        // Labels  - trying to deprecate
+        // "pubData": {
+        //     docs: pubDataApi,
+        //     data: pubData
+        // },
+        // Which regions counties belong to
         "countyregions": {
             docs: countyRegionsApi,
             data: countyRegionsData
         },
+        // Which regions have school closings
         "regionsclosed": {
             docs: regionsClosedApi,
             data: regionsClosedData
         },
-        "reopening-activities": {
-            docs: reopeningActivitiesApi,
-            data: reopeningActivitiesData
+        // Which counties are currently under RSHO, if any
+        "rsho": {
+            docs: rshoApi,
+            data: rshoData
         },
+        // Original V1 dataset
+        // "reopening-activities": {
+        //     docs: reopeningActivitiesApi,
+        //     data: reopeningActivitiesData
+        // },
+        // Schools can reopen in which counties
+        // Pulls from table data, schools-may-reopen-in-these-counties.json
+        // Which 11ty rewrites and returns as a simple array.
         "schools-may-reopen": {
             docs: schoolsMayReopenApi,
             data: schoolsMayReopenData
         },
+        // What's open search data (data managed in Airtable)
+        "activity-business-search-data": activitySearchBusiness,
+        // PDF files and links for State Guidance (data managed in Airtable)
+        "state-industry-guidance": stateIndustryGuidance,
+        // Subset of Wordpress table data that includes schools may reopen labelling
+        "common-page-labels": {
+            docs: commonPageLabelsApi,
+            data: commonPageLabels
+        },
+        // Data from Table 1 is used to build tier status cards.
         "tier-status-descriptors": {
             docs: tierStatusDescriptorsApi,
             data: tierStatusDescriptorsData
         },
-        "activity-business-search-data": activitySearchBusiness,
-        "state-industry-guidance": stateIndustryGuidance,
-        "common-page-labels": {
-            docs: commonPageLabelsApi,
-            data: commonPageLabels
-        }
+        // County Health Department web pages
+        "covid19-county-webpages": {
+            docs: countyCovid19WebpagesApi,
+            data: countyCovid19Webpages.records
+        },
     };
 }

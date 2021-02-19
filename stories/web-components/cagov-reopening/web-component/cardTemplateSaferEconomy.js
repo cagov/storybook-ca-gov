@@ -217,33 +217,36 @@ export const cardTemplate = ({
 const buildCard = ({
   selectedCounty = null,
   selectedActivity,
-  allActivities,
+  county = null,
+
+  hasActivityInput = false,
+  hasCountyInput = false,
   selectedCounties = null,
   selectedActivities = null,
-  schoolsCanReopenList = null,
-  schoolLabels = null,
-  schoolReopeningStatuses = null,
-  county = null,
+  allActivities = null,
   regionsclosed = null,
+  countyRegions = null,
   tierStatusDescriptors = null,
+  schoolsCanReopenList = null,
+  schoolReopeningStatuses = null,
+  countyWebpages = null,
+  stateIndustryGuidanceData = null,
+  policies,
+  
+  schoolLabels = null,
   regionLabel = null,
   understandTheData = null,
   understandTheDataLink = null,
-  countyRegions = null,
   countyRestrictionsAdvice = null,
   countyRestrictionsCountyWebsiteLabel = null,
   seeGuidanceText = null,
   stayAtHomeOrder = `<p>Under <a href="/stay-home-except-for-essential-needs/#regional-stay-home-order">Regional Stay Home Order</a></p>`,
-  countyWebpages = null,
+  
   seeStateIndustryGuidanceLabel = null,
   guidanceTemplate = null,
   industryGuidancePdfLabel = null,
   checklistPdfLabel = null,
   additionalGuidanceLabel = null,
-  stateIndustryGuidanceData = null,
-  hasActivityInput,
-  hasCountyInput,
-  policies,
 }) => {
   
   // Create link to county covid-19 website.
@@ -255,33 +258,43 @@ const buildCard = ({
 
   // Build the tier card.
   let tierCard = buildTierCard({
-    tierStatusDescriptors,
+    // States
+    county,
     selectedCounty,
+    hasActivityInput,
+    hasCountyInput,
+    // Markup
+    countyWebsiteLink,
+    // Data
+    tierStatusDescriptors,
     countyRegions,
-    regionLabel,
     regionsclosed,
+    policies,
+    // Labels
+    regionLabel,
     stayAtHomeOrder,
     understandTheData,
     understandTheDataLink,
     countyRestrictionsAdvice,
-    county,
-    countyWebsiteLink,
-    hasActivityInput,
-    hasCountyInput,
-    policies,
   });
 
   // Build the activity card.
   let activityCards = buildActivityCard({
+    // States
     selectedActivity,
     selectedActivities,
-    allActivities,
-    stateIndustryGuidanceData,
-    seeGuidanceText,
-    regionsclosed,
-    countyRegions,
     county,
     selectedCounty,
+    hasActivityInput,
+    hasCountyInput,
+    // Data
+    allActivities,
+    stateIndustryGuidanceData,
+    policies,
+    regionsclosed,
+    countyRegions,
+    // Labels
+    seeGuidanceText,
     schoolLabels,
     schoolsCanReopenList,
     seeStateIndustryGuidanceLabel,
@@ -289,9 +302,6 @@ const buildCard = ({
     industryGuidancePdfLabel,
     checklistPdfLabel,
     additionalGuidanceLabel,
-    hasActivityInput,
-    hasCountyInput,
-    policies
   });
 
   return `

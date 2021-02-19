@@ -82,7 +82,7 @@ class CAGovReopening extends window.HTMLElement {
 
     // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
     this.localData = JSON.parse(this.dataset.json);
-    // console.log("data", this.localData);
+    console.log("data", this.localData);
 
     // Replace the enclosing tag element with contents of template.
     this.innerHTML = template({
@@ -553,15 +553,17 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   layoutCards() {
-
-    console.log("laying out cards", this.localData);
-    console.log("state", this.state);
+    // console.log("laying out cards", this.localData);
+    // console.log("state", this.state);
 
     this.cardHTML = "";
-
+    // Set up the display logic for the card.
     this.cardDisplayLogic();
 
+    // Get any policy logic and put it in a variable to pass to child elements.
+    // Policies update with each user interaction.
     let policies = {
+      // If county is under regional stay at home order
       isUnderRSHO: this.selectedCountyInRegionalStayAtHomeOrder({
         regionsclosed: this.regionsclosed,
         countyRegions: this.countyRegions,
@@ -569,34 +571,40 @@ class CAGovReopening extends window.HTMLElement {
       })
     }
 
+    console.log("Policies", policies);
+
+    // Map data sources and labels to card responses.
     this.cardHTML = cardTemplate({
+      // Interactive states
       county: this.state["county"],
       selectedActivity: this.state["activity"],
       selectedCounties: this.selectedCounties,
+      hasCountyInput: this.hasCountyInput(),
+      hasActivityInput: this.hasActivityInput(),
+      // Data sets
       selectedActivities: this.selectedActivities,
-      schoolsCanReopenList: this.schoolsCanReopenList, // array?
-      schoolLabels: this.schoolsText, // ? 
-      schoolReopeningStatuses, // function
-      countyRegions: this.countyRegions,
-      tierStatusDescriptors: this.tierStatusDescriptors,
-      regionLabel: this.translationsStrings.regionLabel,
+      schoolsCanReopenList: this.schoolsCanReopenList,
+      countyWebpages: this.localData['covid19-county-webpages'].data,
+      stateIndustryGuidanceData: this.localData['state-industry-guidance'].data,
       regionsclosed: this.regionsclosed,
       allActivities: this.allActivities,
+      schoolReopeningStatuses,
+      countyRegions: this.countyRegions,
+      policies,
+      // Labels
+      schoolLabels: this.schoolsText,
+      tierStatusDescriptors: this.tierStatusDescriptors,
+      regionLabel: this.translationsStrings.regionLabel,
       understandTheData: this.translationsStrings.understandTheData,
       understandTheDataLink: this.translationsStrings.understandTheDataLink,
       countyRestrictionsAdvice: this.translationsStrings.countyRestrictionsAdvice,
       countyRestrictionsCountyWebsiteLabel: this.translationsStrings.countyRestrictionsCountyWebsiteLabel,
       seeGuidanceText: this.translationsStrings.seeGuidanceText,
-      countyWebpages: this.localData['covid19-county-webpages'].data, // all data
-      stateIndustryGuidanceData: this.localData['state-industry-guidance'].data,
       seeStateIndustryGuidanceLabel: this.translationsStrings.seeStateIndustryGuidanceLabel,
       guidanceTemplate: this.translationsStrings.guidanceTemplate,
       industryGuidancePdfLabel: this.translationsStrings.industryGuidancePdfLabel,
       checklistPdfLabel: this.translationsStrings.checklistPdfLabel,
       additionalGuidanceLabel: this.translationsStrings.additionalGuidanceLabel,
-      hasCountyInput: this.hasCountyInput(),
-      hasActivityInput: this.hasActivityInput(),
-      policies
     });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed:
@@ -621,8 +629,11 @@ class CAGovReopening extends window.HTMLElement {
 
 /**
  * Check if the current selected county is in one of the RSHO closed regions.
- * @param {*} param0
- * @return {bool}
+ * 
+ * @param {array} param.regionsclosed - Which regions are closed
+ * @param {array} param.countyRegions - Which county belongs in which region
+ * @param {string} param.selectedCounty - Currently selected county
+ * @return {bool} If the selected county is under regional stay at home order
  */
 selectedCountyInRegionalStayAtHomeOrder({
   regionsclosed = null,
@@ -630,12 +641,12 @@ selectedCountyInRegionalStayAtHomeOrder({
   selectedCounty = null,
 }) {
   try {
-    console.log(regionsclosed, countyRegions);
+    console.log("regions closed", regionsclosed, countyRegions, selectedCounty);
 
-    if (regionsclosed && countyRegions && selectedCounty && selectedCounty.county) {
+    if (regionsclosed && countyRegions && selectedCounty) {
       return (
         regionsclosed.filter(
-          (r) => r.region === countyRegions[selectedCounty.county]
+          (r) => r.region === countyRegions[selectedCounty]
         ).length > 0
       );
     }

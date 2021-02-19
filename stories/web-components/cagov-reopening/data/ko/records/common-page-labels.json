@@ -1,9 +1,9 @@
 {
-    "Table6": [
+  "Table6": [
     {
-      "schools_may_reopen": "Schools may reopen fully for in-person instruction. Local school officials will decide whether and when that will occur.",
-      "schools_may_not_reopen": "Schools may not reopen fully for in-person instruction until the county has been in the Substantial (red) tier for 5 days. School officials <a href=\"https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Schools-FAQ.aspx\">may decide to conduct in-person instruction</a> for a limited set of students in small cohorts.<br><br>Note on exception: Schools that have already re-opened if the county was in a less restrictive tier do not have to close. However, if a school had not already reopened for in-person instruction, it may not reopen until the county moves back to the Substantial (red) tier for 5 consecutive days.",
-      "schools_info": "See <a href=\"https://schools.covid19.ca.gov/\">CA Safe Schools for All hub</a>, <a href=\"https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/COVID-19/Consolidated_Schools_Guidance.pdf\">schools guidance</a>, and <a href=\"https://files.covid19.ca.gov/pdf/guidance-schools-cohort-FAQ.pdf\">cohorting FAQs</a>."
+      "schools_may_reopen": "학교는 정상적인 대면 수업을 재개할 수도 있습니다. 지역 내 교육 담당자가 재개 여부와 시기를 결정하게 됩니다.",
+      "schools_may_not_reopen": "해당 카운티가 실질(적색) 단계에 5일 동안 속해 있었을 경우 학교는 정상적인 대면 수업을 재개할 수도 있습니다. 교육 담당자는 소규모 집단에 속하는 제한된 학생들에 대해 <a href=\"https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Schools-FAQ.aspx\">대면 수업을 실시하기로 결정할 수도 있습니다</a>.<br><br>예외 사항에 관한 주의: 더 낮은 수준의 제한 조치를 취한 카운티에서 이미 수업을 재개한 학교는 수업을 중단할 필요가 없습니다. 그러나 학교가 아직 대면 수업을 재개하지 않은 경우, 카운티가 5일 연속 상당(적색) 단계로 재이동할 때까지는 수업 재개가 어려울 수도 있습니다.",
+      "schools_info": "<a href=\"https://schools.covid19.ca.gov/\">캘리포니아 모두에게 안전한 학교 허브(CA Safe Schools for All hub)</a>, <a href=\"https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/COVID-19/Consolidated_Schools_Guidance.pdf\">학교 지침</a> 및 <a href=\"https://files.covid19.ca.gov/pdf/guidance-schools-cohort-FAQ.pdf\">동일 집단 관련 자주 묻는 질문</a>을 참조하십시오."
     }
   ]
 }

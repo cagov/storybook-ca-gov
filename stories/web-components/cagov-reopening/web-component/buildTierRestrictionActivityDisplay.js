@@ -44,9 +44,7 @@ export const buildTierRestrictionActivityDisplay = ({
       } else if (selectedCounty["Overall Status"] === "1") {
         statusMap = "1 - MINIMAL";
       }
-
-      // @TODO RSHO?
-
+      
       if (statusMap !== null) {
         tierModificationStatus = searchResultData[statusMap];
       }
