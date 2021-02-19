@@ -143,7 +143,7 @@ class CAGovReopening extends window.HTMLElement {
     this.countyStatuses.forEach((c) => {
       countyAutocompleteList.push(c.county);
     });
-    console.log("countyAutocompleteList", countyAutocompleteList);
+    // console.log("countyAutocompleteList", countyAutocompleteList);
     // Set up autocomplete data for activity search
     this.allActivities = this.localData["reopening-activities"].data.Table1;
 
@@ -174,7 +174,7 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   setupInputButtons() {
-    console.log("setup input buttons");
+    // console.log("setup input buttons");
 
     // Get the input element.
     var countyInput = document.getElementById("location-query");
@@ -187,13 +187,13 @@ class CAGovReopening extends window.HTMLElement {
     if (countyInput) {
       // Show clear button only on input or blur (County)
       countyInput.addEventListener("input", function (e) {
-        console.log("input county input", e);
+        // console.log("input county input", e);
         inputValueCounty(e, hasCountyInput);
         // this.changeLocationInput(countyInput.value);
       });
 
       countyInput.addEventListener("blur", function (e) {
-        console.log("blurred county input", e);
+        // console.log("blurred county input", e);
         inputValueCounty(e, hasCountyInput);
         // this.changeLocationInput(countyInput.value);
       });
@@ -202,20 +202,20 @@ class CAGovReopening extends window.HTMLElement {
     if (activityInput) {
       // Show clear button only on input or blur (Activity)
       activityInput.addEventListener("input", function (e) {
-        console.log("input activity input", e);
+        // console.log("input activity input", e);
         inputValueActivity(e, hasActivityInput);
         // this.changeActivityInput(activityInput.value);
       });
 
       activityInput.addEventListener("blur", function (e) {
-        console.log("input activity blur", e);
+        // console.log("input activity blur", e);
         inputValueActivity(e, hasActivityInput);
         // this.changeActivityInput(activityInput.value);
       });
     }
 
 
-    console.log("hasCountyInput", hasCountyInput, "hasActivityInput", hasActivityInput, this.initialLoad);
+    // console.log("hasCountyInput", hasCountyInput, "hasActivityInput", hasActivityInput, this.initialLoad);
 
     // If values preset, run the search.
     if (
@@ -223,7 +223,7 @@ class CAGovReopening extends window.HTMLElement {
       hasCountyInput === true &&
       hasActivityInput  === false
     ) {
-      console.log("Initial load: has county data");
+      // console.log("Initial load: has county data");
       this.changeLocationInput(countyInput.value);
       this.initialLoad = 1;
       this.layoutCards();
@@ -233,7 +233,7 @@ class CAGovReopening extends window.HTMLElement {
       hasCountyInput === false &&
       hasActivityInput === true
     ) {
-      console.log("Initial load: has activity data");
+      // console.log("Initial load: has activity data");
       this.changeActivityInput(activityInput.value);
       this.initialLoad = 1;
       this.layoutCards();
@@ -243,7 +243,7 @@ class CAGovReopening extends window.HTMLElement {
       hasCountyInput === true &&
       hasActivityInput === true
     ) {
-      console.log("Initial load: has county and activity data");
+      // console.log("Initial load: has county and activity data");
       this.changeLocationInput(countyInput.value);
       this.changeActivityInput(activityInput.value);
       this.initialLoad = 1;
@@ -271,7 +271,7 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   changeLocationInput(value) {
-    console.log("changing location input");
+    // console.log("changing location input");
     const $locationQuery = document.getElementById("location-query");
     $locationQuery.value = value;
     $locationQuery.setAttribute("aria-invalid", false);
@@ -292,7 +292,7 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   changeActivityInput(value) {
-    console.log("changing activity input");
+    // console.log("changing activity input");
     const $activityQuery = document.getElementById("activity-query");
     $activityQuery.value = value;
     $activityQuery.setAttribute("aria-invalid", false);
@@ -451,7 +451,6 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   hasCountyInput() {
-    console.log("this.state[county]" , this.state["county"]);
     if (this.state["county"] === null || this.state["county"] === "" || this.state["county"] === "null") {
       // Check input content:
       var countyInput = document.getElementById("location-query");

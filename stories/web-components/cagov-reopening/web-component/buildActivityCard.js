@@ -58,14 +58,14 @@ export const buildActivityCard = ({
 
   let activityCards = [];
 
-  console.log("Build Activity Card", selectedActivity, county)
+  // console.log("Build Activity Card", selectedActivity, county)
   if (hasActivityInput === true) {
     // We have selected activities
-    console.log("has selected activity")
+    // console.log("has selected activity")
   } else if (hasCountyInput === true && hasActivityInput === false) {
     // We have a county selected, but not activities, show them all.
     selectedActivities = allActivities;
-    console.log(selectedActivities.length);
+    // console.log(selectedActivities.length);
   }
   // Generate card layouts for selected activities
   if (selectedActivities.length > 0) {
@@ -107,6 +107,7 @@ export const buildActivityCard = ({
       stateGuidanceCard = buildStateIndustryGuidanceCard({
         activityLabel,
         county,
+        searchResultData,
         stateIndustryGuidanceData,
         seeStateIndustryGuidanceLabel,
         guidanceTemplate,
