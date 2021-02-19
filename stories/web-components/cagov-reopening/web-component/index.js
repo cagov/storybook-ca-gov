@@ -124,7 +124,7 @@ class CAGovReopening extends window.HTMLElement {
       localData: this.localData,
     });
 
-    console.log("data", this.localData);
+    // console.log("data", this.localData);
 
     // data-json="{{pubData[language.id].saferEconomyLang.Table1[0] | dump | escape}}" data-schools="{{pubData['en'].commonPageLabels.Table6[0] | dump | escape}}">
 
@@ -180,58 +180,69 @@ class CAGovReopening extends window.HTMLElement {
     var countyInput = document.getElementById("location-query");
     var activityInput = document.getElementById("activity-query");
 
+    // @TODO Add enter form submission for accessibility for all interactions
+
     if (countyInput) {
       // Show clear button only on input or blur (County)
       countyInput.addEventListener("input", function (e) {
-        console.log("input county input");
+        console.log("input county input", e);
         inputValueCounty(e);
+        // this.changeLocationInput(countyInput.value);
       });
 
       countyInput.addEventListener("blur", function (e) {
-        console.log("blurred county input");
+        console.log("blurred county input", e);
         inputValueCounty(e);
+        // this.changeLocationInput(countyInput.value);
       });
     }
 
     if (activityInput) {
       // Show clear button only on input or blur (Activity)
       activityInput.addEventListener("input", function (e) {
-        console.log("input activity input");
+        console.log("input activity input", e);
         inputValueActivity(e);
+        // this.changeActivityInput(activityInput.value);
       });
 
       activityInput.addEventListener("blur", function (e) {
-        console.log("input activity blur");
+        console.log("input activity blur", e);
         inputValueActivity(e);
+        // this.changeActivityInput(activityInput.value);
       });
     }
 
-    console.log("countyInput.value", countyInput.value);
+    let hasCountyInput = this.hasCountyInput();
+    let hasActivityInput = this.hasActivityInput();
+    console.log("hasCountyInput", hasCountyInput, "hasActivityInput", hasActivityInput, this.initialLoad);
+
     // If values preset, run the search.
     if (
       this.initialLoad === 0 &&
-      countyInput.value !== "" &&
-      activityInput.value === ""
+      hasCountyInput === true &&
+      hasActivityInput  === false
     ) {
-      console.log("has county data");
+      console.log("Initial load: has county data");
       this.changeLocationInput(countyInput.value);
       this.initialLoad = 1;
       this.layoutCards();
       document.getElementById("location-query").blur();
     } else if (
       this.initialLoad === 0 &&
-      activityInput.value !== "" &&
-      countyInput.value === ""
+      hasCountyInput === false &&
+      hasActivityInput === true
     ) {
+      console.log("Initial load: has activity data");
       this.changeActivityInput(activityInput.value);
       this.initialLoad = 1;
       this.layoutCards();
       document.getElementById("activity-query").blur();
     } else if (
       this.initialLoad === 0 &&
-      activityInput.value !== "" &&
-      countyInput.value !== ""
+      hasCountyInput === true &&
+      hasActivityInput === true
     ) {
+      console.log("Initial load: has county and activity data");
       this.changeLocationInput(countyInput.value);
       this.changeActivityInput(activityInput.value);
       this.initialLoad = 1;
@@ -239,12 +250,9 @@ class CAGovReopening extends window.HTMLElement {
       document.getElementById("location-query").blur();
       document.getElementById("activity-query").blur();
     }
-
-    console.log("activityInput", activityInput);
-    console.log("countyInput", countyInput);
-
-    if (countyInput || activityInput) {
-      // Clear button in put on click events
+    
+    if (hasActivityInput || hasCountyInput) {
+      // Clear button input on click events
       document
         .getElementById("clearLocation")
         .addEventListener("click", function (e) {
@@ -262,6 +270,7 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   changeLocationInput(value) {
+    console.log("changing location input");
     const $locationQuery = document.getElementById("location-query");
     $locationQuery.value = value;
     $locationQuery.setAttribute("aria-invalid", false);
@@ -274,7 +283,7 @@ class CAGovReopening extends window.HTMLElement {
     document.getElementById("location-error").style.visibility = "hidden";
     document.getElementById("reopening-error").style.visibility = "hidden";
     
-    if (this.state.county.length === 0 && this.state.activity.length === 0) {
+    if (this.hasActivityInput() === false && this.hasCountyInput() === false) {
       this.querySelector(".card-holder").innerHTML = "";
     } else {
       this.layoutCards();
@@ -282,6 +291,7 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   changeActivityInput(value) {
+    console.log("changing activity input");
     const $activityQuery = document.getElementById("activity-query");
     $activityQuery.value = value;
     $activityQuery.setAttribute("aria-invalid", false);
@@ -294,7 +304,7 @@ class CAGovReopening extends window.HTMLElement {
     document.getElementById("activity-error").style.visibility = "hidden";
     document.getElementById("reopening-error").style.visibility = "hidden";
 
-    if (this.state.county.length === 0 && this.state.activity.length === 0) {
+    if (this.hasActivityInput() === false && this.hasCountyInput() === false) {
       this.querySelector(".card-holder").innerHTML = "";
     } else {
       this.layoutCards();
@@ -357,7 +367,7 @@ class CAGovReopening extends window.HTMLElement {
             "visible";
         } else {
           // Render the card layouts
-          console.log("laying out cards");
+          // console.log("laying out cards");
           this.layoutCards();
         }
       }.bind(this)
@@ -437,7 +447,19 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   hasCountyInput() {
+    console.log("this.state[county]" , this.state["county"]);
     if (this.state["county"] === null || this.state["county"] === "" || this.state["county"] === "null") {
+      // Check input content:
+      var countyInput = document.getElementById("location-query");
+      if (countyInput !== undefined &&
+        countyInput !== null &&
+        countyInput.value !== "" && 
+        countyInput.value !== null &&
+        countyInput.value.length !== undefined &&
+        countyInput.value.length >  0) {
+          return true;
+      }
+
       return false;
     }
     return true;
@@ -445,6 +467,17 @@ class CAGovReopening extends window.HTMLElement {
 
   hasActivityInput() {
     if (this.state["activity"] === null || this.state["activity"] === "" || this.state["activity"] === "null" ) {
+      // Check input content:
+      var activityInput = document.getElementById("activity-query");
+      if (activityInput !== undefined &&
+        activityInput !== null &&
+        activityInput.value !== "" && 
+        activityInput.value !== null &&
+        activityInput.value.length !== undefined &&
+        activityInput.value.length >  0) {
+          return true;
+      }
+
       return false;
     }
     return true;
@@ -507,7 +540,7 @@ class CAGovReopening extends window.HTMLElement {
 
   layoutCards() {
 
-    console.log("laying out cards", this.localData);
+    // console.log("laying out cards", this.localData);
 
     this.cardHTML = "";
 

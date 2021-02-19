@@ -12,7 +12,7 @@ export const inputValueCounty = (e) => {
 
 // Show clear button only if there is a value (Activity)
 export const inputValueActivity = (e) => {
-  // console.log("activity", e);
+  console.log("activity", e);
   var activityInput = document.getElementById("activity-query");
   var clearActivity = document.getElementById("clearActivity");
   if (activityInput && activityInput.value) {

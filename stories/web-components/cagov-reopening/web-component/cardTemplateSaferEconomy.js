@@ -74,26 +74,26 @@ export const cardTemplate = ({
   additionalGuidanceLabel = null,
   stateIndustryGuidanceData = null,
 }) => {
-  console.log(
-    "cardTemplate selectedCounties",
-    selectedCounties,
-    "selectedActivities",
-    selectedActivities
-  );
-  console.log(
-    "cardTemplate selectedCounties",
-    selectedCounties.length,
-    "selectedActivities",
-    selectedActivities.length
-  );
+  // console.log(
+  //   "cardTemplate selectedCounties",
+  //   selectedCounties,
+  //   "selectedActivities",
+  //   selectedActivities
+  // );
+  // console.log(
+  //   "cardTemplate selectedCounties",
+  //   selectedCounties.length,
+  //   "selectedActivities",
+  //   selectedActivities.length
+  // );
   let cards = [];
 
   if (selectedCounties.length > 0 && selectedActivities.length > 0) {
     // Some county selected
-    console.log("selectedCounties and activities", selectedCounties);
+    // console.log("selectedCounties and activities", selectedCounties);
 
     selectedCounties.forEach((selectedCounty) => {
-      console.log("county Select", selectedCounty);
+      // console.log("county Select", selectedCounty);
 
       let card = buildCard({
         selectedCounty,
@@ -126,10 +126,10 @@ export const cardTemplate = ({
     });
   } else if (selectedCounties.length > 0 && selectedActivities.length === 0) {
     // Some county selected
-    console.log("selectedCounties ", selectedCounties);
+    // console.log("selectedCounties ", selectedCounties);
 
     selectedCounties.forEach((selectedCounty) => {
-      console.log("county Select", selectedCounty);
+      // console.log("county Select", selectedCounty);
 
       let card = buildCard({
         selectedCounty,
@@ -162,7 +162,7 @@ export const cardTemplate = ({
     });
   } else {
 
-    console.log("selectedActivities", selectedActivities);
+    // console.log("selectedActivities", selectedActivities);
 
     // No county selected
     selectedActivities.forEach((selectedActivity) => {

@@ -44,7 +44,7 @@ export const buildTierCard = ({
   let countyTierDescription = null;
   let tierStatus = null;
 
-  console.log("tier card selectedCounty", selectedCounty.county, selectedCounty);
+  // console.log("tier card selectedCounty", selectedCounty.county, selectedCounty);
 
   try {
     // @TODO the colors are flipped, we will try to flip them back this time to match what's in Snowflake

@@ -9,8 +9,7 @@ export const buildTierRestrictionActivityDisplay = ({
   selectedCounty = null,
   schoolLabels = null,
 }) => {
-  console.log("buildTierRestrictionActivityDisplay", searchResultData);
-
+  
   let schoolReopeningText = "";
 
   // Handle special templates for special content.
@@ -25,7 +24,7 @@ export const buildTierRestrictionActivityDisplay = ({
     <p></p>
   </div>`;
   } else {
-    console.log("county", county, searchResultData);
+    // console.log("county", county, searchResultData);
 
     let modificationStatus = "";
     if (

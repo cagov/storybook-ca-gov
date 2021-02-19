@@ -63,14 +63,14 @@ export const buildActivityCard = ({
 
   let activityCards = [];
 
-  console.log("Build Activity Card", selectedActivity, county, allActivities)
+  console.log("Build Activity Card", selectedActivity, county)
   if (selectedActivity !== null && selectedActivity !== "" && selectedActivity.length > 0) {
-
+    // We have selected activities
+    console.log("has selected activity")
   } else if (county !== null) {
+    // We have a county selected, but not activities, show them all.
     selectedActivities = allActivities;
     console.log(selectedActivities.length);
-  } else {
-
   }
   // Generate card layouts for selected activities
   if (selectedActivities.length > 0) {
