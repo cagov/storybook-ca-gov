@@ -22,11 +22,11 @@ const VIEW_NAME = process.env["AIRTABLE_VIEW_NAME"]; // Manually set in the base
 
 // Location of docs templates.
 const docsPath =
-  "./stories/web-components/cagov-reopening/api-notebook/api_templates/";
+  "./stories/web-components/cagov-reopening/api/api_templates/";
 
 // Write folder for JSON output
 const dataPath =
-  "./stories/web-components/cagov-reopening/api-notebook/auto-generated-data";
+  "./stories/web-components/cagov-reopening/api/auto-generated-data";
 
 // Developer NOTES:
 // Estimated total size: 500KB (JSON from Airtable)
