@@ -32,8 +32,8 @@ import reopeningActivitiesApi from "./api_templates/reopening-activities.api.jso
 import schoolsMayReopenData from "./records/schools-may-reopen.json";
 import schoolsMayReopenApi from "./api_templates/schools-may-reopen.api.json";
 
-import statusDescriptorsData from "./records/statusdescriptors.json";
-import statusDescriptorsApi from "./api_templates/statusdescriptors.api.json";
+import tierStatusDescriptorsData from "./records/tier-status-descriptors.json";
+import tierStatusDescriptorsApi from "./api_templates/tier-status-descriptors.api.json";
 
 import stateIndustryGuidance from "./records/data-covid19-state-industry-guidance.json";
 import activitySearchBusiness from "./records/data-covid19-activity-business-search-data.json";
@@ -52,8 +52,8 @@ export const data = buildMultilingualDataObject({
     reopeningActivitiesApi,
     schoolsMayReopenData,
     schoolsMayReopenApi,
-    statusDescriptorsData,
-    statusDescriptorsApi,
+    tierStatusDescriptorsData,
+    tierStatusDescriptorsApi,
     countyCovid19WebpagesApi,
     countyCovid19Webpages,
     countyStatusApi,

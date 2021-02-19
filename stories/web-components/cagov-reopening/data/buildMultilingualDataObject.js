@@ -10,8 +10,8 @@ export const buildMultilingualDataObject = ({
     reopeningActivitiesApi,
     schoolsMayReopenData,
     schoolsMayReopenApi,
-    statusDescriptorsData,
-    statusDescriptorsApi,
+    tierStatusDescriptorsData,
+    tierStatusDescriptorsApi,
     countyCovid19WebpagesApi,
     countyCovid19Webpages,
     countyStatusApi,
@@ -73,9 +73,9 @@ export const buildMultilingualDataObject = ({
             docs: schoolsMayReopenApi,
             data: schoolsMayReopenData
         },
-        "statusdescriptors": {
-            docs: statusDescriptorsApi,
-            data: statusDescriptorsData
+        "tier-status-descriptors": {
+            docs: tierStatusDescriptorsApi,
+            data: tierStatusDescriptorsData
         },
         "activity-business-search-data": activitySearchBusiness,
         "state-industry-guidance": stateIndustryGuidance,

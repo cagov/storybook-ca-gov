@@ -14,6 +14,9 @@ import { cardTemplate } from "./cardTemplateSaferEconomy";
 /**
  * This component provides a county and activity/business search interface
  * and displays combined datasets for different reopening statuses.
+ * 
+ * @example - Code snippet (@TODO put in handbook or somewhere)
+ * 
  */
 class CAGovReopening extends window.HTMLElement {
   constructor() {
@@ -114,12 +117,13 @@ class CAGovReopening extends window.HTMLElement {
     // console.log(this.screenDisplayType);
   }
 
-  getLocalData() {
+  getData() {
     // Get interface label strings
     this.innerHTML = template({
       translations: this.translationsStrings,
       localData: this.localData,
     });
+
     console.log("data", this.localData);
 
     // data-json="{{pubData[language.id].saferEconomyLang.Table1[0] | dump | escape}}" data-schools="{{pubData['en'].commonPageLabels.Table6[0] | dump | escape}}">
@@ -135,35 +139,36 @@ class CAGovReopening extends window.HTMLElement {
 
     // Set up autocomplete data for county search
     this.countyStatuses = this.localData["countystatus"].data;
-    let aList = [];
+    let countyAutocompleteList = [];
     this.countyStatuses.forEach((c) => {
-      aList.push(c.county);
+      countyAutocompleteList.push(c.county);
     });
 
     // Set up autocomplete data for activity search
     this.allActivities = this.localData["reopening-activities"].data.Table1;
-    let bList = [];
+
+    let activityAutocompleteList = [];
     this.allActivities.forEach((item) => {
-      bList.push(item["0"]);
+      activityAutocompleteList.push(item["0"]);
     });
 
     // Connect autocomplete searches to page elements.
-    this.setupAutoComplete("#location-query", "county", aList);
-    this.setupAutoCompleteActivity("#activity-query", "activity", bList);
+    this.setupAutoComplete("#location-query", "county", countyAutocompleteList);
+    this.setupAutoCompleteActivity("#activity-query", "activity", activityAutocompleteList);
 
     // Assign data to local variables.
     // console.log("localData", this.localData);
     this.countyRegions = this.localData.countyregions.data;
     this.regionsclosed = this.localData.regionsclosed.data.Table1; // {array}
-    this.statusdesc = this.localData.statusdescriptors.data.Table1;
+    this.tierStatusDescriptors = this.localData["tier-status-descriptors"].data.Table1; // was statusdesc
     this.schoolsCanReopenList = this.localData["schools-may-reopen"].data;
     this.schoolsText = this.localData["common-page-labels"].data.Table6[0];
   }
 
   render() {
-    this.getLocalData();
+    this.getData();
 
-    // Can these come here or synced after getLocalData
+    // Can these come here or synced after getData
     this.getCountyMap(); // Tableau map would go here (currently disabled for development efficiency)
     this.activateForms();
   }
@@ -268,9 +273,11 @@ class CAGovReopening extends window.HTMLElement {
     }
     document.getElementById("location-error").style.visibility = "hidden";
     document.getElementById("reopening-error").style.visibility = "hidden";
+    
     if (this.state.county.length === 0 && this.state.activity.length === 0) {
       this.querySelector(".card-holder").innerHTML = "";
     } else {
+      
       this.layoutCards();
     }
   }
@@ -287,6 +294,7 @@ class CAGovReopening extends window.HTMLElement {
     }
     document.getElementById("activity-error").style.visibility = "hidden";
     document.getElementById("reopening-error").style.visibility = "hidden";
+
     if (this.state.county.length === 0 && this.state.activity.length === 0) {
       this.querySelector(".card-holder").innerHTML = "";
     } else {
@@ -358,7 +366,7 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   // County Autocomplete
-  setupAutoComplete(fieldSelector, fieldName, aList) {
+  setupAutoComplete(fieldSelector, fieldName, countyAutocompleteList) {
     let component = this;
     const awesompleteSettings = {
       autoFirst: true,
@@ -379,7 +387,7 @@ class CAGovReopening extends window.HTMLElement {
         component.layoutCards();
         document.querySelector(fieldSelector).blur();
       },
-      list: aList,
+      list: countyAutocompleteList,
     };
 
     window.makeAutocomplete = new Awesomplete(
@@ -389,7 +397,7 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   // Activity Autocomplete
-  setupAutoCompleteActivity(fieldSelector, fieldName, bList) {
+  setupAutoCompleteActivity(fieldSelector, fieldName, activityAutocompleteList) {
     let component = this;
     const awesompleteSettings = {
       autoFirst: true,
@@ -413,7 +421,7 @@ class CAGovReopening extends window.HTMLElement {
         component.layoutCards();
         document.querySelector(fieldSelector).blur();
       },
-      list: bList,
+      list: activityAutocompleteList,
     };
 
     window.makeAutocomplete2 = new Awesomplete(
@@ -429,31 +437,93 @@ class CAGovReopening extends window.HTMLElement {
       });
   }
 
+  hasCountyInput() {
+    if (this.state["county"] === null || this.state["county"] === "" || this.state["county"] === "null") {
+      return false;
+    }
+    return true;
+  }
+
+  hasActivityInput() {
+    if (this.state["activity"] === null || this.state["activity"] === "" || this.state["activity"] === "null" ) {
+      return false;
+    }
+    return true;
+  }
+
+  cardDisplayLogic() {
+
+        // Build data for cards.
+        let selectedCounties = [];
+
+        let selectedActivities = [];
+    
+        let viewAllCounties = false;
+        let viewAllActivities = false;
+    
+        if (this.hasCountyInput() && !this.hasActivityInput()) {
+          viewAllCounties = false;
+          viewAllActivities = true;
+        } else if (!this.hasCountyInput() && !this.hasActivityInput()) {
+          viewAllCounties = true;
+          viewAllActivities = true;
+        } else if (!this.hasCountyInput() && this.hasActivityInput()) {
+          viewAllCounties = true;
+          viewAllActivities = false;
+        } else if (this.hasCountyInput() && this.hasActivityInput()) {
+          viewAllCounties = false;
+          viewAllActivities = false;
+        }
+    
+        console.log("activity", this.state["activity"], "county", this.state["county"]);
+        console.log("viewAllActivities", viewAllActivities, "viewAllCounties", viewAllCounties);
+    
+        // Q: How many statuses are supported? Had there been a plan to show multiple counties?
+        if (this.state["county"]) {
+          selectedCounties = [];
+          this.countyStatuses.forEach((item) => {
+            if (item.county == this.state["county"] || viewAllCounties === true) {
+              selectedCounties.push(item);
+            }
+          });
+        }
+    
+        if (this.state["activity"]) {
+          // Build list of selected activities
+          this.allActivities.forEach((searchResultData) => {
+            if (searchResultData["0"] === this.state["activity"] || viewAllActivities === true) {
+              selectedActivities.push(searchResultData);
+            }
+          });
+        }
+
+        // Update local variables
+        this.selectedActivities = selectedActivities;
+        this.selectedCounties = selectedCounties;
+        this.viewAllActivities = viewAllActivities;
+        this.viewAllCounties = viewAllCounties;
+
+        console.log("selectedCounties", this.selectedCounties, "selectedActivities", this.selectedActivities);
+  }
+
   layoutCards() {
+
+    console.log("laying out cards");
+
     this.cardHTML = "";
 
-    // Build data for cards.
-    let selectedCounties = this.countyStatuses;
-    // Q: How many statuses are supported? Had there been a plan to show multiple counties?
-    if (this.state["county"]) {
-      selectedCounties = [];
-      this.countyStatuses.forEach((item) => {
-        if (item.county == this.state["county"]) {
-          selectedCounties.push(item);
-        }
-      });
-    }
+    this.cardDisplayLogic();
 
     this.cardHTML = cardTemplate({
       county: this.state["county"],
-      activity: this.state["activity"],
-      selectedCounties, // array of objects
-      selectedActivities: this.allActivities, // array
+      selectedActivity: this.state["activity"],
+      selectedCounties: this.selectedCounties,
+      selectedActivities: this.selectedActivities,
       schoolsCanReopenList: this.schoolsCanReopenList, // array?
       schoolLabels: this.schoolsText, // ? 
       schoolReopeningStatuses, // function
       countyRegions: this.countyRegions,
-      statusdesc: this.statusdesc,
+      tierStatusDescriptors: this.tierStatusDescriptors,
       regionLabel: this.translationsStrings.regionLabel,
       regionsclosed: this.regionsclosed,
       allActivities: this.allActivities,
@@ -464,7 +534,9 @@ class CAGovReopening extends window.HTMLElement {
       countyWebpages: this.localData['covid19-county-webpages'].data, // all data
     });
 
-    // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed
+    // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed:
+
+    console.log("this.cardHTML", this.cardHTML);
 
     // Add card markup to card holder.
     this.querySelector(
@@ -480,7 +552,6 @@ class CAGovReopening extends window.HTMLElement {
         activity: this.state.activity,
       },
     });
-
     window.dispatchEvent(event);
   }
 }

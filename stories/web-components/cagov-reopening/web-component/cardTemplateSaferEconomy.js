@@ -49,7 +49,7 @@ import { buildCountyWebsiteLink } from "./buildCountyWebsiteLink";
  * https://jsdoc.app/tags-param.html#parameters-with-properties
  */
 export const cardTemplate = ({
-  selectedCounties = [],
+  selectedCounties = null,
   selectedActivities = null,
   schoolsCanReopenList = null,
   schoolLabels = null,
@@ -57,56 +57,99 @@ export const cardTemplate = ({
   county = null,
   countyRegions = null,
   regionsclosed = null,
-  statusdesc = null,
+  tierStatusDescriptors = null,
   regionLabel = null,
   understandTheData = null,
   understandTheDataLink = null,
   countyRestrictionsAdvice = null,
   countyRestrictionsCountyWebsiteLabel = null,
   seeGuidanceText = null,
-  activity = null,
+  selectedActivity = null,
   allActivities = null,
   countyWebpages = null,
 }) => {
+  console.log(
+    "cardTemplate selectedCounties",
+    selectedCounties,
+    "selectedActivities",
+    selectedActivities
+  );
+  console.log(
+    "cardTemplate selectedCounties",
+    selectedCounties.length,
+    "selectedActivities",
+    selectedActivities.length
+  );
+  let cards = [];
+
   if (selectedCounties.length > 0) {
-    let cards = [];
+    // Some county selected
     selectedCounties.forEach((selectedCounty) => {
       let card = buildCard({
+        selectedCounty,
+        selectedActivity,
         selectedActivities,
+        allActivities,
+        selectedCounties,
         schoolsCanReopenList,
         schoolLabels,
         schoolReopeningStatuses,
         county,
-        selectedCounty,
         countyRegions,
         regionsclosed,
-        statusdesc,
+        tierStatusDescriptors,
         regionLabel,
         understandTheData,
         understandTheDataLink,
         countyRestrictionsAdvice,
+        countyWebpages,
         countyRestrictionsCountyWebsiteLabel,
         seeGuidanceText,
-        activity,
-        allActivities,
-        countyWebpages,
       });
       cards.push(card);
     });
-    return cards.join("");
+  } else {
+    // No county selected
+    selectedActivities.forEach((selectedActivity) => {
+      let card = buildCard({
+        selectedCounty: null,
+        selectedActivity,
+        selectedActivities,
+        allActivities,
+        selectedCounties,
+        schoolsCanReopenList,
+        schoolLabels,
+        schoolReopeningStatuses,
+        county,
+        countyRegions,
+        regionsclosed,
+        tierStatusDescriptors,
+        regionLabel,
+        understandTheData,
+        understandTheDataLink,
+        countyRestrictionsAdvice,
+        countyWebpages,
+        countyRestrictionsCountyWebsiteLabel,
+        seeGuidanceText,
+      });
+      cards.push(card);
+    });
   }
-  return ``;
+  return cards.join("");
 };
 
 const buildCard = ({
+  selectedCounty = null,
+  selectedActivity,
+  allActivities,
+  selectedCounties = null,
   selectedActivities = null,
   schoolsCanReopenList = null,
   schoolLabels = null,
   schoolReopeningStatuses = null,
   county = null,
-  selectedCounty = null,
   regionsclosed = null,
-  statusdesc = null,
+  tierStatusDescriptors = null,
   regionLabel = null,
   understandTheData = null,
   understandTheDataLink = null,
@@ -115,10 +158,10 @@ const buildCard = ({
   countyRestrictionsCountyWebsiteLabel = null,
   seeGuidanceText = null,
   stayAtHomeOrder = `<p>Under <a href="/stay-home-except-for-essential-needs/#regional-stay-home-order">Regional Stay Home Order</a></p>`,
-  activity,
-  allActivities,
   countyWebpages = null,
 }) => {
+  
+  // Create link to county covid-19 website.
   let countyWebsiteLink = buildCountyWebsiteLink({
     countyRestrictionsCountyWebsiteLabel,
     countyWebpages,
@@ -127,7 +170,7 @@ const buildCard = ({
 
   // Build the tier card.
   let tierCard = buildTierCard({
-    statusdesc,
+    tierStatusDescriptors,
     selectedCounty,
     countyRegions,
     regionLabel,
@@ -142,16 +185,17 @@ const buildCard = ({
 
   // Build the activity card.
   let activityCards = buildActivityCard({
-    activity,
+    selectedActivity,
+    selectedActivities,
     allActivities,
     showSchool: true,
     seeGuidanceText,
     regionsclosed,
     countyRegions,
+    county,
     selectedCounty,
     schoolLabels,
     schoolsCanReopenList,
-    county
   });
 
   return `

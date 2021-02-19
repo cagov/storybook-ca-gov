@@ -24,7 +24,7 @@ Template.args = {
 export const CountyOnlyEn = Template.bind({});
 CountyOnlyEn.args = {
   countyValue: 'Alameda',
-  activityValue: 'Appliance Repair Shops',
+  activityValue: 'Appliance repair shops',
   language: 'en',
   data: data['en'],
 };

@@ -93,9 +93,9 @@ Original: `pages/_data/countyRegion.json`
 Original: `pages/wordpress-posts/rsho.json`
 `/docs/regionsclosed.json`
 
-### statusdescriptors
+### tier-status-descriptors
 Original: `/pages/wordpress-posts/reopening-matrix-data.json`
-`/docs/statusdescriptors.json`
+`/docs/tier-status-descriptors.json`
 
 ### schools-may-reopen
 Original: `/pages/wordpress-posts/schools-may-reopen-in-these-counties.json`

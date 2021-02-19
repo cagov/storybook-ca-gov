@@ -2,8 +2,16 @@
  * Generate tier status display component.
  *
  * @param {object} param - Data object passed to build tier display card.
- * @param {array} param.statusdesc - @TODO ? also relabel this
- * @param {object} param.selectedCounty - Data about currently selected county (@TODO look up props) - comes from table data - we need a pattern to reference table data in WP from here
+ * @param {array} param.tierStatusDescriptors - Status descriptions and labels. 
+    "County tier": "Minimal",
+    "colorLabel": "Yellow",
+    "_Color label": "Yellow",
+    "New cases": "Less than 1.0",
+    "Positive tests": "Less than 2.0%",
+    "description": "Most indoor business operations are open with modifications",
+    "Positive-heq": "Less than 2.2%"
+ * 
+ * @param {object} param.selectedCounty - Data about currently selected county (@TODO look up props) - comes from countyRegions (or status?) table data - we need a pattern to reference table data in WP from here e.g.  ?? no "Contra Costa": "Bay Area",
  * @param {array} param.countyRegions - Dataset (@TODO of what)
  * @param {array} param.regionLabel - Text label (@TODO for what?)
  * @param {array} param.regionsclosed - Data set of closed RSHO* (@TODO Confirm) regions
@@ -20,7 +28,7 @@
  * https://jsdoc.app/tags-param.html#parameters-with-properties
  */
 export const buildTierCard = ({
-  statusdesc = null,
+  tierStatusDescriptors = null,
   selectedCounty = null,
   countyRegions = null,
   regionLabel = null,
@@ -36,24 +44,27 @@ export const buildTierCard = ({
   let countyTierDescription = null;
   let tierStatus = null;
 
+  console.log("tier card selectedCounty", selectedCounty);
   try {
-    // @TODO the colors are flipped, we will try to flip them back.
-    countyTier =
-      statusdesc[parseInt(selectedCounty["Overall Status"]) - 1][
-        "County tier"
-      ];
-    countyTierDescription =
-      statusdesc[parseInt(selectedCounty["Overall Status"]) - 1]
-        .description;
-    tierStatus = selectedCounty["Overall Status"];
-  } catch (error) {
-    console.error("Error rendering tier card", error);
-  }
+    // @TODO the colors are flipped, we will try to flip them back this time to match what's in Snowflake
+    if (selectedCounty !== null) {
+      countyTier =
+        tierStatusDescriptors[parseInt(selectedCounty["Overall Status"]) - 1][
+          "County tier"
+        ];
+      countyTierDescription =
+        tierStatusDescriptors[parseInt(selectedCounty["Overall Status"]) - 1]
+          .description;
+
+      tierStatus = selectedCounty["Overall Status"];
+    }
 
   return `<div class="card-county">
-  
-          <h2>${selectedCounty.county}</h2>
-          
+
+          ${
+            selectedCounty !== null && selectedCounty.county !== undefined ? `<h2>${selectedCounty.county}</h2>` : ""
+          }
+        
           ${
             countyRegions
               ? "<h3>" +
@@ -73,17 +84,25 @@ export const buildTierCard = ({
               ? stayAtHomeOrder
               : ""
           }
-          <div class="county-color-${tierStatus}">
+
+          ${tierStatus !== null ? 
+          `<div class="county-color-${tierStatus}">
             <div class="pill">${countyTier}</div>
             
             <p>${countyTierDescription}. 
                 <a href="${understandTheDataLink}">${understandTheData}</a>
             </p>
-          </div>
+          </div>` : null
+            }
           
           <p>
               ${countyRestrictionsAdvice} 
               ${countyWebsiteLink}
           </p>
       </div>`;
+
+    } catch (error) {
+      console.error("Error rendering tier card", error);
+    }
+    return ``;
 };

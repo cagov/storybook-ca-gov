@@ -39,7 +39,7 @@ class CAGovReopening extends window.HTMLElement {
   //     this.regionsclosed = data;
   //   }.bind(this));
 
-  //   window.fetch('/statusdescriptors.json')
+  //   window.fetch('/tier-status-descriptors.json')
   //   .then(response => response.json())
   //   .then(function(data) {
   //     this.statusdesc = data;

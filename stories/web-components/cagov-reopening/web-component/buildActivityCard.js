@@ -10,7 +10,8 @@ import { buildStateIndustryGuidanceCard } from "./buildStateIndustryGuidanceCard
 export const buildActivityCard = ({
   county = null,
   selectedCounty = null,
-  activity = null,
+  selectedActivity = null,
+  selectedActivities = null,
   allActivities = null,
   showSchool = false,
   seeGuidanceText = null,
@@ -20,92 +21,95 @@ export const buildActivityCard = ({
   schoolLabels = null,
   schoolsCanReopenList = null,
 }) => {
+
   let isUnderRSHO = selectedCountyInRegionalStayAtHomeOrder({
     regionsclosed,
     countyRegions,
     selectedCounty,
-  }); // {bool}
+  });
 
   let activityCards = [];
-  if (activity) {
-    let selectedActivities = [];
-    allActivities.forEach((searchResultData) => {
-      let activityLabel = searchResultData["0"];
 
-      // @TODO viewAll logic here is a little weird & use case not clear
-      if (searchResultData["0"] == activity || activity == viewAll) {
-        selectedActivities.push(searchResultData);
-      }
+  if (selectedActivity !== null) {
+    // Generate card layouts for selected activities
+    if (selectedActivities.length > 0) {
+      selectedActivities.forEach((searchResultData) => {
+        let activityLabel = searchResultData["0"];
+        let schoolCard = "";
+        if (showSchool === true) {
+          schoolCard = buildSchoolCard({
+            seeGuidanceText,
+            searchResultData,
+            selectedCounty,
+            schoolLabels,
+          });
+        }
 
-      let schoolCard = "";
-      if (showSchool === true) {
-        schoolCard = buildSchoolCard({
-          seeGuidanceText,
-          searchResultData,
-          selectedCounty,
-          schoolLabels,
-        });
-      }
-
-      let schoolActivityCard = "";
-      schoolActivityCard = buildSchoolActivityDisplay({
-        activityLabel,
-        searchResultData,
-        seeGuidanceText,
-        selectedCounty,
-        schoolLabels,
-        schoolsCanReopenList,
-        county,
-      });
-
-      let activityCard = "";
-      let rshoCard = "";
-      // console.log("activitySchoolCard:", activityCard);
-      if (isUnderRSHO !== true) { // Debugging
-        // Reference
-        // if(this.regionsclosed && this.countyRegions && this.regionsclosed.Table1.filter(r => r.region === this.countyRegions[item.county]).length > 0) { // if this county is in a region which is closed we will show them the RSHO column values
-        //   this.cardHTML += `<div class="card-activity">
-        //     <h4>${ac["0"]}</h4>
-        //     <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac["6"]}</p>
-        //     <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.json.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
-        //   </div>`
-        // } else {
-        //   this.cardHTML += `<div class="card-activity">
-        //     <h4>${ac["0"]}</h4>
-        //     <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac[item['Overall Status']]}</p>
-        //     <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.json.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
-        //   </div>`
-      } else {
-        activityCard = buildTierRestrictionActivityDisplay({
+        let schoolActivityCard = "";
+        schoolActivityCard = buildSchoolActivityDisplay({
           activityLabel,
           searchResultData,
           seeGuidanceText,
-          county,
           selectedCounty,
           schoolLabels,
+          schoolsCanReopenList,
+          county,
         });
-        // console.log("activityCard (tier restriction):", activityCard);
-      }
 
-      let stateGuidanceCard = "";
-      stateGuidanceCard = buildStateIndustryGuidanceCard({
-        activityLabel,
-        // county,
-        // stateIndustryGuidanceData,
-        // seeStateGuidance, // = "See state industry guidance", // @TODO add as data label
-        // guidanceTemplate, // = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span>`,
-        // moreLanguages, // = "More languages",
-        // industryGuidancePdfLabel, // = `Industry guidance for <span data-attribute="activityLabel"></span>`,
-        // checklistPdfLabel, // = `Checklist for <span data-attribute="activityLabel"></span>`,
-        // additionalGuidanceLabel, // = "Depending on your business operations, other guidance may apply",
-    });
+        let activityCard = "";
+        let rshoCard = "";
+        // console.log("activitySchoolCard:", activityCard);
+        if (isUnderRSHO !== true) {
+          // Debugging
+          // Reference
+          // if(this.regionsclosed && this.countyRegions && this.regionsclosed.Table1.filter(r => r.region === this.countyRegions[item.county]).length > 0) { // if this county is in a region which is closed we will show them the RSHO column values
+          //   this.cardHTML += `<div class="card-activity">
+          //     <h4>${ac["0"]}</h4>
+          //     <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac["6"]}</p>
+          //     <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.json.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
+          //   </div>`
+          // } else {
+          //   this.cardHTML += `<div class="card-activity">
+          //     <h4>${ac["0"]}</h4>
+          //     <p>${ac["0"] === "Schools" ? schoolShenanigans(item.county) : ac[item['Overall Status']]}</p>
+          //     <p>${ac["0"] === "Schools" ? "" : ac["5"].indexOf('href') > -1 ? `${this.json.seeGuidanceText} ${replaceAllInMap(ac["5"])}` : ""}</p>
+          //   </div>`
+        } else {
+          activityCard = buildTierRestrictionActivityDisplay({
+            activityLabel,
+            searchResultData,
+            seeGuidanceText,
+            county,
+            selectedCounty,
+            schoolLabels,
+          });
+          // console.log("activityCard (tier restriction):", activityCard);
+        }
 
-      activityCards.push(`
-          ${schoolCard}
+        let stateGuidanceCard = "";
+        stateGuidanceCard = buildStateIndustryGuidanceCard({
+          activityLabel,
+          // county,
+          // stateIndustryGuidanceData,
+          // seeStateGuidance, // = "See state industry guidance", // @TODO add as data label
+          // guidanceTemplate, // = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="activityLabel"></span>`,
+          // moreLanguages, // = "More languages",
+          // industryGuidancePdfLabel, // = `Industry guidance for <span data-attribute="activityLabel"></span>`,
+          // checklistPdfLabel, // = `Checklist for <span data-attribute="activityLabel"></span>`,
+          // additionalGuidanceLabel, // = "Depending on your business operations, other guidance may apply",
+        });
+
+        // activityCards.push(`
+        //     ${schoolCard}
+        //     ${activityCard}
+        //     ${stateGuidanceCard}
+        //   `);
+
+        activityCards.push(`
           ${activityCard}
-          ${stateGuidanceCard}
         `);
-    });
+      });
+    }
   }
 
   return activityCards.join("");

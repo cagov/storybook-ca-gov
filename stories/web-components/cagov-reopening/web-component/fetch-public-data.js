@@ -46,7 +46,7 @@
 //   this.regionsclosed = data;
 // }.bind(this));
 
-// window.fetch(hostUrl + '/statusdescriptors.json')
+// window.fetch(hostUrl + '/tier-status-descriptors.json')
 // .then(response => response.json())
 // .then(function(data) {
 //   this.statusdesc = data;
