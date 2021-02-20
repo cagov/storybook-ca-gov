@@ -190,12 +190,11 @@ const getPrimaryGuidance = ({
       searchResultData !== null
     ) {
       let results = [];
-
       let guidances = searchResultData.primary_guidance.split(",");
-      // console.log(guidances, "guid");
       guidances.map((guidance) => {
         let currentGuidance = data[guidance];
         if (currentGuidance !== undefined && currentGuidance !== null) {
+
           let guidanceListLink = getGuidanceLink({
             currentGuidance,
             label: labelGuidance,
@@ -250,7 +249,11 @@ const getGuidanceLink = ({
       content: resourceLink[0].industry_category_label,
     });
 
-    let moreLanguages = `More Languages ${type}`;
+    let moreLanguages = getMoreLanguages({
+      links: currentGuidance.pdf,
+      language: language,
+      type: type,
+    });
 
     link = `<li data-updated="${resourceLink[0].git_date_updated}"><a href="${resourceLink[0].permalink}">${linkLabel}</a> ${moreLanguages}</li>`;
   }
@@ -277,39 +280,28 @@ const getSecondaryGuidance = ({
       searchResultData !== null
     ) {
       let results = [];
-      let linkLabel = "";
       let guidances = searchResultData.secondary_guidance.split(",");
       guidances.map((guidance) => {
         let currentGuidance = data[guidance];
         if (currentGuidance !== undefined && currentGuidance !== null) {
-          let sortedPdfs = currentGuidance.pdf.sort((a, b) =>
-            a.order > b.order ? 1 : -1
-          );
-          sortedPdfs.map((resource) => {
-            // console.log("resource", resource);
-            if (resource.language === "English") {
-              if (resource.git_pdf_template_type === "Guidance") {
-                linkLabel = replaceMarkupAttributeContent({
-                  markup: labelGuidance,
-                  selector: "[data-attribute=activityLabel]",
-                  content: "industryLabel ",
-                });
-                results.push(
-                  `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${linkLabel}</a>  [MORE LANGUAGES]</li>`
-                );
-              } else if (resource.git_pdf_template_type === "Checklist") {
-                linkLabel = replaceMarkupAttributeContent({
-                  markup: labelChecklist,
-                  selector: "[data-attribute=activityLabel]",
-                  content: "industryLabel ",
-                });
-                results.push(
-                  `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${linkLabel}</a>  [MORE LANGUAGES]</li>`
-                );
-              }
-            }
-            return false;
+          let guidanceListLink = getGuidanceLink({
+            currentGuidance,
+            label: labelGuidance,
+            type: "Guidance",
+            language: "en"
           });
+
+          let checklistListLink = getGuidanceLink({
+            currentGuidance,
+            label: labelChecklist,
+            type: "Checklist",
+            language: "en"
+          });
+
+          results.push(`
+            ${guidanceListLink}
+            ${checklistListLink}
+          `);
         }
         return false;
       });
@@ -351,7 +343,7 @@ const getAdditionalGuidance = ({
           currentGuidance.additional_resources !== null &&
           currentGuidance.additional_resources.length > 0
         ) {
-          // let sortedPdfs = currentGuidance.pdf.sort((a, b) => (a.order > b.order) ? 1 : -1)
+           // let sortedPdfs = currentGuidance.pdf.sort((a, b) => (a.order > b.order) ? 1 : -1)
 
           currentGuidance.additional_resources.map((resource) => {
             // console.log("resource", resource);
@@ -373,14 +365,30 @@ const getAdditionalGuidance = ({
 };
 
 // @TODO Set up
-const getMoreLanguages = () => {
-  return `
-  <ul class="dropdown-menu-inline">
-    <li><a href="http://files">Language</a></li>
-    <li><a href="#">Language</a></li>
-    <li><a href="#">Language</a></li>
-    <li><a href="#">Language</a></li>
-    <li><a href="#">Language</a></li>
-  </ul>
-  `;
+const getMoreLanguages = ({
+  links = null,
+  language = "en",
+  type = null,
+}) => {
+  if (links !== null && links.length > 0) {
+    let listItems = [];
+
+    let linksSortedByLanguage = Object.keys(links).sort((a, b) => {
+     return (links[a].language > links[b].language) ? 1 : -1 
+    });
+
+    linksSortedByLanguage.map((link) => {
+      if (links[link].language_code !== language && links[link].git_pdf_template_type === type) {
+        listItems.push(`
+        <li><a href="${links[link].permalink}">${links[link].language}</a></li>
+        `)
+      }
+    })
+    return `
+    <ul class="dropdown-menu-inline">
+      ${listItems.join("")}
+    </ul>
+    `;
+  }
+  return "";
 };
