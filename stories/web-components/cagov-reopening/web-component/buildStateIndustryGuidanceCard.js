@@ -380,14 +380,19 @@ const getMoreLanguages = ({
     linksSortedByLanguage.map((link) => {
       if (links[link].language_code !== language && links[link].git_pdf_template_type === type) {
         listItems.push(`
-        <li><a href="${links[link].permalink}">${links[link].language}</a></li>
+        <li><a class="dropdown-item" href="${links[link].permalink}">${links[link].language}</a></li>
         `)
       }
     })
     return `
-    <ul class="dropdown-menu-inline">
-      ${listItems.join("")}
-    </ul>
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      More Languages
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        ${listItems.join("")}
+      </ul>
+    </div>
     `;
   }
   return "";
