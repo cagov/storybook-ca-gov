@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
-    "start": "npm run storybook",
+    "start": "npm run storybook --quiet",
     "build-storybook": "build-storybook",
     "build": "npm run build-storybook",
     "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",

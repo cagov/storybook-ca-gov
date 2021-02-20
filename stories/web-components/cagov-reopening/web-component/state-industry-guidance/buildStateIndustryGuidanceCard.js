@@ -1,11 +1,26 @@
-import { replaceMarkupAttributeContent } from "./replaceMarkupAttributeContent";
+import { replaceMarkupAttributeContent } from "./../replaceMarkupAttributeContent";
 
+/**
+ * Generate interactive list of state industry guidance
+ * 
+ * @param {string} param.activityLabel - Activity name (from autocomplete search)
+ * @param {string} param.county - County name
+ * @param {object} param.stateIndustryGuidanceData - Data source keyed by industy_category_key
+ * @param {object} param.searchResultData - Matched result from autocomplete activity search
+ * @param {string} param.seeStateIndustryGuidanceLabel - Label
+ * @param {string} param.guidanceTemplate - Label, with markup string replacement
+ * @param {string} param.industryGuidancePdfLabel - Label, with markup string replacement
+ * @param {string} param.checklistPdfLabel - Label, with markup string replacement
+ * @param {string} param.additionalGuidanceLabel - Label
+ * @param {string} param.resultType - "default" or "simple" - what layout for the results (used for embedding in different contexts)
+ * @param {string} param.language - Language code, e.g. "en" or "es" or "zh-hant" (we have a table of codes in languages-keys csv file from Airtable)
+ */
 export const buildStateIndustryGuidanceCard = ({
-  activityLabel,
-  county,
-  stateIndustryGuidanceData,
-  searchResultData,
-  seeStateIndustryGuidanceLabel = "See state industry guidance", // @TODO add as data label
+  activityLabel = null,
+  county = null,
+  stateIndustryGuidanceData = null,
+  searchResultData = null,
+  seeStateIndustryGuidanceLabel = "See state industry guidance",
   guidanceTemplate = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
   industryGuidancePdfLabel = `Industry guidance for <span data-attribute="activityLabel"></span>`,
   checklistPdfLabel = `Checklist for <span data-attribute="activityLabel"></span>`,
@@ -28,8 +43,8 @@ export const buildStateIndustryGuidanceCard = ({
         industryGuidancePdfLabel,
         checklistPdfLabel,
       });
-      //   <cagov-accordion>
-      return `<div class="state-guidance">
+      //   
+      return `<cagov-accordion><div class="state-guidance">
                 <div class="card">
                   <button class="card-header accordion-alpha" type="button" aria-expanded="false">
                     <div class="accordion-title">
@@ -42,8 +57,8 @@ export const buildStateIndustryGuidanceCard = ({
                     </div>
                   </div>
                 </div>
-                
-            </div>`;
+            </div>
+          </cagov-accordion>`;
     } else if (resultType === "simple") {
       // Example: for industry guidance display
       return `<div class="state-guidance">
@@ -379,21 +394,37 @@ const getMoreLanguages = ({
 
     linksSortedByLanguage.map((link) => {
       if (links[link].language_code !== language && links[link].git_pdf_template_type === type) {
-        listItems.push(`
-        <li><a class="dropdown-item" href="${links[link].permalink}">${links[link].language}</a></li>
-        `)
+        listItems.push(links[link]);
       }
-    })
-    return `
-    <div class="dropdown">
+    });
+
+    let listItemsDisplay = listItems.map(`
+      <li><a class="dropdown-item" href="${links[link].permalink}">${links[link].language}</a></li>
+    `);
+
+    let componentDropdown = `
+    <cagov-dropdown>
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-      More Languages
+        More Languages
       </a>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        ${listItems.join("")}
-      </ul>
-    </div>
-    `;
+        ${listItemsDisplay.join("")}
+    </ul>
+    </cagov-dropdown>
+    `
+
+    return componentDropdown;
+
+    // return `
+    // <div class="dropdown">
+    //   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    //   More Languages
+    //   </a>
+    //   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    //     ${listItemsDisplay.join("")}
+    //   </ul>
+    // </div>
+    // `;
   }
   return "";
 };

@@ -1,6 +1,6 @@
 import { buildTierCard } from "./buildTierCard";
 import { buildActivityCard } from "./buildActivityCard";
-import { buildCountyWebsiteLink } from "./buildCountyWebsiteLink";
+import { buildCountyWebsiteLink } from "./county-website-link/buildCountyWebsiteLink";
 import { select } from "d3";
 
 /**
@@ -241,7 +241,6 @@ const buildCard = ({
   countyRestrictionsCountyWebsiteLabel = null,
   seeGuidanceText = null,
   stayAtHomeOrder = `<p>Under <a href="/stay-home-except-for-essential-needs/#regional-stay-home-order">Regional Stay Home Order</a></p>`,
-  
   seeStateIndustryGuidanceLabel = null,
   guidanceTemplate = null,
   industryGuidancePdfLabel = null,
@@ -251,7 +250,7 @@ const buildCard = ({
   
   // Create link to county covid-19 website.
   let countyWebsiteLink = buildCountyWebsiteLink({
-    countyRestrictionsCountyWebsiteLabel,
+    linkLabel: countyRestrictionsCountyWebsiteLabel,
     countyWebpages,
     county: `${county} County`,
   });

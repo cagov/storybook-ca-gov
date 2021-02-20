@@ -1,7 +1,7 @@
 {
-    "name": "cagov-accordion",
+    "name": "cagov-dropdown",
     "version": "1.0.0",
-    "description": "* Version: 2.0.0 * Status: Prototype / Draft",
+    "description": "* Version: 1.0.0 * Status: Prototype / Draft",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@cagov/accordion": "^2.0.0"
+
     }
 }
