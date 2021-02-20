@@ -1,5 +1,5 @@
 import { replaceMarkupAttributeContent } from "./../replaceMarkupAttributeContent";
-
+import { getMoreLanguages } from "./getMoreLanguages";
 /**
  * Generate interactive list of state industry guidance
  * 
@@ -28,9 +28,8 @@ export const buildStateIndustryGuidanceCard = ({
   resultType = "default",
   language = "en",
 }) => {
-  // @TODO Add accordion syntax (cagov-accordion or make a new variation)
-  // @TODO Add dropdown interactive list box
 
+  // @TODO Add dropdown interactive list box
   try {
     if (resultType === "default") {
       let accordionContent = getDefaultAccordionContent({
@@ -43,8 +42,9 @@ export const buildStateIndustryGuidanceCard = ({
         industryGuidancePdfLabel,
         checklistPdfLabel,
       });
-      //   
-      return `<cagov-accordion><div class="state-guidance">
+
+      return `<cagov-accordion>
+              <div class="state-guidance">
                 <div class="card">
                   <button class="card-header accordion-alpha" type="button" aria-expanded="false">
                     <div class="accordion-title">
@@ -58,7 +58,7 @@ export const buildStateIndustryGuidanceCard = ({
                   </div>
                 </div>
             </div>
-          </cagov-accordion>`;
+        </cagov-accordion>`;
     } else if (resultType === "simple") {
       // Example: for industry guidance display
       return `<div class="state-guidance">
@@ -379,52 +379,4 @@ const getAdditionalGuidance = ({
   return "";
 };
 
-// @TODO Set up
-const getMoreLanguages = ({
-  links = null,
-  language = "en",
-  type = null,
-}) => {
-  if (links !== null && links.length > 0) {
-    let listItems = [];
 
-    let linksSortedByLanguage = Object.keys(links).sort((a, b) => {
-     return (links[a].language > links[b].language) ? 1 : -1 
-    });
-
-    linksSortedByLanguage.map((link) => {
-      if (links[link].language_code !== language && links[link].git_pdf_template_type === type) {
-        listItems.push(links[link]);
-      }
-    });
-
-    let listItemsDisplay = listItems.map(`
-      <li><a class="dropdown-item" href="${links[link].permalink}">${links[link].language}</a></li>
-    `);
-
-    let componentDropdown = `
-    <cagov-dropdown>
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-        More Languages
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        ${listItemsDisplay.join("")}
-    </ul>
-    </cagov-dropdown>
-    `
-
-    return componentDropdown;
-
-    // return `
-    // <div class="dropdown">
-    //   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-    //   More Languages
-    //   </a>
-    //   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    //     ${listItemsDisplay.join("")}
-    //   </ul>
-    // </div>
-    // `;
-  }
-  return "";
-};
