@@ -72,7 +72,7 @@ class CAGovCountyMap extends window.HTMLElement {
     this.chartBreakpointValues = this.chartOptions.screens[
       this.screenDisplayType ? this.screenDisplayType : "desktop"
     ];
-    console.log(this.screenDisplayType);
+    // console.log(this.screenDisplayType);
   }
 
   redraw() {

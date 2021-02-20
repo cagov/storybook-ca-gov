@@ -79,4 +79,7 @@ This instance of Storybook is configured with the following:
 * @storybook/addon-viewport
 * @storybook/addon-storyshots
 
+[Tips for building with Storybook](TIPS.md)
+
 Next: [Setup](SETUP.md)
+

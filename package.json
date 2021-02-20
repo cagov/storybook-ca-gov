@@ -10,9 +10,10 @@
     "build-storybook": "build-storybook",
     "build": "npm run build-storybook",
     "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
-    "update:data_activities": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildAirtableJsonCsv.js dotenv_config_path=.env/.env.local",
-    "update:data_state_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local",
-    "update:data_figma_content_api": "node -r dotenv/config ./stories/web-components/cagov-reopening/data/api-notebook/buildStateIndustryGuidanceFigma.js dotenv_config_path=.env/.env.local"
+    "build:data:cagov-reopening": "npm run update:data_activities && npm run update:data_state_guidance && npm run update:data_figma_content_api",
+    "update:data_activities": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/buildAirtableJsonCsv.js dotenv_config_path=.env/.env.local",
+    "update:data_state_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local",
+    "update:data_figma_content_api": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/buildStateIndustryGuidanceFigma.js dotenv_config_path=.env/.env.local"
   },
   "keywords": [],
   "author": "",
@@ -49,6 +50,7 @@
     "postcss-nested": "^5.0.3",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
-    "style-loader": "^2.0.0"
+    "style-loader": "^2.0.0",
+    "ts-dedent": "^2.0.0"
   }
 }

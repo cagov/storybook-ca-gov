@@ -1,74 +1,81 @@
+// A mock data sample pulling in all the data used in the what's open search interface.
+// Used also to help us map & document the display data
+
 export const buildMultilingualDataObject = ({
     countyRegionsData,
     countyRegionsApi,
     regionsClosedData,
     regionsClosedApi,
-    reopeningActivitiesData,
-    reopeningActivitiesApi,
     schoolsMayReopenData,
     schoolsMayReopenApi,
-    statusDescriptorsData,
-    statusDescriptorsApi,
+    tierStatusDescriptorsData,
+    tierStatusDescriptorsApi,
     countyCovid19WebpagesApi,
     countyCovid19Webpages,
     countyStatusApi,
     countyStatus,
-    reopeningMatrixDataApi,
-    reopeningMatrixData,
-    reopeningRoadmapActivityDataApi,
-    reopeningRoadmapActivityDataPage1,
-    reopeningRoadmapActivityDataPage2,
     rshoApi,
     rshoData,
-    pubData,
-    pubDataApi
+    stateIndustryGuidance,
+    activitySearchBusiness,
+    commonPageLabels,
+    commonPageLabelsApi,
 }) => {
     return  {
         content: "text",
-        pubData: null, // @TODO What was this?
-        "covid19-county-webpages": {
-            api: countyCovid19WebpagesApi,
-            records: countyCovid19Webpages.records
-        },
+
+        // Recent County Tier Status
         "countystatus": {
-            api: countyStatusApi,
-            records: countyStatus
+            docs: countyStatusApi,
+            data: countyStatus
         },
-        "reopening-matrix-data": {
-            api: reopeningMatrixDataApi,
-            records: reopeningMatrixData
-        },
-        "reopening-roadmap-activity-data": {
-            api: reopeningRoadmapActivityDataApi,
-            records: Object.assign({}, reopeningRoadmapActivityDataPage1.records, reopeningRoadmapActivityDataPage2.records)
-        },
-        "rsho": {
-            api: rshoApi,
-            records: rshoData
-        },
-        "pubData": {
-            api: pubDataApi,
-            records: pubData
-        },
+        // Not needed in search, used for reopening-matrix.njk
+        // Leaving here in case design changes
+        // "reopening-matrix-data": {
+        //     docs: reopeningMatrixDataApi,
+        //     data: reopeningMatrixData
+        // },
+        // Which regions counties belong to
         "countyregions": {
-            api: countyRegionsApi,
-            records: countyRegionsData
+            docs: countyRegionsApi,
+            data: countyRegionsData
         },
+        // Which regions have school closings
         "regionsclosed": {
-            api: regionsClosedApi,
-            records: regionsClosedData
+            docs: regionsClosedApi,
+            data: regionsClosedData
         },
-        "reopening-activities": {
-            api: reopeningActivitiesApi,
-            records: reopeningActivitiesData
+        // Which counties are currently under RSHO, if any
+        "rsho": {
+            docs: rshoApi,
+            data: rshoData
         },
+        // Schools can reopen in which counties
+        // Pulls from table data, schools-may-reopen-in-these-counties.json
+        // Which 11ty rewrites and returns as a simple array.
         "schools-may-reopen": {
-            api: schoolsMayReopenApi,
-            records: schoolsMayReopenData
+            docs: schoolsMayReopenApi,
+            data: schoolsMayReopenData
         },
-        "statusdescriptors": {
-            api: statusDescriptorsApi,
-            records: statusDescriptorsData
+        // What's open search data (data managed in Airtable)
+        "activity-business-search-data": activitySearchBusiness,
+        // PDF files and links for State Guidance (data managed in Airtable)
+        "state-industry-guidance": stateIndustryGuidance,
+        // Subset of Wordpress table data that includes schools may reopen labelling
+        "common-page-labels": {
+            docs: commonPageLabelsApi,
+            data: commonPageLabels
+        },
+        // Data from Wordpress Data Table 1 is used to build tier status cards.
+        "tier-status-descriptors": {
+            docs: tierStatusDescriptorsApi,
+            data: tierStatusDescriptorsData
+        },
+        // County Health Department web pages
+        // Data managed in Airtable
+        "covid19-county-webpages": {
+            docs: countyCovid19WebpagesApi,
+            data: countyCovid19Webpages.records
         },
     };
 }

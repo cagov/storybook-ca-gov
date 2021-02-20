@@ -1,6 +1,17 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import {
+  Meta,
+  Story,
+  Canvas,
+  Preview,
+  Source,
+  Description,
+} from "@storybook/addon-docs/blocks";
+import { html } from "lit-html";
+import CAGovReopening from "./web-component";
+import { data } from "./data";
+import Readme from "./README.md";
 
-<Meta title="covid19/cagov-reopening/intro" />
+<Meta title="covid19/cagov-reopening/Introduction" />
 
 <style>{`
   .content {
@@ -8,31 +19,76 @@ import { Meta } from '@storybook/addon-docs/blocks';
   }
 `}</style>
 
-# `CAGovReopening` Web Component Redesign
-
----DRAFT--- 
-Still organizing these notes & figuring out the audience / level of detail.
-
-<div className="content">
-
-* Version: 2.0.0
-* Status: Prototype / Draft
-
-## Goal
-Make it easier to find current guidance about how Californians can stay safe in their activities and businesses.
-
-## Parts
-1. Create a data & communication system to power an improved API to help publish & track State guidance about how Californians can stay safe in their activities and businesses.
-2. Update the interface to the search tool we provide to help Californians find their guidance. In our user research, we learned that many businesses were struggling to find the guidance they needed, and we have prepared some new designs for improving how the search interface works.
-
-
-### Page history
-Started initially as a "What's Open" page, with statuses of business being "Open" or "Closed" by the Covid-19 web response team, part of the State of California's Office of Digital Innovation.
-
-Over the course of the pandemic, the page has evolved to include search for businesses and activities, tier modifications, maps, supplementary industry guidance, and information about the Regional Stay at Home order.
-
-Location in covid19 git repository
-: /pages/wordpress-posts/safer-economy.html
-
-
+<div class="content">
+  <Description markdown={Readme}></Description>
 </div>
+
+## Search interface
+
+<Canvas withToolbar>
+  <Story name="Reopening">
+    {html`<cagov-reopening data-json="${JSON.stringify(data["en"])}">
+      <ul>
+        <li data-label="presetValueCounty">Alameda</li>
+        <li data-label="presetValueActivity"></li>
+        <li data-label="title">Find the status for activities in your county</li>
+        <li data-label="activityLabel">Activity</li>
+        <li data-label="activityPlaceholder">Enter a business or activity</li>
+        <li data-label="countyLabel">County</li>
+        <li data-label="countyPlaceholder">Enter county</li>
+        <li data-label="buttonText">Get latest risk levels</li>
+        <li data-label="clearText">Clear</li>
+        <li data-label="seeGuidanceText">See guidance for</li>
+        <li data-label="countyRestrictionsAdvice">Counties can restrict further.</li>
+        <li data-label="countyRestrictionsCountyWebsiteLabel">Check <span data-attribute="county"></span>’s COVID-19 website</li>
+        <li data-label="understandTheData">Understand the data.</li>
+        <li data-label="understandTheDataLink">#county-status</li>
+        <li data-label="regionLabel">Region:</li>
+        <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
+        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
+        <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
+        <li data-label="emptySearchError">No County or Activity Selected</li>
+        <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
+      </ul>
+    </cagov-reopening>`}
+  </Story>
+</Canvas>
+
+## Here is an example with the Activty Search selected
+
+@TODO Next: pass prop so we can always see the search result & don't have to click it to view it every time we edit the code.
+
+<Canvas withToolbar>
+  <Story name="Reopening-Activity">
+    {html`<cagov-reopening data-json="${JSON.stringify(data["en"])}">
+      <ul>
+        <li data-label="presetValueCounty">Alameda</li>
+        <li data-label="presetValueActivity">Amusement theme parks</li>
+        <li data-label="title">Find the status for activities in your county</li>
+        <li data-label="activityLabel">Activity</li>
+        <li data-label="activityPlaceholder">Enter a business or activity</li>
+        <li data-label="countyLabel">County</li>
+        <li data-label="countyPlaceholder">Enter county</li>
+        <li data-label="buttonText">Get latest risk levels</li>
+        <li data-label="clearText">Clear</li>
+        <li data-label="seeGuidanceText">See guidance for</li>
+        <li data-label="countyRestrictionsAdvice">Counties can restrict further.</li>
+        <li data-label="countyRestrictionsCountyWebsiteLabel">Check <span data-attribute="county"></span>’s COVID-19 website</li>
+        <li data-label="understandTheData">Understand the data.</li>
+        <li data-label="understandTheDataLink">#county-status</li>
+        <li data-label="regionLabel">Region:</li>
+        <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
+        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
+        <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
+        <li data-label="emptySearchError">No County or Activity Selected</li>
+        <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
+      </ul>
+    </cagov-reopening>`}
+  </Story>
+</Canvas>
