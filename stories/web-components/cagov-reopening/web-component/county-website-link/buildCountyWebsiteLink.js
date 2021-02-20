@@ -1,40 +1,44 @@
-import { replaceMarkupAttributeContent } from "./replaceMarkupAttributeContent";
+import { replaceMarkupAttributeContent } from "./../replaceMarkupAttributeContent";
 
 /**
  * Generate tier status display component.
- * // @TODO check these data types, they might be wrong.
- * @param {object} param
  * @param {string} param.countyRestrictionsCountyWebsiteLabel - Label for county website link
  * @param {array} param.countyWebpages - Data set of COVID-19 County Webpages from ...
  * @param {string} param.county - Currently selected county.
+ * @param {string} param.defaultUrl - Fallback url if link not found
+ * @param {string} param.language - Language code for current display.
  * @return {string} HTML markup rendering link to COVID-19 County website
  */
 export const buildCountyWebsiteLink = ({
-  countyRestrictionsCountyWebsiteLabel = null,
+  linkLabel = `Check <span data-attribute="county"></span>’s COVID-19 website`,
   countyWebpages = null,
   county = null,
-  defaultUrl = "../get-local-information",
+  defaultUrl = "../get-local-information", // Might not need this
+  language = "en"
 }) => {
-  // @TODO get new county website (look up by county)
-  // Get the URL
-  // Document where the data comes from
-  let url = defaultUrl;
-  if (county !== null && countyWebpages !== null) {
+
+  let url = null;
+
+  // Override default url with URL lookup for the county.
+  if (county && countyWebpages) {
     url = lookupCountyWebsite({ county, countyWebpages });
-    // console.log("county url", url);
   }
 
-  // @TODO Add external link class handling.
-  let link = `<a href="${url}">${replaceMarkupAttributeContent({
-    markup: countyRestrictionsCountyWebsiteLabel,
+  // Replace string template selectors in markup with content.
+  let label = replaceMarkupAttributeContent({
+    markup: linkLabel,
     selector: "[data-attribute=county]",
     content: county,
-  })}</a>.`;
-  // @TODO Insert county name into county link. data-attribute="county"
+  });
+
+  let link = "";
+  if (url !== null) {
+    link = `<a href="${url}">${label}</a>.`;
+  } else {
+    
+  }
   return link;
 };
-
-
 
 /**
  * Get the URL to the current county webpage
@@ -57,17 +61,15 @@ export const buildCountyWebsiteLink = ({
 
  * @TODO make this return an error if the data source format changes.
  * @TODO add a test with mock data samples
- * @return {string} Url of the currently selected county webpage.
+ * @return {string} Url of the currently selected county webpage, or `null` if not found.
  */
 const lookupCountyWebsite = ({ county = null, countyWebpages = null }) => {
   let result = null;
-  // console.log("countyWebpages", countyWebpages, county);
   if (countyWebpages !== null && county !== null) {
     let countyWebpage = countyWebpages.filter((page) => {
       // console.log("match", page.fields.id, county, page.fields.id === county );
       return page.fields.county_label === county;
     });
-    // console.log("countyWebpage", countyWebpage);
     if (
       countyWebpage !== undefined &&
       countyWebpage.length > 0 &&

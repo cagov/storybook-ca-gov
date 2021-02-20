@@ -6,7 +6,7 @@ import "./cagov-reopening.scss";
 import {
   inputValueCounty,
   inputValueActivity,
-} from "./autocompleteButtonBehavior";
+} from "./behaviorAutocompleteButton";
 import { getCountyMap } from "./getCountyMap";
 import { schoolReopeningStatuses } from "./schoolsStatuses";
 import { cardTemplate } from "./cardTemplateSaferEconomy";

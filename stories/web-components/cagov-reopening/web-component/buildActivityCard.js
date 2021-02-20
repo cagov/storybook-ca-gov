@@ -1,7 +1,7 @@
 import { buildSchoolActivityDisplay } from "./buildSchoolActivityDisplay";
 import { buildTierRestrictionActivityDisplay } from "./buildTierRestrictionActivityDisplay";
 import { buildSchoolCard } from "./buildSchoolCard";
-import { buildStateIndustryGuidanceCard } from "./buildStateIndustryGuidanceCard";
+import { buildStateIndustryGuidanceCard } from "./state-industry-guidance/buildStateIndustryGuidanceCard";
 
 /**
  * Get Activity data, including schools and RSHO information.
