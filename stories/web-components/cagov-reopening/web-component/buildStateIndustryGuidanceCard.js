@@ -26,7 +26,7 @@ export const buildStateIndustryGuidanceCard = ({
         additionalGuidanceLabel,
         guidanceTemplate,
         industryGuidancePdfLabel,
-        checklistPdfLabel
+        checklistPdfLabel,
       });
       //   <cagov-accordion>
       return `<div class="state-guidance">
@@ -117,7 +117,7 @@ const getDefaultAccordionContent = ({
     language,
     label: additionalGuidanceLabel,
   });
-//     ${secondaryGuidance}
+  //     ${secondaryGuidance}
   return `<div class="state-guidance-content">
     ${guidanceMessage}
     ${primaryGuidance}
@@ -190,50 +190,30 @@ const getPrimaryGuidance = ({
       searchResultData !== null
     ) {
       let results = [];
-      let linkLabel = "";
-      // console.log("searchR", searchResultData);
+
       let guidances = searchResultData.primary_guidance.split(",");
       // console.log(guidances, "guid");
       guidances.map((guidance) => {
         let currentGuidance = data[guidance];
         if (currentGuidance !== undefined && currentGuidance !== null) {
-          let guidanceLink = currentGuidance.pdf.filter((resource) => {
-            console.log("resource", resource);
-            if (resource.language_code === "en" && resource.git_pdf_template_type === "Guidance") {
-              let linkLabel = replaceMarkupAttributeContent({
-                markup: labelGuidance,
-                selector: "[data-attribute=activityLabel]",
-                content: "industryLabel ",
-              });
-
-              let moreLanguages = "More Languages 1";
-
-              return `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${linkLabel}</a> ${moreLanguages}</li>`;
-            }
-            return false;
+          let guidanceListLink = getGuidanceLink({
+            currentGuidance,
+            label: labelGuidance,
+            type: "Guidance",
+            language: "en"
           });
 
-          let checklistLink = currentGuidance.pdf.filter((resource) => {
-            if (resource.language_code === "en" && resource.git_pdf_template_type === "Checklist") {
-              let linkLabel = replaceMarkupAttributeContent({
-                markup: labelChecklist,
-                selector: "[data-attribute=activityLabel]",
-                content: "industryLabel ",
-              });
-
-              let moreLanguages = "More Languages 2";
-
-              return `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${linkLabel}</a> ${moreLanguages}</li>`;
-            }
-            return false;
+          let checklistListLink = getGuidanceLink({
+            currentGuidance,
+            label: labelChecklist,
+            type: "Checklist",
+            language: "en"
           });
 
-          return `
-          ${guidanceLink}
-          ${checklistLink}
-          `;
-
-
+          results.push(`
+            ${guidanceListLink}
+            ${checklistListLink}
+          `);
         }
         return false;
       });
@@ -244,6 +224,37 @@ const getPrimaryGuidance = ({
     console.error("Error in getPrimaryGuidance", error);
   }
   return "";
+};
+
+const getGuidanceLink = ({
+  currentGuidance,
+  label,
+  type = null,
+  language = "en",
+}) => {
+  let resourceLink = currentGuidance.pdf.filter((resource) => {
+    if (
+      resource.language_code === language &&
+      resource.git_pdf_template_type === type
+    ) {
+      return true;
+    }
+    return false;
+  });
+
+  let link = "";
+  if (resourceLink !== undefined && resourceLink.length > 0) {
+    let linkLabel = replaceMarkupAttributeContent({
+      markup: label,
+      selector: "[data-attribute=activityLabel]",
+      content: resourceLink[0].industry_category_label,
+    });
+
+    let moreLanguages = `More Languages ${type}`;
+
+    link = `<li data-updated="${resourceLink[0].git_date_updated}"><a href="${resourceLink[0].permalink}">${linkLabel}</a> ${moreLanguages}</li>`;
+  }
+  return link;
 };
 
 /**
@@ -271,7 +282,9 @@ const getSecondaryGuidance = ({
       guidances.map((guidance) => {
         let currentGuidance = data[guidance];
         if (currentGuidance !== undefined && currentGuidance !== null) {
-          let sortedPdfs = currentGuidance.pdf.sort((a, b) => (a.order > b.order) ? 1 : -1)
+          let sortedPdfs = currentGuidance.pdf.sort((a, b) =>
+            a.order > b.order ? 1 : -1
+          );
           sortedPdfs.map((resource) => {
             // console.log("resource", resource);
             if (resource.language === "English") {
@@ -338,7 +351,6 @@ const getAdditionalGuidance = ({
           currentGuidance.additional_resources !== null &&
           currentGuidance.additional_resources.length > 0
         ) {
-
           // let sortedPdfs = currentGuidance.pdf.sort((a, b) => (a.order > b.order) ? 1 : -1)
 
           currentGuidance.additional_resources.map((resource) => {

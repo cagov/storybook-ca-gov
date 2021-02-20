@@ -123,12 +123,13 @@ export const buildActivityCard = ({
         rshoCard = searchResultData["RSHO"] !== "-" ? searchResultData["RSHO"] : "";
       }
 
+      // ${rshoCard}
+          
+
       activityCards.push(`
           ${schoolCard}
           
           ${schoolActivityCard}
-          
-          ${rshoCard}
           
           ${activityCard}
           
