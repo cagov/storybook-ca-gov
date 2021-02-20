@@ -60,11 +60,11 @@ export const buildActivityCard = ({
   // console.log("Build Activity Card", selectedActivity, county)
   if (hasActivityInput === true) {
     // We have selected activities
-    console.log("has selected activity")
+    // console.log("has selected activity")
   } else if (hasCountyInput === true && hasActivityInput === false) {
     // We have a county selected, but not activities, show them all.
     selectedActivities = allActivities;
-    console.log(selectedActivities.length);
+    // console.log(selectedActivities.length);
   }
 
   // console.log("selectedActivities", selectedActivities);
@@ -120,22 +120,18 @@ export const buildActivityCard = ({
       });
 
       if (policies.isUnderRSHO !== undefined && policies.isUnderRSHO === true) {
-        rshoCard = searchResultData["RSHO"];
+        rshoCard = searchResultData["RSHO"] !== "-" ? searchResultData["RSHO"] : "";
       }
 
       activityCards.push(`
-          school:<br/> ${schoolCard}
-          <br/>
-          schoolActivityCard:<br/>
+          ${schoolCard}
+          
           ${schoolActivityCard}
-          <br/>
-          rshoCard:<br/>
+          
           ${rshoCard}
-          <br/>
-          activity:<br/>
+          
           ${activityCard}
-          <br/>
-          state-guidance:<br/>
+          
           ${stateGuidanceCard}
         `);
     });

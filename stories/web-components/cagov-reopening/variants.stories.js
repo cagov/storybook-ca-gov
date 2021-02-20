@@ -1,5 +1,5 @@
 import { withDesign } from "storybook-addon-designs";
-import { WebComponentTranslated as WebComponent } from './storybook-web-component';
+import { WebComponent, WebComponentSpanish } from './storybook-web-component';
 import { data } from "./data";
 
 export default {
@@ -12,6 +12,7 @@ export default {
 
 
 const Template = (args) => WebComponent(args);
+const TemplateSpanish = (args) => WebComponentSpanish(args);
 
 /**
 * Connect mock data
@@ -38,7 +39,7 @@ CountyOnlyEn.parameters = {
   },
 };
 
-export const CountyOnlyEs = Template.bind({});
+export const CountyOnlyEs = TemplateSpanish.bind({});
 CountyOnlyEs.args = {
   countyValue: 'San Francisco',
   activityValue: '',
@@ -56,41 +57,41 @@ CountyOnlyEs.args = {
 //   },
 // };
 
-export const CountyOnlyTl = Template.bind({});
-CountyOnlyEn.args = {
-  countyValue: 'Alameda',
-  activityValue: '',
-  language: 'tl',
-  data: data['tl'],
-};
-/**
-* Connect Figma Frame
-*/
-CountyOnlyTl.parameters = {
-  design: {
-    type: "figma",
-    url:
-      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
-  },
-};
+// export const CountyOnlyTl = Template.bind({});
+// CountyOnlyEn.args = {
+//   countyValue: 'Alameda',
+//   activityValue: '',
+//   language: 'tl',
+//   data: data['tl'],
+// };
+// /**
+// * Connect Figma Frame
+// */
+// CountyOnlyTl.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
+//   },
+// };
 
-export const CountyOnlyAr = Template.bind({});
-CountyOnlyAr.args = {
-  countyValue: 'Alameda',
-  activityValue: '',
-  language: 'ar',
-  data: data['ar'],
-};
-/**
-* Connect Figma Frame
-*/
-CountyOnlyAr.parameters = {
-  design: {
-    type: "figma",
-    url:
-      "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
-  },
-};
+// export const CountyOnlyAr = Template.bind({});
+// CountyOnlyAr.args = {
+//   countyValue: 'Alameda',
+//   activityValue: '',
+//   language: 'ar',
+//   data: data['ar'],
+// };
+// /**
+// * Connect Figma Frame
+// */
+// CountyOnlyAr.parameters = {
+//   design: {
+//     type: "figma",
+//     url:
+//       "https://www.figma.com/file/LrzsOu8U5KcMAjJTQ1O3BG/covid19.ca.gov-screens?node-id=3815%3A0",
+//   },
+// };
 
 export const CountyActivityEn = Template.bind({});
 CountyActivityEn.args = {

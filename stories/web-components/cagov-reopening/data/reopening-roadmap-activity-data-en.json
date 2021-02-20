@@ -129,9 +129,9 @@
     {
       "0": "Churches",
       "1": "Can open indoors with modifications<br>– Max 50% capacity",
-      "2": "Can open indoors with modifications<br>– Max 50% capacity or 200 people, whichever is fewer",
-      "3": "Can open indoors with modifications<br>– Max 25% capacity or 100 people, whichever is fewer",
-      "4": "Can open outdoors only with modifications",
+      "2": "Can open indoors with modifications<br>– Max 50% capacity",
+      "3": "Can open indoors with modification<br>– Max 25% capacity",
+      "4": "Can open indoors with modifications<br>– Max 25% capacity",
       "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#worship”&gt;Places of worship and cultural ceremonies&lt;/a&gt;",
       "6": "Can open outdoors only with modifications"
     },
@@ -352,6 +352,15 @@
       "6": "Can open with modifications"
     },
     {
+      "0": "Funeral homes",
+      "1": "Can open indoors with modifications<br>– Max 50% capacity",
+      "2": "Can open indoors with modifications<br>– Max 50% capacity or 200 people, whichever is fewer",
+      "3": "Can open indoors with modifications<br>– Max 25% capacity or 100 people, whichever is fewer",
+      "4": "Services held outdoors only with modifications",
+      "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#worship”&gt;Places of worship and cultural ceremonies&lt;/a&gt;",
+      "6": "Services held outdoors only with modifications"
+    },
+    {
       "0": "Gas stations",
       "1": "Can open with modifications",
       "2": "Can open with modifications",
@@ -516,9 +525,9 @@
     {
       "0": "Mosques",
       "1": "Can open indoors with modifications<br>– Max 50% capacity",
-      "2": "Can open indoors with modifications<br>– Max 50% capacity or 200 people, whichever is fewer",
-      "3": "Can open indoors with modifications<br>– Max 25% capacity or 100 people, whichever is fewer",
-      "4": "Can open outdoors only with modifications",
+      "2": "Can open indoors with modifications<br>– Max 50% capacity",
+      "3": "Can open indoors with modifications<br>– Max 25% capacity",
+      "4": "Can open indoors with modifications<br>– Max 25% capacity",
       "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#worship”&gt;Places of worship and cultural ceremonies&lt;/a&gt;",
       "6": "Can open outdoors only with modifications"
     },
@@ -624,9 +633,9 @@
     {
       "0": "Places of worship",
       "1": "Can open indoors with modifications<br>– Max 50% capacity",
-      "2": "Can open indoors with modifications<br>– Max 50% capacity or 200 people, whichever is fewer",
-      "3": "Can open indoors with modifications<br>– Max 25% capacity or 100 people, whichever is fewer",
-      "4": "Can open outdoors only with modifications",
+      "2": "Can open indoors with modifications<br>– Max 50% capacity",
+      "3": "Can open indoors with modifications<br>– Max 25% capacity",
+      "4": "Can open indoors with modifications<br>– Max 25% capacity",
       "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#worship”&gt;Places of worship and cultural ceremonies&lt;/a&gt;",
       "6": "Can open outdoors only with modifications"
     },
@@ -802,6 +811,42 @@
       "6": "Can open with modifications"
     },
     {
+      "0": "State beaches",
+      "1": "Can open with modifications",
+      "2": "Can open with modifications",
+      "3": "Can open with modifications",
+      "4": "Can open with modifications",
+      "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#campgrounds-outdoor-recreation”&gt;Outdoor recreation, including campgrounds and playgrounds&lt;/a&gt;",
+      "6": "Can open with modifications. On-site campgrounds are closed unless used for COVID-19 mitigation and containment measures, treatment measures, providing accommodation for essential workers or those displaced as a result of fire or other emergency, or providing housing solutions, including measures to protect homeless populations."
+    },
+    {
+      "0": "State forests",
+      "1": "Can open with modifications",
+      "2": "Can open with modifications",
+      "3": "Can open with modifications",
+      "4": "Can open with modifications",
+      "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#campgrounds-outdoor-recreation”&gt;Outdoor recreation, including campgrounds and playgrounds&lt;/a&gt;",
+      "6": "Can open with modifications. On-site campgrounds are closed unless used for COVID-19 mitigation and containment measures, treatment measures, providing accommodation for essential workers or those displaced as a result of fire or other emergency, or providing housing solutions, including measures to protect homeless populations."
+    },
+    {
+      "0": "State-managed lakes and reservoirs",
+      "1": "Can open with modifications",
+      "2": "Can open with modifications",
+      "3": "Can open with modifications",
+      "4": "Can open with modifications",
+      "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#campgrounds-outdoor-recreation”&gt;Outdoor recreation, including campgrounds and playgrounds&lt;/a&gt;",
+      "6": "Can open with modifications. On-site campgrounds are closed unless used for COVID-19 mitigation and containment measures, treatment measures, providing accommodation for essential workers or those displaced as a result of fire or other emergency, or providing housing solutions, including measures to protect homeless populations."
+    },
+    {
+      "0": "State parks",
+      "1": "Can open with modifications",
+      "2": "Can open with modifications",
+      "3": "Can open with modifications",
+      "4": "Can open with modifications",
+      "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#campgrounds-outdoor-recreation”&gt;Outdoor recreation, including campgrounds and playgrounds&lt;/a&gt;",
+      "6": "Can open with modifications. On-site campgrounds are closed unless used for COVID-19 mitigation and containment measures, treatment measures, providing accommodation for essential workers or those displaced as a result of fire or other emergency, or providing housing solutions, including measures to protect homeless populations."
+    },
+    {
       "0": "Swap meets",
       "1": "Can open with modifications<br>– Reduced capacity food courts (see Restaurants)",
       "2": "Can open with modifications<br>– Closed common areas <br>– Reduced capacity food courts (see Restaurants)",
@@ -822,9 +867,9 @@
     {
       "0": "Synagogues",
       "1": "Can open indoors with modifications<br>– Max 50% capacity",
-      "2": "Can open indoors with modifications<br>– Max 50% capacity or 200 people, whichever is fewer",
-      "3": "Can open indoors with modifications<br>– Max 25% capacity or 100 people, whichever is fewer",
-      "4": "Can open outdoors only with modifications",
+      "2": "Can open indoors with modifications<br>– Max 50% capacity",
+      "3": "Can open indoors with modifications<br>– Max 25% capacity",
+      "4": "Can open indoors with modifications<br>– Max 25% capacity",
       "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#worship”&gt;Places of worship and cultural ceremonies&lt;/a&gt;",
       "6": "Can open outdoors only with modifications"
     },
@@ -840,9 +885,9 @@
     {
       "0": "Temples",
       "1": "Can open indoors with modifications<br>– Max 50% capacity",
-      "2": "Can open indoors with modifications<br>– Max 50% capacity or 200 people, whichever is fewer",
-      "3": "Can open indoors with modifications<br>– Max 25% capacity or 100 people, whichever is fewer",
-      "4": "Can open outdoors only with modifications",
+      "2": "Can open indoors with modifications<br>– Max 50% capacity",
+      "3": "Can open indoors with modifications<br>– Max 25% capacity",
+      "4": "Can open indoors with modifications<br>– Max 25% capacity",
       "5": "&lt;a href=”https://covid19.ca.gov/industry-guidance/#worship”&gt;Places of worship and cultural ceremonies&lt;/a&gt;",
       "6": "Can open outdoors only with modifications"
     },

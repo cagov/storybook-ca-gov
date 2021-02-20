@@ -25,6 +25,8 @@ export const buildStateIndustryGuidanceCard = ({
         language,
         additionalGuidanceLabel,
         guidanceTemplate,
+        industryGuidancePdfLabel,
+        checklistPdfLabel
       });
       //   <cagov-accordion>
       return `<div class="state-guidance">
@@ -64,8 +66,10 @@ const getDefaultAccordionContent = ({
   activityLabel,
   searchResultData,
   language = "en",
-  additionalGuidanceLabel,
+  additionalGuidanceLabel = null,
   guidanceTemplate = null,
+  industryGuidancePdfLabel = null,
+  checklistPdfLabel = null,
 }) => {
   // console.log("default accordion", activityLabel);
   // console.log("stateIndustryGuidanceData", stateIndustryGuidanceData);
@@ -88,31 +92,36 @@ const getDefaultAccordionContent = ({
   guidanceMessage = replaceMarkupAttributeContent({
     markup: guidanceMessage,
     selector: "[data-attribute=guidances]",
-    content: guidances,
+    content: "guidances",
   });
 
   let primaryGuidance = getPrimaryGuidance({
     data: stateIndustryGuidanceData,
     searchResultData,
     language,
+    labelGuidance: industryGuidancePdfLabel,
+    labelChecklist: checklistPdfLabel,
   });
 
-  let secondaryGuidance = getSecondaryGuidance({
-    data: stateIndustryGuidanceData,
-    searchResultData,
-    language,
-  });
+  // let secondaryGuidance = getSecondaryGuidance({
+  //   data: stateIndustryGuidanceData,
+  //   searchResultData,
+  //   language,
+  //   labelGuidance: industryGuidancePdfLabel,
+  //   labelChecklist: checklistPdfLabel,
+  // });
 
   let additionalGuidance = getAdditionalGuidance({
     data: stateIndustryGuidanceData,
     searchResultData,
     language,
-    additionalGuidanceLabel,
+    label: additionalGuidanceLabel,
   });
-
+//     ${secondaryGuidance}
   return `<div class="state-guidance-content">
+    ${guidanceMessage}
     ${primaryGuidance}
-    ${secondaryGuidance}
+
     ${additionalGuidance}
   </div>`;
 };
@@ -121,6 +130,7 @@ const getListGuidances = ({
   data = null,
   searchResultData = null,
   language = "en",
+  label = null,
 }) => {
   try {
     if (
@@ -159,8 +169,7 @@ const getListGuidances = ({
     console.error("Error in getPrimaryGuidance", error);
   }
   return "";
-
-}
+};
 
 /**
  *
@@ -170,6 +179,8 @@ const getPrimaryGuidance = ({
   data = null,
   searchResultData = null,
   language = "en",
+  labelGuidance = null,
+  labelChecklist = null,
 }) => {
   try {
     if (
@@ -179,34 +190,50 @@ const getPrimaryGuidance = ({
       searchResultData !== null
     ) {
       let results = [];
+      let linkLabel = "";
       // console.log("searchR", searchResultData);
       let guidances = searchResultData.primary_guidance.split(",");
       // console.log(guidances, "guid");
       guidances.map((guidance) => {
         let currentGuidance = data[guidance];
-        // console.log("currentGuidance primary", guidance, currentGuidance);
         if (currentGuidance !== undefined && currentGuidance !== null) {
-          // accessibility_links: ""
-          // filename: "checklist-limited-services--th.pdf"
-          // git_date_updated: "2020-09-03 11:56:06 -0700"
-          // git_pdf_template_type: "Checklist"
-          // id: "checklist-limited-services--th.pdf"
-          // industry_category_key: "limited-services"
-          // language: "Thai"
-          // pdf_publication_date: ""
-          // permalink: "https://files.covid19.ca.gov/pdf/checklist-limited-services--th.pdf"
-          // summary_of_changes: ""
+          let guidanceLink = currentGuidance.pdf.filter((resource) => {
+            console.log("resource", resource);
+            if (resource.language_code === "en" && resource.git_pdf_template_type === "Guidance") {
+              let linkLabel = replaceMarkupAttributeContent({
+                markup: labelGuidance,
+                selector: "[data-attribute=activityLabel]",
+                content: "industryLabel ",
+              });
 
-          currentGuidance.pdf.map((resource) => {
-            // console.log("resource", resource);
-            if (resource.language === "English") {
-              // if (languages[resource.language] === language) { @TODO add lang code in API)
-              results.push(
-                `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${resource.git_pdf_template_type}</a>  [MORE LANGUAGES]</li>`
-              );
+              let moreLanguages = "More Languages 1";
+
+              return `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${linkLabel}</a> ${moreLanguages}</li>`;
             }
             return false;
           });
+
+          let checklistLink = currentGuidance.pdf.filter((resource) => {
+            if (resource.language_code === "en" && resource.git_pdf_template_type === "Checklist") {
+              let linkLabel = replaceMarkupAttributeContent({
+                markup: labelChecklist,
+                selector: "[data-attribute=activityLabel]",
+                content: "industryLabel ",
+              });
+
+              let moreLanguages = "More Languages 2";
+
+              return `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${linkLabel}</a> ${moreLanguages}</li>`;
+            }
+            return false;
+          });
+
+          return `
+          ${guidanceLink}
+          ${checklistLink}
+          `;
+
+
         }
         return false;
       });
@@ -227,6 +254,9 @@ const getSecondaryGuidance = ({
   data = null,
   searchResultData = null,
   language = "en",
+  label = null,
+  labelGuidance = null,
+  labelChecklist = null,
 }) => {
   try {
     if (
@@ -236,31 +266,34 @@ const getSecondaryGuidance = ({
       searchResultData !== null
     ) {
       let results = [];
-      // console.log("searchR", searchResultData);
+      let linkLabel = "";
       let guidances = searchResultData.secondary_guidance.split(",");
-      // console.log(guidances, "guid");
       guidances.map((guidance) => {
         let currentGuidance = data[guidance];
-        // console.log("currentGuidance primary", guidance, currentGuidance);
         if (currentGuidance !== undefined && currentGuidance !== null) {
-          // accessibility_links: ""
-          // filename: "checklist-limited-services--th.pdf"
-          // git_date_updated: "2020-09-03 11:56:06 -0700"
-          // git_pdf_template_type: "Checklist"
-          // id: "checklist-limited-services--th.pdf"
-          // industry_category_key: "limited-services"
-          // language: "Thai"
-          // pdf_publication_date: ""
-          // permalink: "https://files.covid19.ca.gov/pdf/checklist-limited-services--th.pdf"
-          // summary_of_changes: ""
-
-          currentGuidance.pdf.map((resource) => {
+          let sortedPdfs = currentGuidance.pdf.sort((a, b) => (a.order > b.order) ? 1 : -1)
+          sortedPdfs.map((resource) => {
             // console.log("resource", resource);
             if (resource.language === "English") {
-              // if (languages[resource.language] === language) { @TODO add lang code in API)
-              results.push(
-                `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${resource.git_pdf_template_type}</a>  [MORE LANGUAGES]</li>`
-              );
+              if (resource.git_pdf_template_type === "Guidance") {
+                linkLabel = replaceMarkupAttributeContent({
+                  markup: labelGuidance,
+                  selector: "[data-attribute=activityLabel]",
+                  content: "industryLabel ",
+                });
+                results.push(
+                  `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${linkLabel}</a>  [MORE LANGUAGES]</li>`
+                );
+              } else if (resource.git_pdf_template_type === "Checklist") {
+                linkLabel = replaceMarkupAttributeContent({
+                  markup: labelChecklist,
+                  selector: "[data-attribute=activityLabel]",
+                  content: "industryLabel ",
+                });
+                results.push(
+                  `<li data-updated="${resource.git_date_updated}"><a href="${resource.permalink}">${linkLabel}</a>  [MORE LANGUAGES]</li>`
+                );
+              }
             }
             return false;
           });
@@ -271,7 +304,7 @@ const getSecondaryGuidance = ({
       return results.join("");
     }
   } catch (error) {
-    console.error("Error in getSecondaryGuidance", error);
+    console.error("Error in getPrimaryGuidance", error);
   }
   return "";
 };
@@ -284,7 +317,7 @@ const getAdditionalGuidance = ({
   data = null,
   searchResultData = null,
   language = "en",
-  additionalGuidanceLabel = null,
+  label = null,
 }) => {
   try {
     if (
@@ -305,6 +338,9 @@ const getAdditionalGuidance = ({
           currentGuidance.additional_resources !== null &&
           currentGuidance.additional_resources.length > 0
         ) {
+
+          // let sortedPdfs = currentGuidance.pdf.sort((a, b) => (a.order > b.order) ? 1 : -1)
+
           currentGuidance.additional_resources.map((resource) => {
             // console.log("resource", resource);
             results.push(`<li data-updated="${resource.date_last_modified}">
@@ -314,7 +350,7 @@ const getAdditionalGuidance = ({
         }
       });
       return `
-        ${results.length > 0 ? additionalGuidanceLabel : ""}
+        ${results.length > 0 ? label : ""}
         ${results.join("")}
       `;
     }

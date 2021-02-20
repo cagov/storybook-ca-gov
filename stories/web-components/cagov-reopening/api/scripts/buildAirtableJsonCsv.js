@@ -21,8 +21,7 @@ const base = Airtable.base(process.env["AIRTABLE_BASE_ID"]); // Check Airtable A
 const VIEW_NAME = process.env["AIRTABLE_VIEW_NAME"]; // Manually set in the base to match this config. The default is
 
 // Location of docs templates.
-const docsPath =
-  "./stories/web-components/cagov-reopening/api/api_templates/";
+const docsPath = "./stories/web-components/cagov-reopening/api/api_templates/";
 
 // Write folder for JSON output
 const dataPath =
@@ -67,6 +66,28 @@ let endpoints = {
     },
     viewName: "API", // Not currently used in this script, but this script could be altered to use specific viewNames for further selecting or filtering data.
   },
+  "covid19-activity-business-search-data-language": {
+    docs: `${docsPath}covid19-activity-business-search-data-language.api.json`,
+    endpoint:
+      "https://api.airtable.com/v0/appwpIGqyvG6bl73j/Lang%20test%3A%20API-Active%20Activity%20%26%20Business%20Search%20Data?viewName=en",
+    fields: {
+      activity_reference_key: "",
+      activity_search_autocomplete: "",
+      override_industry_guidance_label: "",
+      activity_key: "",
+      "4 - WIDESPREAD": "",
+      "3 - SUBSTANTIAL": "",
+      "2 - MODERATE": "",
+      "1 - MINIMAL": "",
+      RSHO: "",
+      last_modified: "",
+      primary_guidance: "",
+      secondary_guidance: "",
+      language_code: "",
+      language: "",
+    },
+    views: ["en", "es", "ko", "tl", "vi", "ar", "zh-hant", "zh-hans"], // Not currently used in this script, but this script could be altered to use specific viewNames for further selecting or filtering data.
+  },
   "covid19-industry-guidance-pdf-links": {
     docs: `${docsPath}covid19-industry-guidance-pdf-links.api.json`,
     endpoint:
@@ -82,6 +103,8 @@ let endpoints = {
       accessibility_links: "",
       permalink: "",
       git_date_updated: "",
+      language_code: "",
+      industry_category_label: "",
     },
     viewName: "API",
   },
@@ -93,8 +116,10 @@ let endpoints = {
       industry_category_key: "",
       date_last_modified: "",
       language: "",
+      language_code: "",
       optional_message: "",
       safer_economy_label: "",
+      
     },
     viewName: "API",
   },
@@ -107,6 +132,7 @@ let endpoints = {
       industry_category_label: "",
       date_last_modified: "",
       language: "",
+      language_code: "",
     },
     viewName: "API",
   },
@@ -124,6 +150,7 @@ let endpoints = {
       order: "",
       date_last_modified: "",
       language: "",
+      language_code: "",
     },
     viewName: "API",
   },
@@ -137,6 +164,7 @@ let endpoints = {
       url_county_covid19: "",
       county_department: "",
       last_modified_time: "",
+      language_code: "",
     },
     viewName: "API",
   },
@@ -164,6 +192,46 @@ const buildData = async () => {
     // Set table
     const table = base(endpoint);
 
+    // if (endpoints[endpoint].views !== undefined && endpoints[endpoint].views.length > 0) {
+    //   Object.keys(endpoints[endpoint].views).map((view) => {
+
+    //     console.log("view", endpoint, endpoints[endpoint].views[view]);
+    //     // Get all records.
+    //     const records = await table
+    //       .select({
+    //         view: view,
+    //       })
+    //       .all();
+
+    //     // Format the response.
+    //     records.then((response) => {
+    //       let fieldsData = formatResponse({
+    //         data: response,
+    //         endpoint: endpoint,
+    //         saveCSV: true,
+    //       });
+
+    //       // Aggregate response with docs & data to be a simple static "API" file for utility datasets & aggregates of multiple data sources.
+    //       let formattedApiResponse = formatApi({
+    //         docs: endpoints[endpoint].docs, // We have docs templates that need to be kept up to date. Templates can be edited in github in `docsPath` folder.
+    //         data: fieldsData,
+    //       });
+
+    //       // Write file as JSON
+    //       if (formattedApiResponse !== null) {
+    //         fs.writeFile(
+    //           `${dataPath}/json/data-${endpoint}-${endpoints[endpoint].views[view]}.json`,
+    //           formattedApiResponse,
+    //           function (err) {
+    //             if (err) return console.log(err);
+    //             console.log(`saved: ${endpoint}.json`);
+    //           }
+    //         );
+    //       }
+    //     }).catch((error) => { console.error("views parse error", error)});
+
+    //   });
+    // } else {
     // Get all records.
     const records = table
       .select({
@@ -197,6 +265,7 @@ const buildData = async () => {
         );
       }
     });
+    // }
   });
 };
 
@@ -230,18 +299,18 @@ const formatResponse = ({ data = null, endpoint = null, saveCSV = true }) => {
 };
 
 const getDate = () => {
-      // Get date updated.
-      var date = new Date();
-      var now_utc = Date.UTC(
-        date.getUTCFullYear(),
-        date.getUTCMonth(),
-        date.getUTCDate(),
-        date.getUTCHours(),
-        date.getUTCMinutes(),
-        date.getUTCSeconds()
-      );
-      return new Date(now_utc);
-}
+  // Get date updated.
+  var date = new Date();
+  var now_utc = Date.UTC(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate(),
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds()
+  );
+  return new Date(now_utc);
+};
 
 /**
  * Format simple API from each Airtable dataset, only retrieving the fields.
@@ -274,8 +343,8 @@ const formatApi = ({ data, docs }) => {
 };
 /**
  * Write parsed CSV data (from fields value returned from Airtable) to CSV file.
- * @param {*} fieldData 
- * @param {*} endpoint 
+ * @param {*} fieldData
+ * @param {*} endpoint
  */
 const saveAsCsv = (fieldData, endpoint) => {
   try {
@@ -291,67 +360,98 @@ const saveAsCsv = (fieldData, endpoint) => {
   }
 };
 
-// How to use: 
+// How to use:
 // For each activity-business-search-data record
 // For each primary_guidance and secondary_guidance
-    //  Use key value
-    // For each primary guidance & secondary guidance, get state-industry-guidance key (comma separated) & build results.
-    // state-industry-guidance
-    // For each industry-category  covid19-industry-guidance-categories
-    // key: industry_category_key // @TODO could this be industry_category_key? 
-        // language
-        // label
-        // guidance_metadata  covid19-related-guidance-metadata
-            // get industry_category_key
-            // language
-        // guidance_pdf_links covid19-industry-guidance-pdf-links
-            // industry_category_key
-            // language
-        // guidance_additional_resources // covid19-industry-guidance-additional-resources
-            // industry_category_key // @TODO could this be industry_category_key? 
-            // sort by order, 1 is first, 5 is lower down.
-            // language
+//  Use key value
+// For each primary guidance & secondary guidance, get state-industry-guidance key (comma separated) & build results.
+// state-industry-guidance
+// For each industry-category  covid19-industry-guidance-categories
+// key: industry_category_key // @TODO could this be industry_category_key?
+// language
+// label
+// guidance_metadata  covid19-related-guidance-metadata
+// get industry_category_key
+// language
+// guidance_pdf_links covid19-industry-guidance-pdf-links
+// industry_category_key
+// language
+// guidance_additional_resources // covid19-industry-guidance-additional-resources
+// industry_category_key // @TODO could this be industry_category_key?
+// sort by order, 1 is first, 5 is lower down.
+// language
 const buildStateGuidanceJSON = () => {
   try {
-  let apiDoc = JSON.parse(fs.readFileSync(`${docsPath}/covid19-state-industry-guidance.api.json`));
-  let categories = JSON.parse(fs.readFileSync(`${dataPath}/json/data-covid19-industry-guidance-categories.json`, "utf8"));
-  let metadata = JSON.parse(fs.readFileSync(`${dataPath}/json/data-covid19-related-guidance-metadata.json`, "utf8"));
-  let pdfLinks = JSON.parse(fs.readFileSync(`${dataPath}/json/data-covid19-industry-guidance-pdf-links.json`, "utf8"));
-  let additionalResources = JSON.parse(fs.readFileSync(`${dataPath}/json/data-covid19-industry-guidance-additional-resources.json`, "utf8"));
-  let data = {};
-  categories.data.map((item) => {
-    let category = item["industry_category_key"];
-    // console.log("category", category);
-    let categoryMetadata = metadata.data.filter((dataItem) => dataItem["industry_category_key"] === category);
-    let categoryPdfLinks = pdfLinks.data.filter((dataItem) => dataItem["industry_category_key"] === category);
-    let categoryAdditionalResources = additionalResources.data.filter((dataItem) => dataItem["industry_category_key"] === category); // @TODO sort this one
+    let apiDoc = JSON.parse(
+      fs.readFileSync(`${docsPath}/covid19-state-industry-guidance.api.json`)
+    );
+    let categories = JSON.parse(
+      fs.readFileSync(
+        `${dataPath}/json/data-covid19-industry-guidance-categories.json`,
+        "utf8"
+      )
+    );
+    let metadata = JSON.parse(
+      fs.readFileSync(
+        `${dataPath}/json/data-covid19-related-guidance-metadata.json`,
+        "utf8"
+      )
+    );
+    let pdfLinks = JSON.parse(
+      fs.readFileSync(
+        `${dataPath}/json/data-covid19-industry-guidance-pdf-links.json`,
+        "utf8"
+      )
+    );
+    let additionalResources = JSON.parse(
+      fs.readFileSync(
+        `${dataPath}/json/data-covid19-industry-guidance-additional-resources.json`,
+        "utf8"
+      )
+    );
+    let data = {};
+    categories.data.map((item) => {
+      let category = item["industry_category_key"];
+      // console.log("category", category);
+      let categoryMetadata = metadata.data.filter(
+        (dataItem) => dataItem["industry_category_key"] === category
+      );
+      let categoryPdfLinks = pdfLinks.data.filter(
+        (dataItem) => dataItem["industry_category_key"] === category
+      );
+      let categoryAdditionalResources = additionalResources.data.filter(
+        (dataItem) => dataItem["industry_category_key"] === category
+      ); // @TODO sort this one
 
-    data[category] = {
-        metadata: categoryMetadata !== null && categoryMetadata[0] !== undefined ? categoryMetadata : "",
+      data[category] = {
+        metadata:
+          categoryMetadata !== null && categoryMetadata[0] !== undefined
+            ? categoryMetadata
+            : "",
         pdf: categoryPdfLinks,
         additional_resources: categoryAdditionalResources,
       };
-  });
+    });
 
-  const utcDate = getDate();
+    const utcDate = getDate();
 
-  let apiData = {
-    docs: apiDoc,
-    data: data,
-    date_updated: utcDate,
-    total: Object.keys(data).length,
-  }
+    let apiData = {
+      docs: apiDoc,
+      data: data,
+      date_updated: utcDate,
+      total: Object.keys(data).length,
+    };
 
-  fs.writeFile(
-    `${dataPath}/json/data-covid19-state-industry-guidance.json`,
-    JSON.stringify(apiData),
-    function (err) {
-      if (err) return console.log(err);
-      console.log(`Updated: data-covid19-state-industry-guidance.json`);
-    }
-  );
-  } catch(error) {
-    console.error("Error building State Industry Guidance data.", error)
+    fs.writeFile(
+      `${dataPath}/json/data-covid19-state-industry-guidance.json`,
+      JSON.stringify(apiData),
+      function (err) {
+        if (err) return console.log(err);
+        console.log(`Updated: data-covid19-state-industry-guidance.json`);
+      }
+    );
+  } catch (error) {
+    console.error("Error building State Industry Guidance data.", error);
   }
 };
 

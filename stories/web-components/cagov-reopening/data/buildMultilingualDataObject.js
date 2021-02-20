@@ -16,8 +16,8 @@ export const buildMultilingualDataObject = ({
     countyStatus,
     rshoApi,
     rshoData,
-    stateIndustryGuidance, // These are already compiled in the new v2 format
-    activitySearchBusiness, // These are already compiled in the new v2 format
+    stateIndustryGuidance,
+    activitySearchBusiness,
     commonPageLabels,
     commonPageLabelsApi,
 }) => {

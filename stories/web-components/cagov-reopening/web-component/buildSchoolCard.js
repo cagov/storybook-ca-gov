@@ -12,8 +12,7 @@ export const buildSchoolCard = ({
         ? buildSchoolsCanReopen({ county: selectedCounty.county, schoolLabels })
         : ""
     return `
-      <p>
-      schools display:
+      <p class="school-card">
       ${schoolsDisplay}
       </p>
       `;

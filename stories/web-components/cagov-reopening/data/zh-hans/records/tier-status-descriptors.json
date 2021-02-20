@@ -1,62 +1,62 @@
 {
   "Table1": [
     {
-      "County tier": "Minimal",
-      "colorLabel": "Yellow",
+      "County tier": "最低",
+      "colorLabel": "黄色",
       "_Color label": "Yellow",
-      "New cases": "Less than 1.0",
-      "Positive tests": "Less than 2.0%",
-      "description": "Most indoor business operations are open with modifications",
-      "Positive-heq": "Less than 2.2%"
+      "New cases": "小于1.0",
+      "Positive tests": "小于2.0%",
+      "description": "大部分室内业务可在经调整后开放",
+      "Positive-heq": "小于2.2%"
     },
     {
-      "County tier": "Moderate",
-      "colorLabel": "Orange",
+      "County tier": "中度",
+      "colorLabel": "橙色",
       "_Color label": "Orange",
       "New cases": "1.0 – 3.9",
       "Positive tests": "2.0 – 4.9% ",
-      "description": "Some indoor business operations are open with modifications",
+      "description": "一些室内业务可在经调整后开放",
       "Positive-heq": "2.2 – 5.2%"
     },
     {
-      "County tier": "Substantial",
-      "colorLabel": "Red",
+      "County tier": "重度",
+      "colorLabel": "红色",
       "_Color label": "Red",
       "New cases": "4.0 – 7.0",
       "Positive tests": "5.0 – 8.0%",
-      "description": "Some non-essential indoor business operations are closed",
+      "description": "关闭一些非必要的室内业务",
       "Positive-heq": "5.3 – 8.0%"
     },
     {
-      "County tier": "Widespread",
-      "colorLabel": "Purple",
+      "County tier": "广泛传播",
+      "colorLabel": "紫色",
       "_Color label": "Purple",
-      "New cases": "More than 7.0",
-      "Positive tests": "More than 8.0%",
-      "description": "Many non-essential indoor business operations are closed",
+      "New cases": "大于7.0",
+      "Positive tests": "大于8.0%",
+      "description": "关闭许多非必要的室内业务",
       "Positive-heq": ""
     }
   ],
   "Table2": [
     {
       "_id": "Header – county risk level",
-      "text": "County risk level"
+      "text": "县风险级别"
     },
     {
       "_id": "Header – new cases",
-      "text": "Adjusted case rate"
+      "text": "调整后的患病率"
     },
     {
       "_id": "Header – positive tests",
-      "text": "Positivity rate"
+      "text": "检测呈阳性率"
     },
     {
       "_id": "Description – new cases",
-      "text": "Daily new cases (per 100k)"
+      "text": "每日新增病例（每100k人）"
     },
     {
       "_id": "Description – positive cases",
-      "text": "Positive tests"
+      "text": "检测呈阳性数"
     }
   ]
 }

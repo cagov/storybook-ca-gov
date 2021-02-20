@@ -1,62 +1,62 @@
 {
   "Table1": [
     {
-      "County tier": "Minimal",
-      "colorLabel": "Yellow",
+      "County tier": "Mínimo",
+      "colorLabel": "Amarillo",
       "_Color label": "Yellow",
-      "New cases": "Less than 1.0",
-      "Positive tests": "Less than 2.0%",
-      "description": "Most indoor business operations are open with modifications",
-      "Positive-heq": "Less than 2.2%"
+      "New cases": "Menos de 1.0",
+      "Positive tests": "Menos del 2.0 %",
+      "description": "La mayoría de las operaciones comerciales en interiores están abiertas con modificaciones.",
+      "Positive-heq": "Menos del 2.2 %"
     },
     {
-      "County tier": "Moderate",
-      "colorLabel": "Orange",
+      "County tier": "Moderado",
+      "colorLabel": "Naranja",
       "_Color label": "Orange",
-      "New cases": "1.0 – 3.9",
-      "Positive tests": "2.0 – 4.9% ",
-      "description": "Some indoor business operations are open with modifications",
-      "Positive-heq": "2.2 – 5.2%"
+      "New cases": "De 1.0 a 3.9",
+      "Positive tests": "Del 2.0 % al 4.9 % ",
+      "description": "Algunas operaciones comerciales en interiores están abiertas con modificaciones.",
+      "Positive-heq": "Del 2.2 % al 5.2 %"
     },
     {
-      "County tier": "Substantial",
-      "colorLabel": "Red",
+      "County tier": "Sustancial",
+      "colorLabel": "Rojo",
       "_Color label": "Red",
-      "New cases": "4.0 – 7.0",
-      "Positive tests": "5.0 – 8.0%",
-      "description": "Some non-essential indoor business operations are closed",
-      "Positive-heq": "5.3 – 8.0%"
+      "New cases": "De 4.0 a 7.0",
+      "Positive tests": "Del 5.0 % al 8.0 %",
+      "description": "Algunas operaciones comerciales en interiores no esenciales están cerradas.",
+      "Positive-heq": "Del 5.3 % al 8 %"
     },
     {
-      "County tier": "Widespread",
-      "colorLabel": "Purple",
+      "County tier": "Extendido",
+      "colorLabel": "Morado",
       "_Color label": "Purple",
-      "New cases": "More than 7.0",
-      "Positive tests": "More than 8.0%",
-      "description": "Many non-essential indoor business operations are closed",
+      "New cases": "Más de 7.0",
+      "Positive tests": "Mas del 8.0 %",
+      "description": "Muchas de las operaciones comerciales en interiores no esenciales están cerradas.",
       "Positive-heq": ""
     }
   ],
   "Table2": [
     {
       "_id": "Header – county risk level",
-      "text": "County risk level"
+      "text": "Nivel de riesgo del condado"
     },
     {
       "_id": "Header – new cases",
-      "text": "Adjusted case rate"
+      "text": "Tasa de casos ajustados"
     },
     {
       "_id": "Header – positive tests",
-      "text": "Positivity rate"
+      "text": "Tasa de positividad"
     },
     {
       "_id": "Description – new cases",
-      "text": "Daily new cases (per 100k)"
+      "text": "Casos nuevos diarios (por cada 100 mil)"
     },
     {
       "_id": "Description – positive cases",
-      "text": "Positive tests"
+      "text": "Pruebas positivas"
     }
   ]
 }
