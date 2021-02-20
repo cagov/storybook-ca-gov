@@ -11,6 +11,7 @@ export const getMoreLanguages = ({
   label = "More languages",
   type = null,
 }) => {
+  console.log(" links.length",  links);
   if (links !== undefined && links !== null && links.length > 0) {
     let listItems = [];
 
@@ -29,6 +30,7 @@ export const getMoreLanguages = ({
       }
     });
 
+    if (listItems.length > 1) {
     let componentDropdown = `
       <cagov-dropdown>
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,6 +43,7 @@ export const getMoreLanguages = ({
       `;
 
     return componentDropdown;
+    }
 
     // return `
     // <div class="dropdown">

@@ -146,4 +146,123 @@ SwimmingPools.args = {
     additionalGuidanceLabel: "Depending on your business operations, other guidance may apply",
     resultType: "default",
     language: "en",
+    expanded: true,
 };
+
+export const SaunasSteamRooms = Template.bind({});
+SaunasSteamRooms.args = {
+    activityLabel: 'Saunas and steam rooms',
+    county: null,
+    stateIndustryGuidanceData: data["en"]["state-industry-guidance"].data,
+    searchResultData: {
+      "activity_reference_key": "saunas-steam-rooms",
+      "activity_search_autocomplete": "Saunas and steam rooms",
+      "override_industry_guidance_label": "Gyms and fitness, Hotels, lodging, and short-term lodging rentals, and Outdoor recreation, including campgrounds, playgrounds, and ski resorts",
+      "activity_key": "saunas-steam-rooms",
+      "4 - WIDESPREAD": "Closed",
+      "3 - SUBSTANTIAL": "Closed",
+      "2 - MODERATE": "Closed",
+      "1 - MINIMAL": "Can open indoors with modifications  - +Saunas - +Spas - +Steam rooms - Max 50% capacity",
+      "RSHO": "Closed",
+      "last_modified": "2021-01-15T09:40:00.000Z",
+      "primary_guidance": "fitness, hotels-lodging-rentals, campgrounds-outdoor-recreation",
+      "secondary_guidance": ""
+    },
+    seeStateIndustryGuidanceLabel: "See state industry guidance",
+    guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
+    industryGuidancePdfLabel: `Industry guidance for <span data-attribute="activityLabel"></span>`,
+    checklistPdfLabel: `Checklist for <span data-attribute="activityLabel"></span>`,
+    additionalGuidanceLabel: "Depending on your business operations, other guidance may apply",
+    resultType: "default",
+    language: "en",
+    expanded: true,
+};
+
+export const YouthSports = Template.bind({});
+YouthSports.args = {
+    activityLabel: 'Youth and adult recreational sports',
+    county: null,
+    stateIndustryGuidanceData: data["en"]["state-industry-guidance"].data,
+    searchResultData: {
+      "activity_reference_key": "youth-sports",
+      "activity_search_autocomplete": "Youth and adult recreational sports",
+      "override_industry_guidance_label": "",
+      "activity_key": "youth-sports",
+      "4 - WIDESPREAD": "Some outdoor low-contact sports permitted. See list.",
+      "3 - SUBSTANTIAL": "Some outdoor moderate-contact sports permitted. See list.",
+      "2 - MODERATE": "Some outdoor high-contact sports allowed, and  some indoor low-contact sports permitted. See list.",
+      "1 - MINIMAL": "Some indoor moderate-contact sports allowed, and some indoor high-contact sports permitted. See list.",
+      "RSHO": "Outdoor physical conditioning and practice permitted with 6 feet of physical distancing from others.",
+      "last_modified": "2021-02-18T01:17:00.000Z",
+      "primary_guidance": "youth-sports, cohorts",
+      "secondary_guidance": ""
+    },
+    seeStateIndustryGuidanceLabel: "See state industry guidance",
+    guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
+    industryGuidancePdfLabel: `Industry guidance for <span data-attribute="activityLabel"></span>`,
+    checklistPdfLabel: `Checklist for <span data-attribute="activityLabel"></span>`,
+    additionalGuidanceLabel: "Depending on your business operations, other guidance may apply",
+    resultType: "default",
+    language: "en",
+    expanded: true,
+};
+
+export const Cohorts = Template.bind({});
+Cohorts.args = {
+    activityLabel: 'Cohorts for children and youth in supervised settings',
+    county: null,
+    stateIndustryGuidanceData: data["en"]["state-industry-guidance"].data,
+    searchResultData: {
+      "activity_reference_key": "cohorts",
+      "activity_search_autocomplete": "Cohorts for children and youth in supervised settings",
+      "override_industry_guidance_label": "",
+      "activity_key": "cohorts",
+      "4 - WIDESPREAD": "",
+      "3 - SUBSTANTIAL": "",
+      "2 - MODERATE": "",
+      "1 - MINIMAL": "",
+      "RSHO": "",
+      "last_modified": "2021-01-15T09:40:00.000Z",
+      "primary_guidance": "cohorts",
+      "secondary_guidance": ""
+    },
+    seeStateIndustryGuidanceLabel: "See state industry guidance",
+    guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
+    industryGuidancePdfLabel: `Industry guidance for <span data-attribute="activityLabel"></span>`,
+    checklistPdfLabel: `Checklist for <span data-attribute="activityLabel"></span>`,
+    additionalGuidanceLabel: "Depending on your business operations, other guidance may apply",
+    resultType: "default",
+    language: "en",
+    expanded: true,
+};
+
+export const Childcare = Template.bind({});
+Childcare.args = {
+    activityLabel: 'Childcare',
+    county: null,
+    stateIndustryGuidanceData: data["en"]["state-industry-guidance"].data,
+    searchResultData: {
+      "activity_reference_key": "childcare",
+      "activity_search_autocomplete": "Childcare",
+      "override_industry_guidance_label": "",
+      "activity_key": "childcare",
+      "4 - WIDESPREAD": "Can open with modifications",
+      "3 - SUBSTANTIAL": "Can open with modifications",
+      "2 - MODERATE": "Can open with modifications",
+      "1 - MINIMAL": "Can open with modifications",
+      "RSHO": "Can open with modifications",
+      "last_modified": "2021-01-15T09:40:00.000Z",
+      "primary_guidance": "childcare, cohorts",
+      "secondary_guidance": ""
+    },
+    seeStateIndustryGuidanceLabel: "See state industry guidance",
+    guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
+    industryGuidancePdfLabel: `Industry guidance for <span data-attribute="activityLabel"></span>`,
+    checklistPdfLabel: `Checklist for <span data-attribute="activityLabel"></span>`,
+    additionalGuidanceLabel: "Depending on your business operations, other guidance may apply",
+    resultType: "default",
+    language: "en",
+    expanded: true,
+};
+
+
