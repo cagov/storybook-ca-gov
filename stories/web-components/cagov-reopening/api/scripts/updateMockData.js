@@ -10,7 +10,7 @@ const guidanceFilePath =
 `${componentPath}/api/auto-generated-data/json/data-covid19-state-industry-guidance.json`;
 
 const outputDataPath = `${componentPath}/data`;
-const storyPaths = {
+const storyPathsGuidance = {
   ar: `${outputDataPath}/ar/records/data-covid19-state-industry-guidance.json`,
   en: `${outputDataPath}/en/records/data-covid19-state-industry-guidance.json`,
   es: `${outputDataPath}/es/records/data-covid19-state-industry-guidance.json`,
@@ -21,12 +21,28 @@ const storyPaths = {
   "zh-hant": `${outputDataPath}/zh-hant/records/data-covid19-state-industry-guidance.json`,
 };
 
+
+
 let activityBusinessData = fs.readFileSync(activityBusinessDataPath);
 let guidanceData = fs.readFileSync(guidanceFilePath);
 
-Object.keys(storyPaths).map((language_code) => {
+const storyPathsSearch = {
+    ar: `${outputDataPath}/ar/records/data-covid19-activity-business-search-data.json`,
+    en: `${outputDataPath}/en/records/data-covid19-activity-business-search-data.json`,
+    es: `${outputDataPath}/es/records/data-covid19-activity-business-search-data.json`,
+    ko: `${outputDataPath}/ko/records/data-covid19-activity-business-search-data.json`,
+    tl: `${outputDataPath}/tl/records/data-covid19-activity-business-search-data.json`,
+    vi: `${outputDataPath}/vi/records/data-covid19-activity-business-search-data.json`,
+    "zh-hans": `${outputDataPath}/zh-hans/records/data-covid19-activity-business-search-data.json`,
+    "zh-hant": `${outputDataPath}/zh-hant/records/data-covid19-activity-business-search-data.json`,
+  };
+  
+
+
+// Update all the state guidance data
+Object.keys(storyPathsGuidance).map((language_code) => {
   fs.writeFile(
-    `${storyPaths[language_code]}`,
+    `${storyPathsGuidance[language_code]}`,
     guidanceFilePath,
     function (err) {
       if (err) return console.log(err);
@@ -36,3 +52,17 @@ Object.keys(storyPaths).map((language_code) => {
     }
   );
 });
+
+// Update all the activity data
+Object.keys(storyPathsSearch).map((language_code) => {
+    fs.writeFile(
+      `${storyPathsSearch[language_code]}`,
+      guidanceFilePath,
+      function (err) {
+        if (err) return console.log(err);
+        console.log(
+          `Update mock data: search data`
+        );
+      }
+    );
+  });
