@@ -43,7 +43,7 @@ const storyPathsSearch = {
 Object.keys(storyPathsGuidance).map((language_code) => {
   fs.writeFile(
     `${storyPathsGuidance[language_code]}`,
-    guidanceFilePath,
+    guidanceData,
     function (err) {
       if (err) return console.log(err);
       console.log(
@@ -57,7 +57,7 @@ Object.keys(storyPathsGuidance).map((language_code) => {
 Object.keys(storyPathsSearch).map((language_code) => {
     fs.writeFile(
       `${storyPathsSearch[language_code]}`,
-      guidanceFilePath,
+      activityBusinessData,
       function (err) {
         if (err) return console.log(err);
         console.log(
