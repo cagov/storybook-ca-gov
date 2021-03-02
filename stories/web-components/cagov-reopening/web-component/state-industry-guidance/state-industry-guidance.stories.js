@@ -7,6 +7,34 @@ export default {
 
 const Template = (args) => WebComponent(args);
 
+export const Agriculture = Template.bind({});
+Agriculture.args = {
+    activityLabel: 'Agriculture and livestock',
+    county: null,
+    stateIndustryGuidanceData: data["en"]["state-industry-guidance"].data,
+    searchResultData: {
+      "activity_reference_key": "agriculture",
+      "activity_search_autocomplete": "Agriculture and livestock",
+      "override_industry_guidance_label": "",
+      "activity_key": "agriculture",
+      "4 - WIDESPREAD": "",
+      "3 - SUBSTANTIAL": "",
+      "2 - MODERATE": "",
+      "1 - MINIMAL": "",
+      "RSHO": "",
+      "last_modified": "2021-03-02T00:18:00.000Z",
+      "primary_guidance": "agriculture",
+      "secondary_guidance": "general-indoors, general-outdoors"
+    },
+    seeStateIndustryGuidanceLabel: "See state industry guidance",
+    guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
+    industryGuidancePdfLabel: `Industry guidance for <span data-attribute="activityLabel"></span>`,
+    checklistPdfLabel: `Checklist for <span data-attribute="activityLabel"></span>`,
+    additionalGuidanceLabel: "Depending on your business operations, other guidance may apply",
+    resultType: "default",
+    language: "en",
+};
+
 export const AutoRepairShops = Template.bind({});
 AutoRepairShops.args = {
     activityLabel: 'Auto repair shops',
@@ -62,6 +90,35 @@ GymsFitnessCenters.args = {
     resultType: "default",
     language: "en",
 };
+
+export const HotelsLodgingRentals = Template.bind({});
+HotelsLodgingRentals.args = {
+    activityLabel: 'Gyms and fitness centers',
+    county: null,
+    stateIndustryGuidanceData: data["en"]["state-industry-guidance"].data,
+    searchResultData: {
+      "activity_reference_key": "hotels-lodging-rentals",
+      "activity_search_autocomplete": "Hotels, lodging, and short-term lodging rentals",
+      "override_industry_guidance_label": "",
+      "activity_key": "hotels-lodging-rentals",
+      "4 - WIDESPREAD": "",
+      "3 - SUBSTANTIAL": "",
+      "2 - MODERATE": "",
+      "1 - MINIMAL": "",
+      "RSHO": "",
+      "last_modified": "2021-03-02T00:58:00.000Z",
+      "primary_guidance": "hotels-lodging-rentals",
+      "secondary_guidance": "general-indoors, general-outdoors"
+    },
+    seeStateIndustryGuidanceLabel: "See state industry guidance",
+    guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
+    industryGuidancePdfLabel: `Industry guidance for <span data-attribute="activityLabel"></span>`,
+    checklistPdfLabel: `Checklist for <span data-attribute="activityLabel"></span>`,
+    additionalGuidanceLabel: "Depending on your business operations, other guidance may apply",
+    resultType: "default",
+    language: "en",
+};
+
 
 export const YogaStudios = Template.bind({});
 YogaStudios.args = {
@@ -135,9 +192,9 @@ SwimmingPools.args = {
       "2 - MODERATE": "Can open outdoors with modifications. Drowning prevention classes, including swim lessons with certified instructors, are permitted indoors and outdoors.",
       "1 - MINIMAL": "Can open outdoors with modifications. Drowning prevention classes, including swim lessons with certified instructors, are permitted indoors and outdoors.",
       "RSHO": "Can open outdoors with modifications. Drowning prevention classes, including swim lessons with certified instructors, are permitted indoors and outdoors.",
-      "last_modified": "2021-02-18T01:17:00.000Z",
+      "last_modified": "2021-03-02T00:19:00.000Z",
       "primary_guidance": "fitness, hotels-lodging-rentals, campgrounds-outdoor-recreation, swimming-pools",
-      "secondary_guidance": ""
+      "secondary_guidance": "general-indoors, general-outdoors"
     },
     seeStateIndustryGuidanceLabel: "See state industry guidance",
     guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
@@ -188,14 +245,14 @@ YouthSports.args = {
       "activity_search_autocomplete": "Youth and adult recreational sports",
       "override_industry_guidance_label": "",
       "activity_key": "youth-sports",
-      "4 - WIDESPREAD": "Some outdoor low-contact sports permitted. See list.",
-      "3 - SUBSTANTIAL": "Some outdoor moderate-contact sports permitted. See list.",
-      "2 - MODERATE": "Some outdoor high-contact sports allowed, and  some indoor low-contact sports permitted. See list.",
+      "4 - WIDESPREAD": "Some outdoor low-contact sports permitted. Higher-contact outdoor sports may be permitted, subject to additional requirements. See list.",
+      "3 - SUBSTANTIAL": "Some outdoor moderate-contact sports permitted. Higher-contact outdoor sports may be permitted, subject to additional requirements. See list.",
+      "2 - MODERATE": "Some outdoor high-contact sports allowed, and some indoor low-contact sports permitted. See list.",
       "1 - MINIMAL": "Some indoor moderate-contact sports allowed, and some indoor high-contact sports permitted. See list.",
       "RSHO": "Outdoor physical conditioning and practice permitted with 6 feet of physical distancing from others.",
-      "last_modified": "2021-02-18T01:17:00.000Z",
-      "primary_guidance": "youth-sports, cohorts",
-      "secondary_guidance": ""
+      "last_modified": "2021-03-02T00:19:00.000Z",
+      "primary_guidance": "youth-sports",
+      "secondary_guidance": "general-indoors, general-outdoors"
     },
     seeStateIndustryGuidanceLabel: "See state industry guidance",
     guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
@@ -222,9 +279,9 @@ Cohorts.args = {
       "2 - MODERATE": "",
       "1 - MINIMAL": "",
       "RSHO": "",
-      "last_modified": "2021-01-15T09:40:00.000Z",
+      "last_modified": "2021-03-02T00:55:00.000Z",
       "primary_guidance": "cohorts",
-      "secondary_guidance": ""
+      "secondary_guidance": "general-indoors, general-outdoors"
     },
     seeStateIndustryGuidanceLabel: "See state industry guidance",
     guidanceTemplate: `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
