@@ -3,6 +3,8 @@ const fs = require("fs");
 const { Parser } = require("json2csv");
 const Airtable = require("airtable");
 
+let KEYCHAIN = process.env || secret;
+
 // Local Script for Node.JS
 // To run: `npm run update:data`
 
@@ -15,10 +17,10 @@ AIRTABLE_BASE_ID=the_app_id_for_base
  * 
 **/
 Airtable.configure({
-  apiKey: process.env["AIRTABLE_API_KEY"],
+  apiKey: KEYCHAIN["AIRTABLE_API_KEY"],
 });
-const base = Airtable.base(process.env["AIRTABLE_BASE_ID"]); // Check Airtable API documention when logged into Airtable under "Account" and go to "Airtable API" & look up more information about your base.
-const VIEW_NAME = process.env["AIRTABLE_VIEW_NAME"]; // Manually set in the base to match this config. The default is
+const base = Airtable.base(KEYCHAIN["AIRTABLE_BASE_ID"]); // Check Airtable API documention when logged into Airtable under "Account" and go to "Airtable API" & look up more information about your base.
+const VIEW_NAME = KEYCHAIN["AIRTABLE_VIEW_NAME"]; // Manually set in the base to match this config. The default is
 
 // Location of docs templates.
 const docsPath = "./stories/web-components/cagov-reopening/api/api_templates/";
