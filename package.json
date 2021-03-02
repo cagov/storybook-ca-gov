@@ -14,6 +14,7 @@
     "update:data_activities": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/buildAirtableJsonCsv.js dotenv_config_path=.env/.env.local",
     "update:data_state_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local",
     "update:mock_data_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/updateMockData.js dotenv_config_path=.env/.env.local",
+    "update:data": "npm run update:mock_data_guidance",
     "cypress:run": "cypress run --headless --browser chrome",
     "cypress:open": "cypress open"
   },
