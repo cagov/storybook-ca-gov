@@ -10,16 +10,19 @@
     "build-storybook": "build-storybook",
     "build": "npm run build-storybook",
     "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
-    "build:data:cagov-reopening": "npm run update:data_activities && npm run update:data_state_guidance && npm run update:data_figma_content_api",
+    "build:data:cagov-reopening": "npm run update:data_activities && npm run update:data_state_guidance && npm run update:mock_data_guidance",
     "update:data_activities": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/buildAirtableJsonCsv.js dotenv_config_path=.env/.env.local",
     "update:data_state_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local",
-    "update:data_figma_content_api": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/buildStateIndustryGuidanceFigma.js dotenv_config_path=.env/.env.local"
+    "update:mock_data_guidance": "node -r dotenv/config ./stories/web-components/cagov-reopening/api/scripts/updateMockData.js dotenv_config_path=.env/.env.local",
+    "cypress:run": "cypress run --headless --browser chrome",
+    "cypress:open": "cypress open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@cypress/webpack-preprocessor": "^5.6.0",
     "@storybook/addon-a11y": "^6.2.0-alpha.16",
     "@storybook/addon-actions": "^6.2.0-alpha.16",
     "@storybook/addon-console": "^1.2.2",
@@ -33,7 +36,10 @@
     "lit-html": "^1.3.0",
     "postcss": "^8.2.4",
     "postcss-cli": "^8.3.1",
-    "storybook-addon-designs": "^5.4.3"
+    "storybook-addon-designs": "^5.4.3",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.2.2",
+    "webpack": "^4.46.0"
   },
   "dependencies": {
     "@cagov/accordion": "^2.0.0",
@@ -43,6 +49,7 @@
     "autoprefixer": "^10.2.3",
     "awesomplete-es6": "^1.2.2",
     "css-loader": "^5.0.1",
+    "cypress": "^6.6.0",
     "d3": "^6.3.1",
     "immer": ">=8.0.1",
     "json2csv": "^5.0.5",
