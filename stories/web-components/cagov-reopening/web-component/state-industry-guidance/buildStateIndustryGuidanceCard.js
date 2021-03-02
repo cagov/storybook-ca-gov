@@ -112,6 +112,26 @@ const getAccordionContent = ({
     });
   }
 
+    // let sortedGuidances = guidances
+    let secondaryGuidances = searchResultData.secondary_guidance.split(",");
+    secondaryGuidances = secondaryGuidances.map((item, index) => item.trim());
+    // console.log("secondaryGuidances", secondaryGuidances);
+    // console.log(
+    //   secondaryGuidances.includes(searchResultData.activity_reference_key)
+    // );
+    // console.log(searchResultData.activity_reference_key);
+    let currentGuidanceInListSecondary = false;
+    if (secondaryGuidances.includes(searchResultData.activity_reference_key)) {
+      currentGuidanceInListSecondary = true;
+    }
+    if (currentGuidanceInListSecondary) {
+      // Bump current guidance to the top of the list of sets of guidances.
+      let firstResultSecondary = searchResultData.activity_reference_key;
+      secondaryGuidances = secondaryGuidances.sort(function (x, y) {
+        return x == firstResultSecondary ? -1 : y == firstResultSecondary ? 1 : 0;
+      });
+    }
+
   let guidancesString = getListGuidances({
     guidance: searchResultData.primary_guidance,
     data: stateIndustryGuidanceData,
@@ -143,7 +163,6 @@ const getAccordionContent = ({
   // Get primary guidance list
   let primaryGuidance = getPrimaryGuidance({
     data: stateIndustryGuidanceData,
-
     guidances: primaryGuidances,
     searchResultData,
     language,
@@ -154,12 +173,14 @@ const getAccordionContent = ({
   // Get secondary guidance list
   let secondaryGuidance = getSecondaryGuidance({
     data: stateIndustryGuidanceData,
-    guidance: searchResultData.secondary_guidance,
+    guidances: secondaryGuidances,
     searchResultData,
     language,
     labelGuidance: industryGuidancePdfLabel,
     labelChecklist: checklistPdfLabel,
   });
+
+  console.log("secondary Guidance", secondaryGuidance);
 
   // Get additional guidance
   let additionalGuidance = getAdditionalGuidance({
@@ -255,7 +276,7 @@ const getPrimaryGuidance = ({
 
       guidances.map((guidance_key) => {
         let currentGuidance = data[guidance_key.trim()];
-        // console.log("currentGuidance", currentGuidance);
+        console.log("currentGuidance", currentGuidance);
 
         if (currentGuidance !== undefined && currentGuidance !== null) {
           let optionalMessage = getOptionalPrimaryGuidanceMessage({
@@ -302,8 +323,7 @@ const getSecondaryGuidance = ({
   data = null,
   searchResultData = null,
   language = "en",
-  label = null,
-  guidance = null,
+  guidances = null,
   labelGuidance = null,
   labelChecklist = null,
 }) => {
@@ -312,13 +332,21 @@ const getSecondaryGuidance = ({
       data !== undefined &&
       data !== null &&
       searchResultData !== undefined &&
-      searchResultData !== null
+      searchResultData !== null &&
+      guidances !== undefined &&
+      guidances !== null
     ) {
       let results = [];
-      let guidances = guidance.split(",");
+
       guidances.map((guidance_key) => {
         let currentGuidance = data[guidance_key.trim()];
+        console.log("currentGuidance", currentGuidance);
+
         if (currentGuidance !== undefined && currentGuidance !== null) {
+          let optionalMessage = getOptionalPrimaryGuidanceMessage({
+            currentGuidance,
+          });
+
           let guidanceListLink = getGuidanceLink({
             currentGuidance,
             label: labelGuidance,
@@ -334,6 +362,8 @@ const getSecondaryGuidance = ({
           });
 
           results.push(`
+            <h3>${currentGuidance.industry_category_label}</h3>
+            ${optionalMessage}
             ${guidanceListLink}
             ${checklistListLink}
           `);

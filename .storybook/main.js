@@ -1,14 +1,24 @@
+const path = require('path');
+
 module.exports = {
   // Commented out to allow full page reload configuration in preview.js to work (and not conflict)
   // "stories": [
   //   "../stories/**/*.stories.mdx",
   //   "../stories/**/*.stories.@(js|jsx|ts|tsx)"
+  //   path.join(__dirname, '..', 'stories.@(js|jsx|ts|tsx|mdx'),
   // ],
   "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-a11y",
-    "storybook-addon-designs",
+
+    // "@storybook/addon-links",
+    // "@storybook/addon-essentials",
+    // "@storybook/addon-a11y",
+    // { 
+    //   name: '@storybook/addon-a11y', 
+    //   options: {
+    //     maxLevels: 2,
+    //   }
+    // },
+    // "storybook-addon-designs",
     '@storybook/preset-scss'
   ],
   watch: true,
