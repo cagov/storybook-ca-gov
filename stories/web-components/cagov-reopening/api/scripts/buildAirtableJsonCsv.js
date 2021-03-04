@@ -65,6 +65,7 @@ let endpoints = {
       last_modified: "",
       primary_guidance: "",
       secondary_guidance: "",
+      related_guidance: "",
     },
     viewName: "API", // Not currently used in this script, but this script could be altered to use specific viewNames for further selecting or filtering data.
   },
@@ -85,6 +86,7 @@ let endpoints = {
       last_modified: "",
       primary_guidance: "",
       secondary_guidance: "",
+      related_guidance: "",
       language_code: "",
       language: "",
     },
