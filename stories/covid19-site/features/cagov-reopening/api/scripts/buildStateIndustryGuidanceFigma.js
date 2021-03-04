@@ -3,15 +3,15 @@ const fs = require("fs");
 
 // Location of docs templates.
 const docsPath =
-  "./stories/web-components/cagov-reopening/api/api_templates/";
+  "./stories/covid19-site/features/cagov-reopening/api/api_templates/";
 
 // Write folder for JSON output
 const dataPath =
-  "./stories/web-components/cagov-reopening/api/auto-generated-data";
+  "./stories/covid19-site/features/cagov-reopening/api/auto-generated-data";
 
 // Write folder for JSON output
 const figmaDataPath =
-  "./stories/web-components/cagov-reopening/api/auto-generated-data/figma-content-api";
+  "./stories/covid19-site/features/cagov-reopening/api/auto-generated-data/figma-content-api";
 
 const getDate = () => {
   // Get date updated.
