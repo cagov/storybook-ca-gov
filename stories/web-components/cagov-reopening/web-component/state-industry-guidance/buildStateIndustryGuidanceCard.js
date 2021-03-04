@@ -100,7 +100,6 @@ const getAccordionContent = ({
   guidancePdfLabel = null,
   checklistPdfLabel = null,
 }) => {
-
   // Get primary guidance list
   let primaryGuidance = getPrimaryGuidance({
     activityLabel,
@@ -111,6 +110,7 @@ const getAccordionContent = ({
     label: primaryGuidanceLabel,
     labelGuidance: guidancePdfLabel,
     labelChecklist: checklistPdfLabel,
+    additionalGuidanceLabel,
   });
 
   // Get secondary guidance list
@@ -125,15 +125,7 @@ const getAccordionContent = ({
     label: secondaryGuidanceLabel,
     labelGuidance: guidancePdfLabel,
     labelChecklist: checklistPdfLabel,
-  });
-
-  // Get additional guidance
-  let additionalGuidance = getAdditionalGuidance({
-    data: stateIndustryGuidanceData,
-    searchResultData,
-    guidance: searchResultData.additional_resources,
-    language,
-    label: additionalGuidanceLabel,
+    additionalGuidanceLabel,
   });
 
   // Get related guidance list
@@ -145,12 +137,12 @@ const getAccordionContent = ({
     labelGuidance: guidancePdfLabel,
     labelChecklist: checklistPdfLabel,
     label: relatedGuidanceLabel,
+    additionalGuidanceLabel,
   });
 
   return `<div class="state-guidance-content">
     <div class="primary-guidance">${primaryGuidance}</div>
     <div class="secondary-guidance">${secondaryGuidance}</div>
-    <div class="additional-guidance">${additionalGuidance}</div>
     <div class="related-guidance">${relatedGuidance}</div>
   </div>`;
 };
@@ -160,7 +152,6 @@ const getGuidanceData = ({ searchResultData, field }) => {
     let guidances = searchResultData[field].split(",");
 
     guidances = guidances.map((item) => item.trim());
-    console.log("guidances", guidances);
     let currentGuidanceInList = false;
     if (guidances.includes(searchResultData.activity_reference_key)) {
       currentGuidanceInList = true;
@@ -245,6 +236,7 @@ const getPrimaryGuidance = ({
   labelChecklist = null,
   label = null,
   activityLabel = null,
+  additionalGuidanceLabel
 }) => {
   console.log(guidances);
   try {
@@ -262,8 +254,6 @@ const getPrimaryGuidance = ({
         console.log(guidance_key, index);
 
         let currentGuidance = data[guidance_key.trim()];
-
-        // console.log("currentGuidance", currentGuidance, searchResultData, index);
 
         if (currentGuidance !== undefined && currentGuidance !== null) {
           // Generate messaging strings.
@@ -308,12 +298,11 @@ const getPrimaryGuidance = ({
           * NOTE: the activity_reference_key should be automatically placed first in the list, even if it's not entered that way in Airtable. For other ordered results, it will defer to the order listed in Airtable results.
           * */
           let currentMessage = "";
-          
+
           if (
             currentGuidance.industry_category_label ===
             searchResultData.activity_search_autocomplete
           ) {
-            
             if (index === 0) {
               if (optionalMessage) {
                 currentMessage = optionalMessage;
@@ -324,12 +313,15 @@ const getPrimaryGuidance = ({
           if (index === 0 && optionalMessage) {
             // Always display the optional message for the first result if it is available.
             currentMessage = optionalMessage;
-          } else if (index === 0 
-            && !optionalMessage 
-            && (currentGuidance.industry_category_label !== searchResultData.activity_search_autocomplete ||guidances.length > 1)
-            ) {
-              currentMessage = guidanceMessage;
-          } 
+          } else if (
+            index === 0 &&
+            !optionalMessage &&
+            (currentGuidance.industry_category_label !==
+              searchResultData.activity_search_autocomplete ||
+              guidances.length > 1)
+          ) {
+            currentMessage = guidanceMessage;
+          }
 
           // Create specially labelled links for main guidance types (guidance and checklist), featuring the currently selected guidance file.
           let guidanceListLink = getGuidanceLink({
@@ -346,12 +338,22 @@ const getPrimaryGuidance = ({
             language,
           });
 
+          // Get additional guidance
+          let additionalGuidance = getAdditionalGuidance({
+            data,
+            searchResultData,
+            guidance: currentGuidance,
+            language,
+            label: additionalGuidanceLabel,
+          });
+
           // Build html markup for the primary guidance section of the guidance results.
           results.push(`
             <h3>${currentGuidanceLabel}</h3>
             ${currentMessage}
             ${guidanceListLink}
             ${checklistListLink}
+            ${additionalGuidance}
           `);
         }
         return false;
@@ -377,6 +379,7 @@ const getSecondaryGuidance = ({
   labelGuidance = null,
   labelChecklist = null,
   label = null,
+  additionalGuidanceLabel
 }) => {
   try {
     if (
@@ -390,7 +393,7 @@ const getSecondaryGuidance = ({
       let results = [];
       guidances.map((guidance_key, index) => {
         let currentGuidance = data[guidance_key.trim()];
-        
+
         if (currentGuidance !== undefined && currentGuidance !== null) {
           let guidanceListLink = getGuidanceLink({
             currentGuidance,
@@ -406,12 +409,26 @@ const getSecondaryGuidance = ({
             language,
           });
 
+          // Get additional guidance
+          let additionalGuidance = '';
+          console.log("c", currentGuidance, "searchResultData", searchResultData);
+          if (currentGuidance.industry_category_label !== searchResultData.activity_search_autocomplete) {
+            additionalGuidance = getAdditionalGuidance({
+              data,
+              searchResultData,
+              guidance: currentGuidance,
+              language,
+              label: additionalGuidanceLabel,
+            });
+          }
+
           // if (guidanceListLink !== "" && checklistListLink !== "") {
           results.push(`
-            ${index === 0 ? `<h4>${label}</h4>`: ''}
+            ${index === 0 ? `<h4>${label}</h4>` : ""}
             <strong>${currentGuidance.industry_category_label}</strong>
             ${guidanceListLink}<br />
             ${checklistListLink}<br />
+            ${additionalGuidance}
           `);
           // }
         }
@@ -438,6 +455,7 @@ const getRelatedGuidance = ({
   labelGuidance = null,
   labelChecklist = null,
   label = null,
+  additionalGuidanceLabel
 }) => {
   try {
     if (
@@ -450,7 +468,7 @@ const getRelatedGuidance = ({
     ) {
       let results = [];
 
-      guidances.map((guidance_key) => {
+      guidances.map((guidance_key, index) => {
         let currentGuidance = data[guidance_key.trim()];
         console.log("currentGuidance", currentGuidance);
 
@@ -473,8 +491,24 @@ const getRelatedGuidance = ({
             language: "en",
           });
 
+          // Get additional guidance
+          let additionalGuidance = '';
+          if (currentGuidance.industry_category_label !== searchResultData.activity_search_autocomplete) {
+          additionalGuidance = getAdditionalGuidance({
+            data,
+            searchResultData,
+            guidance: currentGuidance,
+            language,
+            label: additionalGuidanceLabel,
+          });
+        }
+
           results.push(`
-            related here
+          ${index === 0 ? `<h4>${label}</h4>` : ""}
+          <strong>${currentGuidance.industry_category_label}</strong>
+          ${guidanceListLink}<br />
+          ${checklistListLink}<br />
+          ${additionalGuidance}
           `);
         }
         return false;
@@ -497,19 +531,15 @@ const getAdditionalGuidance = ({
   searchResultData = null,
   language = "en",
   label = null,
+  guidance = null
 }) => {
   try {
     if (
-      data !== undefined &&
-      data !== null &&
-      searchResultData !== undefined &&
-      searchResultData !== null
+      guidance !== undefined &&
+      guidance !== null
     ) {
       let results = [];
-      let guidances = searchResultData.primary_guidance.split(",");
-
-      guidances.map((guidance) => {
-        let currentGuidance = data[guidance];
+        let currentGuidance = guidance;
         if (
           currentGuidance !== undefined &&
           currentGuidance !== null &&
@@ -517,6 +547,7 @@ const getAdditionalGuidance = ({
           currentGuidance.additional_resources !== null &&
           currentGuidance.additional_resources.length > 0
         ) {
+          console.log("ar", currentGuidance.additional_resources);
           let sortedLinks = currentGuidance.additional_resources.sort((a, b) =>
             Number(a.order) > Number(b.order) ? 1 : -1
           );
@@ -534,12 +565,13 @@ const getAdditionalGuidance = ({
             }
           });
         }
-      });
+ 
       return `
         ${results.length > 0 ? label : ""}
         ${results.join("")}
       `;
     }
+  
   } catch (error) {
     console.error("Error in getAdditionalGuidance", error);
   }
@@ -594,7 +626,11 @@ const getGuidanceLink = ({
       type: type,
     });
     if (resourceLink[0].permalink) {
-      link = `<div class="guidance-link" data-updated="${resourceLink[0].git_date_updated}"><a href="${resourceLink[0].permalink}">${linkLabel}</a> ${moreLanguages}</div>`;
+      link = `<div class="guidance-link" data-updated="${resourceLink[0].git_date_updated}">
+      <a href="${resourceLink[0].permalink}">${linkLabel}</a> ${moreLanguages}
+      </div>`;
+    } else {
+      link = `<div class="guidance-link">Not found</div>`;
     }
   }
   return link;
