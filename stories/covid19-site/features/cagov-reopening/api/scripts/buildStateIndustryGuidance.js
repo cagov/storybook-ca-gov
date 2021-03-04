@@ -2,11 +2,11 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 
 // Location of docs templates.
-const docsPath = "./stories/web-components/cagov-reopening/api/api_templates";
+const docsPath = "./stories/covid19-site/features/cagov-reopening/api/api_templates";
 
 // Write folder for JSON output
 const dataPath =
-  "./stories/web-components/cagov-reopening/api/auto-generated-data";
+  "./stories/covid19-site/features/cagov-reopening/api/auto-generated-data";
 
 /**
  * Build `covid19-state-industry-guidance.json` using source data from Airtable bases.

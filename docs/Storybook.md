@@ -39,7 +39,7 @@ This instance of Storybook support _*web components*_.
 * [Component Driven User Interfaces](https://www.componentdriven.org/)
 
 ## Data documentation and content modelling
-An example of building data for Storybook stories can be found in the [cagov-reopening](https://github.com/cagov/storybook-ca-gov/tree/main/stories/web-components/cagov-reopening) component, which we are using for our redesign effort for the search tool on the covid19.ca.gov [Safer Economy](https://covid19.ca.gov/safer-economy) page. This includes our in-progress development work with metadata and data dictionary templates, along with building multilingual test data. Additional information about this approach will live in [The California Design Handbook](https://cagov.github.io/covid19.ca.gov-site-handbook/).
+An example of building data for Storybook stories can be found in the [cagov-reopening](https://github.com/cagov/storybook-ca-gov/tree/main/stories/covid19-site/features/cagov-reopening) component, which we are using for our redesign effort for the search tool on the covid19.ca.gov [Safer Economy](https://covid19.ca.gov/safer-economy) page. This includes our in-progress development work with metadata and data dictionary templates, along with building multilingual test data. Additional information about this approach will live in [The California Design Handbook](https://cagov.github.io/covid19.ca.gov-site-handbook/).
 
 ## Configuration notes
 This instance of Storybook is configured with the following:
