@@ -5,12 +5,18 @@ import {
   // setCustomElements,
 } from '@storybook/web-components'
 
+import { themes } from '@storybook/theming';
+import storybookTheme from './cagov.theme';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   // viewport: {
   //   viewports: MINIMAL_VIEWPORTS,
   // },
+  docs: {
+    theme: themes.dark,
+    // theme: storybookTheme,
+  },
 };
 
 setConsoleOptions({
