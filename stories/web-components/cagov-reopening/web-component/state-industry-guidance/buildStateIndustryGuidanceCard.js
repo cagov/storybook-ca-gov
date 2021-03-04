@@ -26,12 +26,12 @@ export const buildStateIndustryGuidanceCard = ({
   county = null,
   stateIndustryGuidanceData = null,
   searchResultData = null,
-  seeStateIndustryGuidanceLabel = "See state industry guidance",
+  seeStateIndustryGuidanceLabel = "Get state industry guidance",
   primaryGuidanceLabel = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>.`,
   secondaryGuidanceLabel = `Secondary guidance label`,
   additionalGuidanceLabel = "Depending on your business operations, other guidance may apply",
   relatedGuidanceLabel = "Related guidance",
-  guidancePdfLabel = `Industry guidance for <span data-attribute="activityLabel"></span>`,
+  guidancePdfLabel = `Guidance for <span data-attribute="activityLabel"></span>`,
   checklistPdfLabel = `Checklist for <span data-attribute="activityLabel"></span>`,
   resultType = "default",
   language = "en",
@@ -59,11 +59,11 @@ export const buildStateIndustryGuidanceCard = ({
               <div class="state-guidance">
                 <div class="card">
                   <button class="card-header accordion-alpha" type="button" aria-expanded="false">
-                    <div class="accordion-title">
+                    <div class="drawer-title">
                         ${seeStateIndustryGuidanceLabel}
                     </div><div class="plus-munus"><cagov-plus></cagov-plus><cagov-minus></cagov-minus></div>
                   </button>
-                  <div class="card-container" aria-hidden="true">
+                  <div class="drawer-container" aria-hidden="true">
                     <div class="card-body">
                       ${accordionContent}
                     </div>
@@ -238,7 +238,7 @@ const getPrimaryGuidance = ({
   activityLabel = null,
   additionalGuidanceLabel
 }) => {
-  console.log(guidances);
+
   try {
     if (
       data !== undefined &&
@@ -251,8 +251,6 @@ const getPrimaryGuidance = ({
       let results = [];
 
       guidances.map((guidance_key, index) => {
-        console.log(guidance_key, index);
-
         let currentGuidance = data[guidance_key.trim()];
 
         if (currentGuidance !== undefined && currentGuidance !== null) {
@@ -411,7 +409,6 @@ const getSecondaryGuidance = ({
 
           // Get additional guidance
           let additionalGuidance = '';
-          console.log("c", currentGuidance, "searchResultData", searchResultData);
           if (currentGuidance.industry_category_label !== searchResultData.activity_search_autocomplete) {
             additionalGuidance = getAdditionalGuidance({
               data,
@@ -470,7 +467,6 @@ const getRelatedGuidance = ({
 
       guidances.map((guidance_key, index) => {
         let currentGuidance = data[guidance_key.trim()];
-        console.log("currentGuidance", currentGuidance);
 
         if (currentGuidance !== undefined && currentGuidance !== null) {
           let optionalMessage = getOptionalPrimaryGuidanceMessage({
@@ -547,7 +543,7 @@ const getAdditionalGuidance = ({
           currentGuidance.additional_resources !== null &&
           currentGuidance.additional_resources.length > 0
         ) {
-          console.log("ar", currentGuidance.additional_resources);
+
           let sortedLinks = currentGuidance.additional_resources.sort((a, b) =>
             Number(a.order) > Number(b.order) ? 1 : -1
           );

@@ -389,7 +389,7 @@ class CAGovReopening extends window.HTMLElement {
             "visible";
         } else {
           // Render the card layouts
-          console.log("laying out cards");
+  
           this.layoutCards();
         }
       }.bind(this)

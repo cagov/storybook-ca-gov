@@ -11,7 +11,7 @@ export const getMoreLanguages = ({
   label = "More languages",
   type = null,
 }) => {
-  console.log(" links.length",  links);
+
   if (links !== undefined && links !== null && links.length > 0) {
     let listItems = [];
 
