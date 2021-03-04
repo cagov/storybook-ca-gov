@@ -1,0 +1,56 @@
+{
+  "_args": [
+    [
+      "@cagov/accordion@2.0.0",
+      "/Users/chachasikes/Work/ca.gov/storybook-ca-gov"
+    ]
+  ],
+  "_from": "@cagov/accordion@2.0.0",
+  "_id": "@cagov/accordion@2.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-QnV7dpuUk8dfgIoiptTcqjMtES9W/IJ+tdfGMrEO+EM9zu3lA6NBBP3L1odAP7tdefPhZib+W/6OBjPM0iSREw==",
+  "_location": "/@cagov/accordion",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@cagov/accordion@2.0.0",
+    "name": "@cagov/accordion",
+    "escapedName": "@cagov%2faccordion",
+    "scope": "@cagov",
+    "rawSpec": "2.0.0",
+    "saveSpec": null,
+    "fetchSpec": "2.0.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@cagov/accordion/-/accordion-2.0.0.tgz",
+  "_spec": "2.0.0",
+  "_where": "/Users/chachasikes/Work/ca.gov/storybook-ca-gov",
+  "author": "",
+  "description": "This custom element recreates the bootstrap accordion component functionality without the jquery dependency",
+  "devDependencies": {
+    "@open-wc/karma-esm": "^2.12.8",
+    "@open-wc/testing": "^2.5.1",
+    "@open-wc/testing-karma": "^3.2.32",
+    "deepmerge": "^4.2.2",
+    "karma": "^4.4.1",
+    "lit-html": "^1.1.2"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "@cagov/accordion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cagov/Alpha/tree/master/src/js/components/accordion"
+  },
+  "scripts": {
+    "test": "karma start --coverage",
+    "test:prune-snapshots": "karma start --prune-snapshots",
+    "test:update-snapshots": "karma start --update-snapshots",
+    "test:watch": "karma start --auto-watch=true --single-run=false"
+  },
+  "version": "2.0.0"
+}

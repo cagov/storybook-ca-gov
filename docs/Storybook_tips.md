@@ -5,4 +5,4 @@
 * "Docs" tab is where long format documentation lives.
 
 ## Web components
-* [Usefule overview of web component lifecycles](https://dev.to/bennypowers/lets-build-web-components-part-3-vanilla-components-4on3)
+* [Useful overview of web component lifecycles](https://dev.to/bennypowers/lets-build-web-components-part-3-vanilla-components-4on3)
