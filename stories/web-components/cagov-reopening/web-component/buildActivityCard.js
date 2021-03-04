@@ -18,8 +18,8 @@ import { buildStateIndustryGuidanceCard } from "./state-industry-guidance/buildS
  * @param {*} param.schoolLabels - 
  * @param {*} param.schoolsCanReopenList - 
  * @param {*} param.seeStateIndustryGuidanceLabel - (v2 label)
- * @param {*} param.guidanceTemplate - (v2 label)
- * @param {*} param.industryGuidancePdfLabel - (v2 label)
+ * @param {*} param.primaryGuidanceLabel - (v2 label)
+ * @param {*} param.guidancePdfLabel - (v2 label)
  * @param {*} param.checklistPdfLabel - (v2 label)
  * @param {*} param.additionalGuidanceLabel - (v2 label)
  * stateIndustryGuidanceData
@@ -38,15 +38,19 @@ export const buildActivityCard = ({
   viewAll = false,
   schoolLabels = null,
   schoolsCanReopenList = null,
-  seeStateIndustryGuidanceLabel = null,
-  stateIndustryGuidanceData = null,
-  guidanceTemplate = null,
-  industryGuidancePdfLabel = null,
-  checklistPdfLabel = null,
-  additionalGuidanceLabel = null,
   hasActivityInput = false,
   hasCountyInput = false,
   policies = null,
+
+  // @TODO may split these out
+  seeStateIndustryGuidanceLabel = null,
+  stateIndustryGuidanceData = null,
+  primaryGuidanceLabel = null,
+  secondaryGuidanceLabel = null,
+  additionalGuidanceLabel = null,
+  relatedGuidanceLabel = null,
+  guidancePdfLabel = null,
+  checklistPdfLabel = null,
 }) => {
   // Set up strings to render conditionally.
   let schoolCard = "";
@@ -92,7 +96,7 @@ export const buildActivityCard = ({
           county,
           policies,
         });
-    }
+      }
 
       activityCard = buildTierRestrictionActivityDisplay({
         activityLabel,
@@ -111,10 +115,12 @@ export const buildActivityCard = ({
         searchResultData,
         stateIndustryGuidanceData,
         seeStateIndustryGuidanceLabel,
-        guidanceTemplate,
-        industryGuidancePdfLabel,
-        checklistPdfLabel,
+        primaryGuidanceLabel,
+        secondaryGuidanceLabel,
         additionalGuidanceLabel,
+        relatedGuidanceLabel,
+        guidancePdfLabel,
+        checklistPdfLabel,
         resultType: "default",
         policies,
       });
@@ -124,7 +130,6 @@ export const buildActivityCard = ({
       }
 
       // ${rshoCard}
-          
 
       activityCards.push(`
           ${schoolCard}

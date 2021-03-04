@@ -14,9 +14,9 @@ import { cardTemplate } from "./cardTemplateSaferEconomy";
 /**
  * This component provides a county and activity/business search interface
  * and displays combined datasets for different reopening statuses.
- * 
+ *
  * @example - Code snippet (@TODO put in handbook or somewhere)
- * 
+ *
  */
 class CAGovReopening extends window.HTMLElement {
   constructor() {
@@ -168,12 +168,18 @@ class CAGovReopening extends window.HTMLElement {
 
     // Connect autocomplete searches to page elements.
     this.setupAutoComplete("#location-query", "county", countyAutocompleteList);
-    this.setupAutoCompleteActivity("#activity-query", "activity", activityAutocompleteList);
+    this.setupAutoCompleteActivity(
+      "#activity-query",
+      "activity",
+      activityAutocompleteList
+    );
 
     // Assign data to local variables.
     this.countyRegions = this.localData.countyregions.data;
     this.regionsclosed = this.localData.regionsclosed.data.Table1; // {array}
-    this.tierStatusDescriptors = this.localData["tier-status-descriptors"].data.Table1; // was statusdesc
+    this.tierStatusDescriptors = this.localData[
+      "tier-status-descriptors"
+    ].data.Table1; // was statusdesc
     this.schoolsCanReopenList = this.localData["schools-may-reopen"].data;
     this.schoolsText = this.localData["common-page-labels"].data.Table6[0];
   }
@@ -192,7 +198,7 @@ class CAGovReopening extends window.HTMLElement {
     // Get the input element.
     var countyInput = document.getElementById("location-query");
     var activityInput = document.getElementById("activity-query");
-    
+
     let hasCountyInput = this.hasCountyInput();
     let hasActivityInput = this.hasActivityInput();
     // @TODO Add enter form submission for accessibility for all interactions
@@ -227,14 +233,13 @@ class CAGovReopening extends window.HTMLElement {
       });
     }
 
-
     // console.log("hasCountyInput", hasCountyInput, "hasActivityInput", hasActivityInput, this.initialLoad);
 
     // If values preset, run the search.
     if (
       this.initialLoad === 0 &&
       hasCountyInput === true &&
-      hasActivityInput  === false
+      hasActivityInput === false
     ) {
       // console.log("Initial load: has county data");
       this.changeLocationInput(countyInput.value);
@@ -264,7 +269,7 @@ class CAGovReopening extends window.HTMLElement {
       document.getElementById("location-query").blur();
       document.getElementById("activity-query").blur();
     }
-    
+
     if (hasActivityInput || hasCountyInput) {
       // Clear button input on click events
       document
@@ -296,7 +301,7 @@ class CAGovReopening extends window.HTMLElement {
     }
     document.getElementById("location-error").style.visibility = "hidden";
     document.getElementById("reopening-error").style.visibility = "hidden";
-    
+
     if (this.hasActivityInput() === false && this.hasCountyInput() === false) {
       this.querySelector(".card-holder").innerHTML = "";
     } else {
@@ -375,7 +380,10 @@ class CAGovReopening extends window.HTMLElement {
         // If activity and county are not set (undefined), clear the card holder (what's the card holder?)
         // And make reopening error visible
 
-        if (this.hasActivityInput() === false && this.hasCountyInput() === false) {
+        if (
+          this.hasActivityInput() === false &&
+          this.hasCountyInput() === false
+        ) {
           this.querySelector(".card-holder").innerHTML = "";
           document.getElementById("reopening-error").style.visibility =
             "visible";
@@ -411,7 +419,10 @@ class CAGovReopening extends window.HTMLElement {
         document.querySelector(fieldSelector).blur();
       },
       sort: (a, b) => {
-        return countyAutocompleteList.indexOf(a.label) < countyAutocompleteList.indexOf(b.label) ? -1 : 1;
+        return countyAutocompleteList.indexOf(a.label) <
+          countyAutocompleteList.indexOf(b.label)
+          ? -1
+          : 1;
       },
       list: countyAutocompleteList,
     };
@@ -423,17 +434,25 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   // Activity Autocomplete
-  setupAutoCompleteActivity(fieldSelector, fieldName, activityAutocompleteList) {
+  setupAutoCompleteActivity(
+    fieldSelector,
+    fieldName,
+    activityAutocompleteList
+  ) {
     let component = this;
     const awesompleteSettings = {
       autoFirst: true,
       minChars: 0,
       maxItems: 99,
       sort: function (a, b) {
-        if (a["activity_search_autocomplete"] < b["activity_search_autocomplete"]) {
+        if (
+          a["activity_search_autocomplete"] < b["activity_search_autocomplete"]
+        ) {
           return -1;
         }
-        if (a["activity_search_autocomplete"] > b["activity_search_autocomplete"]) {
+        if (
+          a["activity_search_autocomplete"] > b["activity_search_autocomplete"]
+        ) {
           return 1;
         }
         return 0;
@@ -464,16 +483,22 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   hasCountyInput() {
-    if (this.state["county"] === null || this.state["county"] === "" || this.state["county"] === "null") {
+    if (
+      this.state["county"] === null ||
+      this.state["county"] === "" ||
+      this.state["county"] === "null"
+    ) {
       // Check input content:
       var countyInput = document.getElementById("location-query");
-      if (countyInput !== undefined &&
+      if (
+        countyInput !== undefined &&
         countyInput !== null &&
-        countyInput.value !== "" && 
+        countyInput.value !== "" &&
         countyInput.value !== null &&
         countyInput.value.length !== undefined &&
-        countyInput.value.length >  0) {
-          return true;
+        countyInput.value.length > 0
+      ) {
+        return true;
       }
 
       return false;
@@ -482,16 +507,22 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   hasActivityInput() {
-    if (this.state["activity"] === null || this.state["activity"] === "" || this.state["activity"] === "null" ) {
+    if (
+      this.state["activity"] === null ||
+      this.state["activity"] === "" ||
+      this.state["activity"] === "null"
+    ) {
       // Check input content:
       var activityInput = document.getElementById("activity-query");
-      if (activityInput !== undefined &&
+      if (
+        activityInput !== undefined &&
         activityInput !== null &&
-        activityInput.value !== "" && 
+        activityInput.value !== "" &&
         activityInput.value !== null &&
         activityInput.value.length !== undefined &&
-        activityInput.value.length >  0) {
-          return true;
+        activityInput.value.length > 0
+      ) {
+        return true;
       }
 
       return false;
@@ -500,56 +531,59 @@ class CAGovReopening extends window.HTMLElement {
   }
 
   cardDisplayLogic() {
+    // Build data for cards.
+    let selectedCounties = [];
 
-        // Build data for cards.
-        let selectedCounties = [];
+    let selectedActivities = [];
 
-        let selectedActivities = [];
-    
-        let viewAllCounties = false;
-        let viewAllActivities = false;
-    
-        if (this.hasCountyInput() && !this.hasActivityInput()) {
-          viewAllCounties = false;
-          viewAllActivities = true;
-        } else if (!this.hasCountyInput() && !this.hasActivityInput()) {
-          viewAllCounties = true;
-          viewAllActivities = true;
-        } else if (!this.hasCountyInput() && this.hasActivityInput()) {
-          viewAllCounties = true;
-          viewAllActivities = false;
-        } else if (this.hasCountyInput() && this.hasActivityInput()) {
-          viewAllCounties = false;
-          viewAllActivities = false;
-        }
-    
-        // console.log("activity", this.state["activity"], "county", this.state["county"]);
-        // console.log("viewAllActivities", viewAllActivities, "viewAllCounties", viewAllCounties);
-    
-        // Q: How many statuses are supported? Had there been a plan to show multiple counties?
-        if (this.hasCountyInput()) {
-          selectedCounties = [];
-          this.countyStatuses.forEach((item) => {
-            if (item.county == this.state["county"] || viewAllCounties === true) {
-              selectedCounties.push(item);
-            }
-          });
-        }
-    
-        if (this.hasActivityInput()) {
-          // Build list of selected activities
-          this.allActivities.forEach((searchResultData) => {
-            if (searchResultData["activity_search_autocomplete"] === this.state["activity"] || viewAllActivities === true) {
-              selectedActivities.push(searchResultData);
-            }
-          });
-        }
+    let viewAllCounties = false;
+    let viewAllActivities = false;
 
-        // Update local variables
-        this.selectedActivities = selectedActivities;
-        this.selectedCounties = selectedCounties;
-        this.viewAllActivities = viewAllActivities;
-        this.viewAllCounties = viewAllCounties;
+    if (this.hasCountyInput() && !this.hasActivityInput()) {
+      viewAllCounties = false;
+      viewAllActivities = true;
+    } else if (!this.hasCountyInput() && !this.hasActivityInput()) {
+      viewAllCounties = true;
+      viewAllActivities = true;
+    } else if (!this.hasCountyInput() && this.hasActivityInput()) {
+      viewAllCounties = true;
+      viewAllActivities = false;
+    } else if (this.hasCountyInput() && this.hasActivityInput()) {
+      viewAllCounties = false;
+      viewAllActivities = false;
+    }
+
+    // console.log("activity", this.state["activity"], "county", this.state["county"]);
+    // console.log("viewAllActivities", viewAllActivities, "viewAllCounties", viewAllCounties);
+
+    // Q: How many statuses are supported? Had there been a plan to show multiple counties?
+    if (this.hasCountyInput()) {
+      selectedCounties = [];
+      this.countyStatuses.forEach((item) => {
+        if (item.county == this.state["county"] || viewAllCounties === true) {
+          selectedCounties.push(item);
+        }
+      });
+    }
+
+    if (this.hasActivityInput()) {
+      // Build list of selected activities
+      this.allActivities.forEach((searchResultData) => {
+        if (
+          searchResultData["activity_search_autocomplete"] ===
+            this.state["activity"] ||
+          viewAllActivities === true
+        ) {
+          selectedActivities.push(searchResultData);
+        }
+      });
+    }
+
+    // Update local variables
+    this.selectedActivities = selectedActivities;
+    this.selectedCounties = selectedCounties;
+    this.viewAllActivities = viewAllActivities;
+    this.viewAllCounties = viewAllCounties;
   }
 
   layoutCards() {
@@ -568,8 +602,8 @@ class CAGovReopening extends window.HTMLElement {
         regionsclosed: this.regionsclosed,
         countyRegions: this.countyRegions,
         selectedCounty: this.state["county"],
-      })
-    }
+      }),
+    };
 
     // console.log("Policies", policies);
 
@@ -584,27 +618,35 @@ class CAGovReopening extends window.HTMLElement {
       // Data sets
       selectedActivities: this.selectedActivities,
       schoolsCanReopenList: this.schoolsCanReopenList,
-      countyWebpages: this.localData['covid19-county-webpages'].data,
-      stateIndustryGuidanceData: this.localData['state-industry-guidance'].data,
+      countyWebpages: this.localData["covid19-county-webpages"].data,
+      stateIndustryGuidanceData: this.localData["state-industry-guidance"].data,
       regionsclosed: this.regionsclosed,
       allActivities: this.allActivities,
       schoolReopeningStatuses,
       countyRegions: this.countyRegions,
       policies,
+      
       // Labels
       schoolLabels: this.schoolsText,
       tierStatusDescriptors: this.tierStatusDescriptors,
       regionLabel: this.translationsStrings.regionLabel,
       understandTheData: this.translationsStrings.understandTheData,
       understandTheDataLink: this.translationsStrings.understandTheDataLink,
-      countyRestrictionsAdvice: this.translationsStrings.countyRestrictionsAdvice,
-      countyRestrictionsCountyWebsiteLabel: this.translationsStrings.countyRestrictionsCountyWebsiteLabel,
+      countyRestrictionsAdvice: this.translationsStrings
+        .countyRestrictionsAdvice,
+      countyRestrictionsCountyWebsiteLabel: this.translationsStrings
+        .countyRestrictionsCountyWebsiteLabel,
       seeGuidanceText: this.translationsStrings.seeGuidanceText,
-      seeStateIndustryGuidanceLabel: this.translationsStrings.seeStateIndustryGuidanceLabel,
-      guidanceTemplate: this.translationsStrings.guidanceTemplate,
-      industryGuidancePdfLabel: this.translationsStrings.industryGuidancePdfLabel,
-      checklistPdfLabel: this.translationsStrings.checklistPdfLabel,
+
+      // @TODO need to simplify this while also being really specific - there are too many actual props to set up & it's easy to not connect them all
+      seeStateIndustryGuidanceLabel: this.translationsStrings
+        .seeStateIndustryGuidanceLabel,
+      primaryGuidanceLabel: this.translationsStrings.primaryGuidanceLabel,
+      secondaryGuidanceLabel: this.translationsStrings.secondaryGuidanceLabel,
       additionalGuidanceLabel: this.translationsStrings.additionalGuidanceLabel,
+      relatedGuidanceLabel: this.translationsStrings.relatedGuidanceLabel,
+      guidancePdfLabel: this.translationsStrings.guidancePdfLabel,
+      checklistPdfLabel: this.translationsStrings.checklistPdfLabel,
     });
 
     // These classes are used but created with variables so the purge cannot find them, they are carefully placed here where they will be noticed:
@@ -626,36 +668,34 @@ class CAGovReopening extends window.HTMLElement {
     window.dispatchEvent(event);
   }
 
+  /**
+   * Check if the current selected county is in one of the RSHO closed regions.
+   *
+   * @param {array} param.regionsclosed - Which regions are closed
+   * @param {array} param.countyRegions - Which county belongs in which region
+   * @param {string} param.selectedCounty - Currently selected county
+   * @return {bool} If the selected county is under regional stay at home order
+   */
+  selectedCountyInRegionalStayAtHomeOrder({
+    regionsclosed = null,
+    countyRegions = null,
+    selectedCounty = null,
+  }) {
+    try {
+      // console.log("regions closed", regionsclosed, countyRegions, selectedCounty);
 
-/**
- * Check if the current selected county is in one of the RSHO closed regions.
- * 
- * @param {array} param.regionsclosed - Which regions are closed
- * @param {array} param.countyRegions - Which county belongs in which region
- * @param {string} param.selectedCounty - Currently selected county
- * @return {bool} If the selected county is under regional stay at home order
- */
-selectedCountyInRegionalStayAtHomeOrder({
-  regionsclosed = null,
-  countyRegions = null,
-  selectedCounty = null,
-}) {
-  try {
-    // console.log("regions closed", regionsclosed, countyRegions, selectedCounty);
-
-    if (regionsclosed && countyRegions && selectedCounty) {
-      return (
-        regionsclosed.filter(
-          (r) => r.region === countyRegions[selectedCounty]
-        ).length > 0
-      );
+      if (regionsclosed && countyRegions && selectedCounty) {
+        return (
+          regionsclosed.filter(
+            (r) => r.region === countyRegions[selectedCounty]
+          ).length > 0
+        );
+      }
+    } catch (error) {
+      console.error("Error settings regional stay at home order", error);
     }
-  } catch (error) {
-    console.error("Error settings regional stay at home order", error);
+    return false;
   }
-  return false;
-};
-
 }
 
 window.customElements.define("cagov-reopening", CAGovReopening);

@@ -31,9 +31,10 @@ export const WebComponent = (args) => {
         <li data-label="emptySearchError">No County or Activity Selected</li>
         <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
         <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
-        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span></li>
-        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
-        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="primaryGuidanceLabel"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>.</li>
+        <li data-label="secondaryGuidanceLabel">Secondary guidance label.</li>
+        <li data-label="guidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="guidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
         <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
         <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
       </ul>
@@ -69,8 +70,9 @@ export const WebComponentSpanish = (args) => {
         <li data-label="emptySearchError">Escriba un condado o una actividad</li>
         <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
         <li data-label="seeStateIndustryGuidanceLabel">See state industry guidance</li>
-        <li data-label="guidanceTemplate"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span></li>
-        <li data-label="industryGuidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
+        <li data-label="primaryGuidanceLabel"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>.</li>
+        <li data-label="primaryGuidanceLabel">Secondary guidance label</li>
+        <li data-label="guidancePdfLabel">Industry guidance for <span data-attribute="activityLabel"></span></li>
         <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
         <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
       </ul>

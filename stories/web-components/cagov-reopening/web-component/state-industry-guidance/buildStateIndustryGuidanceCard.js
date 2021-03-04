@@ -11,10 +11,12 @@ import marked from "marked";
  * @param {object} param.stateIndustryGuidanceData - Data source keyed by industy_category_key
  * @param {object} param.searchResultData - Matched result from autocomplete activity search
  * @param {string} param.seeStateIndustryGuidanceLabel - Label
- * @param {string} param.guidanceTemplate - Label, with markup string replacement
- * @param {string} param.industryGuidancePdfLabel - Label, with markup string replacement
+ * @param {string} param.primaryGuidanceLabel - Label, with markup string replacement
+ * @param {string} param.secondaryGuidanceLabel - Label, with markup string replacement
+ * @param {string} param.guidancePdfLabel - Label, with markup string replacement
  * @param {string} param.checklistPdfLabel - Label, with markup string replacement
  * @param {string} param.additionalGuidanceLabel - Label
+ * @param {string} param.relatedGuidanceLabel - Label
  * @param {string} param.resultType - "default" or "simple" - what layout for the results (used for embedding in different contexts)
  * @param {string} param.language - Language code, e.g. "en" or "es" or "zh-hant" (we have a table of codes in languages-keys csv file from Airtable)
  * @param {bool} param.expanded - If accordion should be open by default.
@@ -25,10 +27,12 @@ export const buildStateIndustryGuidanceCard = ({
   stateIndustryGuidanceData = null,
   searchResultData = null,
   seeStateIndustryGuidanceLabel = "See state industry guidance",
-  guidanceTemplate = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>`,
-  industryGuidancePdfLabel = `Industry guidance for <span data-attribute="activityLabel"></span>`,
-  checklistPdfLabel = `Checklist for <span data-attribute="activityLabel"></span>`,
+  primaryGuidanceLabel = `<span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>.`,
+  secondaryGuidanceLabel = `Secondary guidance label`,
   additionalGuidanceLabel = "Depending on your business operations, other guidance may apply",
+  relatedGuidanceLabel = "Related guidance",
+  guidancePdfLabel = `Industry guidance for <span data-attribute="activityLabel"></span>`,
+  checklistPdfLabel = `Checklist for <span data-attribute="activityLabel"></span>`,
   resultType = "default",
   language = "en",
   expanded = false,
@@ -41,9 +45,11 @@ export const buildStateIndustryGuidanceCard = ({
         activityLabel,
         searchResultData,
         language,
+        primaryGuidanceLabel,
+        secondaryGuidanceLabel,
         additionalGuidanceLabel,
-        guidanceTemplate,
-        industryGuidancePdfLabel,
+        relatedGuidanceLabel,
+        guidancePdfLabel,
         checklistPdfLabel,
       });
       {
@@ -87,43 +93,46 @@ const getAccordionContent = ({
   activityLabel,
   searchResultData,
   language = "en",
+  primaryGuidanceLabel = null,
+  secondaryGuidanceLabel = null,
   additionalGuidanceLabel = null,
-  guidanceTemplate = null,
-  industryGuidancePdfLabel = null,
+  relatedGuidanceLabel = null,
+  guidancePdfLabel = null,
   checklistPdfLabel = null,
 }) => {
-  console.log(searchResultData);
+
   // Get primary guidance list
   let primaryGuidance = getPrimaryGuidance({
+    activityLabel,
+    searchResultData,
     data: stateIndustryGuidanceData,
     guidances: getGuidanceData({ searchResultData, field: "primary_guidance" }),
-    searchResultData,
     language,
-    labelGuidance: industryGuidancePdfLabel,
+    label: primaryGuidanceLabel,
+    labelGuidance: guidancePdfLabel,
     labelChecklist: checklistPdfLabel,
-    guidanceTemplate,
-    activityLabel,
   });
 
   // Get secondary guidance list
   let secondaryGuidance = getSecondaryGuidance({
+    searchResultData,
     data: stateIndustryGuidanceData,
     guidances: getGuidanceData({
       searchResultData,
       field: "secondary_guidance",
     }),
-    searchResultData,
     language,
-    labelGuidance: industryGuidancePdfLabel,
+    label: secondaryGuidanceLabel,
+    labelGuidance: guidancePdfLabel,
     labelChecklist: checklistPdfLabel,
   });
 
   // Get additional guidance
   let additionalGuidance = getAdditionalGuidance({
     data: stateIndustryGuidanceData,
+    searchResultData,
     guidance: searchResultData.additional_resources,
     language,
-    searchResultData,
     label: additionalGuidanceLabel,
   });
 
@@ -133,8 +142,9 @@ const getAccordionContent = ({
     guidances: getGuidanceData({ searchResultData, field: "related_guidance" }),
     searchResultData,
     language,
-    labelGuidance: industryGuidancePdfLabel,
+    labelGuidance: guidancePdfLabel,
     labelChecklist: checklistPdfLabel,
+    label: relatedGuidanceLabel,
   });
 
   return `<div class="state-guidance-content">
@@ -233,7 +243,7 @@ const getPrimaryGuidance = ({
   guidances = null,
   labelGuidance = null,
   labelChecklist = null,
-  guidanceTemplate = null,
+  label = null,
   activityLabel = null,
 }) => {
   console.log(guidances);
@@ -250,7 +260,7 @@ const getPrimaryGuidance = ({
 
       guidances.map((guidance_key, index) => {
         console.log(guidance_key, index);
-        
+
         let currentGuidance = data[guidance_key.trim()];
 
         // console.log("currentGuidance", currentGuidance, searchResultData, index);
@@ -273,7 +283,7 @@ const getPrimaryGuidance = ({
           // Perform replacements to selector data.
           let guidanceMessage = "";
           guidanceMessage = replaceMarkupAttributeContent({
-            markup: guidanceTemplate,
+            markup: label,
             selector: "[data-attribute=activityLabel]",
             content: activityLabel,
           });
@@ -281,8 +291,15 @@ const getPrimaryGuidance = ({
           guidanceMessage = replaceMarkupAttributeContent({
             markup: guidanceMessage,
             selector: "[data-attribute=guidances]",
-            content: defaultGuidancesToFollow,
+            content: defaultGuidancesToFollow.toLowerCase(),
           });
+
+          let currentGuidanceLabel =
+            searchResultData.activity_search_autocomplete;
+
+          if (index > 0) {
+            currentGuidanceLabel = currentGuidance.industry_category_label;
+          }
 
           /**
           Decide what kind of message to display about this guidance.
@@ -291,21 +308,28 @@ const getPrimaryGuidance = ({
           * NOTE: the activity_reference_key should be automatically placed first in the list, even if it's not entered that way in Airtable. For other ordered results, it will defer to the order listed in Airtable results.
           * */
           let currentMessage = "";
-          if (currentGuidance.industry_category_label === searchResultData.activity_search_autocomplete) {
+          
+          if (
+            currentGuidance.industry_category_label ===
+            searchResultData.activity_search_autocomplete
+          ) {
+            
             if (index === 0) {
-              console.log("MATCH");
               if (optionalMessage) {
-                currentMessage = optionalMessage;  
+                currentMessage = optionalMessage;
               }
-            } else {
-              // @TODO it's possible we might want to display the optional message for each guidance
-              // currentMessage = optionalMessage;
-            }
-          } else {
-            if (guidances.length > 1 && index === 0) {
-              currentMessage = guidanceMessage;
             }
           }
+
+          if (index === 0 && optionalMessage) {
+            // Always display the optional message for the first result if it is available.
+            currentMessage = optionalMessage;
+          } else if (index === 0 
+            && !optionalMessage 
+            && (currentGuidance.industry_category_label !== searchResultData.activity_search_autocomplete ||guidances.length > 1)
+            ) {
+              currentMessage = guidanceMessage;
+          } 
 
           // Create specially labelled links for main guidance types (guidance and checklist), featuring the currently selected guidance file.
           let guidanceListLink = getGuidanceLink({
@@ -324,7 +348,7 @@ const getPrimaryGuidance = ({
 
           // Build html markup for the primary guidance section of the guidance results.
           results.push(`
-            <h3>${currentGuidance.industry_category_label}</h3>
+            <h3>${currentGuidanceLabel}</h3>
             ${currentMessage}
             ${guidanceListLink}
             ${checklistListLink}
@@ -352,6 +376,7 @@ const getSecondaryGuidance = ({
   guidances = null,
   labelGuidance = null,
   labelChecklist = null,
+  label = null,
 }) => {
   try {
     if (
@@ -363,36 +388,32 @@ const getSecondaryGuidance = ({
       guidances !== null
     ) {
       let results = [];
-
-      guidances.map((guidance_key) => {
+      guidances.map((guidance_key, index) => {
         let currentGuidance = data[guidance_key.trim()];
-        console.log("currentGuidance", currentGuidance);
-
+        
         if (currentGuidance !== undefined && currentGuidance !== null) {
-          let optionalMessage = getOptionalPrimaryGuidanceMessage({
-            currentGuidance,
-          });
-
           let guidanceListLink = getGuidanceLink({
             currentGuidance,
             label: labelGuidance,
             type: "Guidance",
-            language: "en",
+            language,
           });
 
           let checklistListLink = getGuidanceLink({
             currentGuidance,
             label: labelChecklist,
             type: "Checklist",
-            language: "en",
+            language,
           });
 
+          // if (guidanceListLink !== "" && checklistListLink !== "") {
           results.push(`
-            <h3>${currentGuidance.industry_category_label}</h3>
-            ${optionalMessage}
-            ${guidanceListLink}
-            ${checklistListLink}
+            ${index === 0 ? `<h4>${label}</h4>`: ''}
+            <strong>${currentGuidance.industry_category_label}</strong>
+            ${guidanceListLink}<br />
+            ${checklistListLink}<br />
           `);
+          // }
         }
         return false;
       });
@@ -416,6 +437,7 @@ const getRelatedGuidance = ({
   guidances = null,
   labelGuidance = null,
   labelChecklist = null,
+  label = null,
 }) => {
   try {
     if (
