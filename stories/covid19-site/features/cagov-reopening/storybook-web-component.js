@@ -32,11 +32,12 @@ export const WebComponent = (args) => {
         <li data-label="enterMoreCharacters">Type 2 or more characters for results.</li>
         <li data-label="seeStateIndustryGuidanceLabel">Get state industry guidance</li>
         <li data-label="primaryGuidanceLabel"><span data-attribute="activityLabel"></span> must follow guidance for <span data-attribute="guidances"></span>.</li>
-        <li data-label="secondaryGuidanceLabel">Secondary guidance label.</li>
+        <li data-label="secondaryGuidanceLabel">Depending on your business operations, other guidance may apply</li>
         <li data-label="guidancePdfLabel">Guidance for <span data-attribute="activityLabel"></span></li>
         <li data-label="guidancePdfLabel">Guidance for <span data-attribute="activityLabel"></span></li>
         <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
         <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
+        <li data-label="relatedGuidanceLabel"></li>
       </ul>
     </cagov-reopening>
   `;

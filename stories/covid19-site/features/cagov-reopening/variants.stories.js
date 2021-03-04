@@ -3,13 +3,19 @@ import { WebComponent, WebComponentSpanish } from './storybook-web-component';
 import { data } from "./data";
 
 export default {
-  title: 'covid19/cagov-reopening/Variants',
+  title: 'Covid19/Features/cagov-reopening/Variants',
   argTypes: {
     // onClick: { action: 'onClick' },
   },
   decorators: [withDesign]
 };
 
+// Hide some data from the controls display.
+let argTypes = {
+  data : { control: { disable: true } },
+  // county : { control: { disable: true } },
+  // language : { control: { disable: true } },
+};
 
 const Template = (args) => WebComponent(args);
 const TemplateSpanish = (args) => WebComponentSpanish(args);
@@ -21,7 +27,9 @@ Template.args = {
     data: data,
 };
 
+
 export const CountyOnlyEn = Template.bind({});
+CountyOnlyEn.argTypes = argTypes;
 CountyOnlyEn.args = {
   countyValue: 'Alameda',
   activityValue: '',
@@ -40,6 +48,7 @@ CountyOnlyEn.parameters = {
 };
 
 export const CountyOnlyEs = TemplateSpanish.bind({});
+CountyOnlyEs.argTypes = argTypes;
 CountyOnlyEs.args = {
   countyValue: 'San Francisco',
   activityValue: '',
@@ -94,6 +103,7 @@ CountyOnlyEs.args = {
 // };
 
 export const CountyActivityEn = Template.bind({});
+CountyActivityEn.argTypes = argTypes;
 CountyActivityEn.args = {
   countyValue: 'Alameda',
   activityValue: 'Appliance repair shops',
@@ -113,6 +123,7 @@ CountyActivityEn.args = {
 // };
 
 export const ActivityOnlyEn = Template.bind({});
+ActivityOnlyEn.argTypes = argTypes;
 ActivityOnlyEn.args = {
   countyValue: '',
   activityValue: 'Appliance repair shops',
@@ -132,6 +143,7 @@ ActivityOnlyEn.args = {
 // };
 
 export const NoCountyActivityEn = Template.bind({});
+NoCountyActivityEn.argTypes = argTypes;
 NoCountyActivityEn.args = {
   countyValue: '',
   activityValue: '',
@@ -150,13 +162,14 @@ NoCountyActivityEn.args = {
 //   },
 // };
 
-export const SchoolsCountyEn = Template.bind({});
-SchoolsCountyEn.args = {
-  countyValue: 'Alameda',
-  activityValue: 'Schools',
-  language: 'en',
-  data: data['en'],
-};
+// export const SchoolsCountyEn = Template.bind({});
+// SchoolsCountyEn.argTypes = argTypes;
+// SchoolsCountyEn.args = {
+//   countyValue: 'Alameda',
+//   activityValue: 'Schools',
+//   language: 'en',
+//   data: data['en'],
+// };
 
 /**
 * Connect Figma Frame
@@ -169,13 +182,14 @@ SchoolsCountyEn.args = {
 //   },
 // };
 
-export const SchoolsNoCountyEn = Template.bind({});
-SchoolsNoCountyEn.args = {
-  countyValue: '',
-  activityValue: 'Schools',
-  language: 'en',
-  data: data['en'],
-};
+// export const SchoolsNoCountyEn = Template.bind({});
+// SchoolsNoCountyEn.argTypes = argTypes;
+// SchoolsNoCountyEn.args = {
+//   countyValue: '',
+//   activityValue: 'Schools',
+//   language: 'en',
+//   data: data['en'],
+// };
 
 /**
 * Connect Figma Frame
@@ -189,14 +203,15 @@ SchoolsNoCountyEn.args = {
 // };
 
 
-export const RSHOActivityCountyEn = Template.bind({});
-RSHOActivityCountyEn.args = {
-  countyValue: 'Yolo',
-  activityValue: 'Aquariums',
-  isUnderRSHO: true,
-  language: 'en',
-  data: data['en'],
-};
+// export const RSHOActivityCountyEn = Template.bind({});
+// RSHOActivityCountyEn.argTypes = argTypes;
+// RSHOActivityCountyEn.args = {
+//   countyValue: 'Yolo',
+//   activityValue: 'Aquariums',
+//   isUnderRSHO: true,
+//   language: 'en',
+//   data: data['en'],
+// };
 
 /**
 * Connect Figma Frame
@@ -209,14 +224,15 @@ RSHOActivityCountyEn.args = {
 //   },
 // };
 
-export const RSHOSchoolsCountyEn = Template.bind({});
-RSHOSchoolsCountyEn.args = {
-  countyValue: 'San Francisco',
-  activityValue: 'Schools',
-  isUnderRSHO: true,
-  language: 'en',
-  data: data['en'],
-};
+// export const RSHOSchoolsCountyEn = Template.bind({});
+// RSHOSchoolsCountyEn.argTypes = argTypes;
+// RSHOSchoolsCountyEn.args = {
+//   countyValue: 'San Francisco',
+//   activityValue: 'Schools',
+//   isUnderRSHO: true,
+//   language: 'en',
+//   data: data['en'],
+// };
 
 /**
 * Connect Figma Frame
@@ -229,14 +245,15 @@ RSHOSchoolsCountyEn.args = {
 //   },
 // };
 
-export const RSHOSchoolsNoCountyEn = Template.bind({});
-RSHOSchoolsNoCountyEn.args = {
-  countyValue: '',
-  activityValue: 'Schools',
-  isUnderRSHO: true,
-  language: 'en',
-  data: data['en'],
-};
+// export const RSHOSchoolsNoCountyEn = Template.bind({});
+// RSHOSchoolsNoCountyEn.argTypes = argTypes;
+// RSHOSchoolsNoCountyEn.args = {
+//   countyValue: '',
+//   activityValue: 'Schools',
+//   isUnderRSHO: true,
+//   language: 'en',
+//   data: data['en'],
+// };
 
 /**
 * Connect Figma Frame

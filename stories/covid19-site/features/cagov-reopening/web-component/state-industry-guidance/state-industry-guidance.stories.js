@@ -7,7 +7,7 @@ import { data } from "./../../data";
 // };
 
 export default {
-  title: 'covid19/cagov-reopening/State Industry Guidance',
+  title: 'Covid19/Features/cagov-reopening/State Industry Guidance',
 };
 
 // Hide some data from the controls display.

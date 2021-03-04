@@ -1,7 +1,7 @@
 import { Button } from './Button';
 
 export default {
-  title: 'Covid19/Action link with icon',
+  title: 'Covid19/Web components/Action link with icon',
   argTypes: {
     backgroundColor: { control: 'color' }
   },

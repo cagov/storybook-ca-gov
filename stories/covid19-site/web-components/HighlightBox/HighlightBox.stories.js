@@ -1,7 +1,7 @@
 import { HighlightBox } from './HighlightBox';
 
 export default {
-  title: 'Covid19/Highlight box'
+  title: 'Covid19/Web components/Highlight box'
 };
 
 const Template = (args) => HighlightBox(args);

@@ -1,9 +1,20 @@
-// import { html } from "lit-html";
-// import "./cagov-dropdown.css";
+import { html } from "lit-html";
+import "./cagov-dropdown.css";
+import CAGovDropdown from './web-component';
 
-// /**
-//  * Primary UI component for user interaction
-//  */
+/**
+ * Primary UI component for user interaction
+ */
+export const WebComponent = (args) => {
+    // console.log("web component data", args);
+    return html`
+      <cagov-dropdown>
+  
+      </cagov-dropdown>
+    `;
+  };
+  
+
 // export const WebComponent = ({ data = null, label = "More languages" }) => {
 //   let items = buildDropdownItems(data);
 //   return html`

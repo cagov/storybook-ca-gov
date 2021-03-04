@@ -1,7 +1,7 @@
-import { WebComponent } from './web-component-container';
+import { WebComponent } from './storybook-web-component';
 
 export default {
-  title: '@cagov/accordion',
+  title: '@cagov/Web components/accordion',
   argTypes: {
     backgroundColor: { control: 'color' },
     onClick: { action: 'onClick' },

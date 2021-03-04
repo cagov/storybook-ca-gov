@@ -1,7 +1,7 @@
 import { Toggles } from './Toggles';
 
 export default {
-  title: 'Covid19/Toggles'
+  title: 'Covid19/Web components/Toggles'
 };
 
 const Template = (args) => Toggles(args);

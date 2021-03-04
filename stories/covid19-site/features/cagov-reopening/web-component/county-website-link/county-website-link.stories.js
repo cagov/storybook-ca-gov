@@ -2,7 +2,7 @@ import { buildCountyWebsiteLink as WebComponent } from './buildCountyWebsiteLink
 import { data } from "./../../data";
 
 export default {
-  title: 'covid19/cagov-reopening/County Website Link',
+  title: 'Covid19/Features/cagov-reopening/County Website Link',
 };
 
 const Template = (args) => WebComponent(args);

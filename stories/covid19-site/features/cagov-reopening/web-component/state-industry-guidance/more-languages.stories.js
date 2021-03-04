@@ -2,7 +2,7 @@ import { getMoreLanguages as WebComponent } from './getMoreLanguages';
 import { data } from "./../../data";
 
 export default {
-  title: 'covid19/cagov-reopening/More languages/Guidance/Schools',
+  title: 'Covid19/Features/cagov-reopening/More languages/Guidance/Schools',
 };
 
 const Template = (args) => WebComponent(args);

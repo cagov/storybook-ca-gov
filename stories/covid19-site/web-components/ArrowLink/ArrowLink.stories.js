@@ -1,7 +1,7 @@
 import { ArrowLink } from './ArrowLink';
 
 export default {
-  title: 'Covid19/Arrow Links'
+  title: 'Covid19/Web components/Arrow Links'
 };
 
 const Template = (args) => ArrowLink(args);

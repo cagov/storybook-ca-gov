@@ -1,7 +1,7 @@
-import { WebComponent } from './web-component-container';
+import { WebComponent } from './storybook-web-component';
 
 export default {
-  title: '@cagov/dropdown',
+  title: '@cagov/Web components/dropdown',
   argTypes: {
     backgroundColor: { control: 'color' },
     onClick: { action: 'onClick' },
@@ -15,4 +15,10 @@ export const TestDropdown = Template.bind({});
 TestDropdown.args = {
   primary: true,
   label: 'Dropdown',
+  data: [
+    {
+      link: "#",
+      language: "en"
+    }
+  ]
 };

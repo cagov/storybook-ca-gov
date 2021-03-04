@@ -1,4 +1,4 @@
-class CaGovDrawer extends window.HTMLElement {
+export class CaGovDrawer extends window.HTMLElement {
     connectedCallback () {
       this.classList.add('prog-enhanced');
       this.expandTarget = this.querySelector('.drawer-container');
