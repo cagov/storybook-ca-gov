@@ -1,4 +1,7 @@
-cagov-reopening {
+@import "https://staging.covid19.ca.gov/css/build/built.css";
+@import "./../../../../global/styles";
+
+cagov-covid19-reopening {
   .subtitle-color {
     color: #1F2574;
   }

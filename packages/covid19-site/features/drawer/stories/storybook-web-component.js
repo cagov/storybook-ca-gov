@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import CAGovDrawer from './../cagov-drawer';
+import CaGovDrawer from './../cagov-drawer';
 
 /**
  * Primary UI component for user interaction

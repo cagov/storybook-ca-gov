@@ -23,11 +23,11 @@ const base = Airtable.base(KEYCHAIN["AIRTABLE_BASE_ID"]); // Check Airtable API 
 const VIEW_NAME = KEYCHAIN["AIRTABLE_VIEW_NAME"]; // Manually set in the base to match this config. The default is
 
 // Location of docs templates.
-const docsPath = "./stories/covid19-site/features/cagov-reopening/api/api_templates/";
+const docsPath = "./packages/covid19-site/mock-datasets/reopening/api/api_templates/";
 
 // Write folder for JSON output
 const dataPath =
-  "./stories/covid19-site/features/cagov-reopening/api/auto-generated-data";
+  "./packages/covid19-site/mock-datasets/reopening/api/auto-generated-data";
 
 // Developer NOTES:
 // Estimated total size: 500KB (JSON from Airtable)

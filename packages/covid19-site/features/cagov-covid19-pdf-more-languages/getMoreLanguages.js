@@ -38,7 +38,7 @@ export const getMoreLanguages = ({
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           ${listItems.join("")}
-      </ul>
+        </ul>
       </cagov-dropdown>
       `;
 

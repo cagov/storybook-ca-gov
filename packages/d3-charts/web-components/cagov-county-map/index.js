@@ -5,7 +5,7 @@ import getScreenResizeCharts from "./get-window-size.js";
 // import rtlOverride from "./rtl-override.js"; // Let's have an example with Arabic & Chinese for the bar charts.
 // import { reformatReadableDate } from "./readable-date.js";
 
-class CAGovCountyMap extends window.HTMLElement {
+class CaGovCountyMap extends window.HTMLElement {
   // Set up static variables that are specific to this component.
   // https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
   constructor() {
@@ -109,4 +109,4 @@ class CAGovCountyMap extends window.HTMLElement {
   }
 }
 
-window.customElements.define("cagov-county-map", CAGovCountyMap);
+window.customElements.define("cagov-county-map", CaGovCountyMap);

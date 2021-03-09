@@ -11,8 +11,11 @@ import {
   inputValueCounty,
   inputValueActivity,
 } from "./../../cagov-search-filters/behaviorAutocompleteButton";
+
 import { getCountyMap } from "./../../cagov-covid19-reopening-county-map/getCountyMap";
+
 import { schoolReopeningStatuses } from "./../../cagov-covid19-search-results-cards/schoolsStatuses";
+
 import { cardTemplate } from "./../../cagov-covid19-search-results-cards/cardTemplateSaferEconomy";
 
 /**
@@ -22,9 +25,12 @@ import { cardTemplate } from "./../../cagov-covid19-search-results-cards/cardTem
  * @example - Code snippet (@TODO put in handbook or somewhere)
  *
  */
-export class CAGovReopening extends window.HTMLElement {
+export class CaGovReopening extends window.HTMLElement {
   constructor() {
+    console.log("CaGov Reopening loaded");
+    
     super();
+
     this.initialLoad = 0;
     // Optional state object to use for persisting data across interactions.
     this.state = {
@@ -86,8 +92,6 @@ export class CAGovReopening extends window.HTMLElement {
 
     // Read content of stringified data-json that is inserted into the enclosing tag of the web-component.
     this.localData = JSON.parse(this.dataset.json);
-
-    console.log("data", this.localData);
 
     // Replace the enclosing tag element with contents of template.
     this.innerHTML = template({
@@ -394,7 +398,7 @@ export class CAGovReopening extends window.HTMLElement {
             "visible";
         } else {
           // Render the card layouts
-  
+
           this.layoutCards();
         }
       }.bind(this)
@@ -630,7 +634,7 @@ export class CAGovReopening extends window.HTMLElement {
       schoolReopeningStatuses,
       countyRegions: this.countyRegions,
       policies,
-      
+
       // Labels
       schoolLabels: this.schoolsText,
       tierStatusDescriptors: this.tierStatusDescriptors,
@@ -702,5 +706,3 @@ export class CAGovReopening extends window.HTMLElement {
     return false;
   }
 }
-
-// window.customElements.define("cagov-reopening", CAGovReopening);

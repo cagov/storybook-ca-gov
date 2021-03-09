@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 const componentPath =
-  "./stories/covid19-site/features/cagov-reopening";
+  "./packages/covid19-site/mock-datasets/reopening";
 
 // Get static API files
 const activityBusinessDataPath =

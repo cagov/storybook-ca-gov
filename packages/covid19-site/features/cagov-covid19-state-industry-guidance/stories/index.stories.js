@@ -1,5 +1,5 @@
-import { buildStateIndustryGuidanceCard as WebComponent } from './buildStateIndustryGuidanceCard';
-import { data } from "./../../mock-datasets/reopening/data";
+import { buildStateIndustryGuidanceCard as WebComponent } from './../buildStateIndustryGuidanceCard';
+import { data } from "./../../../mock-datasets/reopening/data";
 
 // To hide controls:
 // export const parameters = {

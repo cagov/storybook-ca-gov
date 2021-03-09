@@ -18,7 +18,7 @@ import { cardTemplate } from "./cardTemplateSaferEconomy";
  * @example - Code snippet (@TODO put in handbook or somewhere)
  *
  */
-class CAGovReopening extends window.HTMLElement {
+class CaGovReopening extends window.HTMLElement {
   constructor() {
     super();
     this.initialLoad = 0;
@@ -698,4 +698,4 @@ class CAGovReopening extends window.HTMLElement {
   }
 }
 
-window.customElements.define("cagov-reopening", CAGovReopening);
+window.customElements.define("cagov-reopening", CaGovReopening);

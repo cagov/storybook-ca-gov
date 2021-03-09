@@ -1,3 +1,3 @@
-import { CAGovReopening } from "./src";
+import { CaGovReopening } from "./src";
 
-window.customElements.define('cagov-covid19-reopening', CAGovReopening);
+window.customElements.define('cagov-covid19-reopening', CaGovReopening);

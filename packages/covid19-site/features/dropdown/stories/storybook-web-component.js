@@ -1,6 +1,6 @@
 import { html } from "lit-html";
 import "./../src/index.css";
-import CAGovDropdown from './../cagov-dropdown';
+import CaGovDropdown from './../cagov-dropdown';
 
 /**
  * Primary UI component for user interaction

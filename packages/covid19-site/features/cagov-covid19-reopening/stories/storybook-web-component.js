@@ -1,13 +1,14 @@
 import { html } from 'lit-html';
-import CAGovReopening from './../cagov-covid19-reopening';
+import "./../src/index.scss";
+import './../cagov-covid19-reopening';
+import './../../dropdown/cagov-dropdown';
 
 /**
  * Primary UI component for user interaction
  */
 export const WebComponent = (args) => {
-  // console.log("web component data", args);
   return html`
-    <cagov-reopening 
+    <cagov-covid19-reopening
       data-json=${JSON.stringify(args.data)}
     >
       <ul>
@@ -39,7 +40,7 @@ export const WebComponent = (args) => {
         <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
         <li data-label="relatedGuidanceLabel"></li>
       </ul>
-    </cagov-reopening>
+    </cagov-covid19-reopening>
   `;
 };
 
@@ -47,7 +48,7 @@ export const WebComponent = (args) => {
 export const WebComponentSpanish = (args) => {
   // console.log("web component data", args);
   return html`
-    <cagov-reopening 
+    <cagov-covid19-reopening
       data-json=${JSON.stringify(args.data)}
     >
       <ul>
@@ -77,6 +78,6 @@ export const WebComponentSpanish = (args) => {
         <li data-label="checklistPdfLabel">Checklist for <span data-attribute="activityLabel"></span></li>
         <li data-label="additionalGuidanceLabel">Depending on your business operations, other guidance may apply</span></li>
       </ul>
-    </cagov-reopening>
+    </cagov-covid19-reopening>
   `;
 };

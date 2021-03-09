@@ -1,6 +1,6 @@
 import { replaceMarkupAttributeContent } from "./../utilities/replace-markup-attribute-content";
-import { getMoreLanguages } from "./getMoreLanguages";
-import "./state-industry-guidance.scss";
+import { getMoreLanguages } from "./../cagov-covid19-pdf-more-languages/getMoreLanguages";
+import "./src/index.scss";
 import marked from "marked";
 
 /**
@@ -586,7 +586,7 @@ const getOptionalPrimaryGuidanceMessage = ({ currentGuidance }) => {
     currentGuidance.metadata[0] !== null
   ) {
     if (currentGuidance.metadata[0].optional_message !== undefined) {
-      return currentGuidance.metadata[0].optional_message;
+      return marked(currentGuidance.metadata[0].optional_message);
     }
   }
   return "";
