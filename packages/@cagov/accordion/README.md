@@ -1,3 +1,14 @@
+---
+title: Building with D3
+date: Last Modified 
+permalink: /web-components/index.html
+schema: https://handbook.digital.ca.gov/web-component-schema
+eleventyNavigation:
+  key: Web components
+  parent: Reusable components
+  order: 1
+---
+
 # Accordion component
 
 This custom element recreates the bootstrap accordion component functionality without the jquery dependency. It is designed for use with on covid19.ca.gov
