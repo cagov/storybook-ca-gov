@@ -36,7 +36,7 @@ setConsoleOptions({
 
 // https://github.com/storybookjs/storybook/issues/12307
 // Force full reload to not reregister web components.
-const req = require.context("../stories", true, /\.stories\.(js|mdx)$/);
+const req = require.context("../packages", true, /\.stories\.(js|mdx)$/);
 configure(req, module);
 if (module.hot) {
   module.hot.accept(req.id, () => {
