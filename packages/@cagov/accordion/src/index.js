@@ -9,7 +9,9 @@ class CaGovAccordion extends window.HTMLElement {
     // Detect if accordion should open by default.
     let expanded = this.activateButton.getAttribute('aria-expanded');
     if (expanded === "true") {
-      this.triggerAccordionClick();
+      this.triggerAccordionClick(); // Open the accordion.
+    } else {
+      this.closeAccordion(); // Update tabindex for automatically unopened accordions.
     }
   }
 
@@ -25,7 +27,6 @@ class CaGovAccordion extends window.HTMLElement {
   }
 
   triggerAccordionClick() {
-
     const event = new MouseEvent(this.eventType, {
       view: window,
       bubbles: true,
@@ -46,6 +47,7 @@ class CaGovAccordion extends window.HTMLElement {
       expando.style.display = 'none';
     }, 300);
   }
+  
   closeAccordion() {
     console.log("close accordion");
     this.expandTarget.removeAttribute("tabindex");
