@@ -1,14 +1,3 @@
----
-title: Accordion
-date: Last Modified 
-permalink: /design-system/storybook/web-components/cagov-accordion/index.html 
-schema: https://handbook.digital.ca.gov/web-component-schema
-eleventyNavigation:
-  key: Web components (placeholder)
-  parent: Reusable components
-  order: 1
----
-
 # Accordion component
 
 This custom element recreates the bootstrap accordion component functionality without the jquery dependency. 
