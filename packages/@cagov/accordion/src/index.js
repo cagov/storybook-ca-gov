@@ -1,4 +1,7 @@
-class CaGovAccordion extends window.HTMLElement {
+export class CaGovAccordion extends window.HTMLElement {
+  constructor() {
+    super();
+  }
   connectedCallback () {
     this.classList.add('prog-enhanced');
     this.expandTarget = this.querySelector('.card-container');
@@ -59,4 +62,4 @@ class CaGovAccordion extends window.HTMLElement {
     this.activateButton.setAttribute('aria-expanded', 'true');
   }
 }
-window.customElements.define('cagov-accordion', CaGovAccordion);
+// window.customElements.define('cagov-accordion', CaGovAccordion);

@@ -109,4 +109,4 @@ class CaGovCountyMap extends window.HTMLElement {
   }
 }
 
-window.customElements.define("cagov-county-map", CaGovCountyMap);
+window.customElements.define("cagov-covid19-reopening-county-map", CaGovCountyMap);

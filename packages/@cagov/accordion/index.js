@@ -1,3 +1,5 @@
 import { CaGovAccordion } from "./src";
 
-window.customElements.define('cagov-accordion', CaGovAccordion);
+customElements.define('cagov-accordion', CaGovAccordion);
+
+console.log("CaGovAccordion", customElements.get("cagov-accordion"));

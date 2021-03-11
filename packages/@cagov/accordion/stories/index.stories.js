@@ -19,12 +19,10 @@ const Template = (args) => WebComponent(args);
 export const BasicAccordion = Template.bind({});
 BasicAccordion.storyName = "Basic Accordion";
 BasicAccordion.args = {
-  label: "Basic Accordion",
-  primary: true,
   expanded: false,
-  label:
+  accordionLabel:
     "What are the similarities and differences between Influenza (flu) and COVID-19?",
-  content: html`<p>
+  accordionContent: html`<p>
       Influenza (flu) and COVID-19 are both contagious respiratory illnesses,
       but they’re caused by different viruses. COVID-19 is caused by a
       <a href="https://www.cdc.gov/coronavirus/2019-ncov/faq.html#Basics"
