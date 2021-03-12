@@ -1,10 +1,5 @@
 import { html, nothing } from "lit-html";
-
-import { CaGovAccordion } from "./../src";
-
-customElements.define('cagov-accordion', CaGovAccordion);
-
-console.log("CaGovAccordion", customElements.get("cagov-accordion"));
+import "./../src";
 
 /**
  * Primary UI component for user interaction
