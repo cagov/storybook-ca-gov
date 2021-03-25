@@ -1,7 +1,7 @@
 import { WebComponent } from './web-component-container';
 import { data } from './data/all-data.js';
 export default {
-  title: 'd3-charts/Web components/cagov-county-map/Chart',
+  title: 'Covid19/Features/cagov-county-map/Chart',
   argTypes: {
     // onClick: { action: 'onClick' },
   },

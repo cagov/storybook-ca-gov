@@ -3,9 +3,7 @@
 This custom element recreates the bootstrap accordion component functionality without the jquery dependency. 
 It is designed for use on https://covid19.ca.gov.
 
-<img src="https://github.com/cagov/Alpha/raw/master/components/accordion/accordion.png" />
-
-<img src="./stories/accordion.png" />
+<img src="https://github.com/cagov/storybook-ca-gov/tree/main/packages/%40cagov/accordion/accordion.png" />
 
 ## Sample markup
 

@@ -1,4 +1,4 @@
-class CaGovAccordion extends window.HTMLElement {
+export class CaGovAccordion extends window.HTMLElement {
   connectedCallback () {
     this.classList.add('prog-enhanced');
     this.expandTarget = this.querySelector('.card-container');
@@ -11,7 +11,7 @@ class CaGovAccordion extends window.HTMLElement {
     if (expanded === "true") {
       this.triggerAccordionClick(); // Open the accordion.
     } else {
-      this.closeAccordion(); // Update tabindex for automatically unopened accordions.
+      // this.closeAccordion(); // Update tabindex for automatically unopened accordions.
     }
   }
 
@@ -36,7 +36,7 @@ class CaGovAccordion extends window.HTMLElement {
   }
 
   expandAccordion() {
-    console.log("expanding accordion");
+    // console.log("expanding accordion");
     this.expandTarget.setAttribute('tabindex', '-1');
     this.expandTarget.style.height = '0px';
     this.expandTarget.setAttribute('aria-hidden', 'true');
@@ -49,7 +49,7 @@ class CaGovAccordion extends window.HTMLElement {
   }
   
   closeAccordion() {
-    console.log("close accordion");
+    // console.log("close accordion");
     this.expandTarget.removeAttribute("tabindex");
     this.expandTarget.style.display = 'block';
     this.expandTarget.style.height = this.cardBodyHeight + 'px';

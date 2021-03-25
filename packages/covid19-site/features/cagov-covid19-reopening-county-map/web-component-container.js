@@ -9,11 +9,11 @@ export const WebComponent = (args) => {
   // console.log("Data passed into web component", args);
   let localData = JSON.stringify(args);
   return html`
-    <cagov-county-map id="cagov-county-map" data-json="${localData}">
+    <cagov-covid19-reopening-county-map id="cagov-county-map" data-json="${localData}">
       <ul>
           <li data-label="title">${args.title}</li>
       </ul>
-    </cagov-county-map>
+    </cagov-covid19-reopening-county-map>
   `;
 }
 
