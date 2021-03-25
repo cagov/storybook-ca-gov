@@ -6,6 +6,8 @@ export default {
   argTypes: {
   },
   decorators: [],
+  label : { control: { disable: true } },
+  parentSelector : { control: { disable: true } },
 };
 
 const Template = (args) => WebComponent(args);
@@ -14,7 +16,6 @@ export const GoToTop = Template.bind({});
 GoToTop.storyName = "Go To Top";
 GoToTop.args = {
   label: "Top",
-  domain: "covid19.ca.gov",
   parentSelector: "#main",
 };
 
