@@ -12,6 +12,11 @@ export default {
 
 // Hide some data from the controls display.
 let argTypes = {
+  parameters: { 
+    a11y: {
+      disabled: true
+    } 
+  },
   data : { control: { disable: true } },
   // county : { control: { disable: true } },
   // language : { control: { disable: true } },

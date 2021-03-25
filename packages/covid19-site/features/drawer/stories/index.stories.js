@@ -1,7 +1,7 @@
 import { WebComponent } from './storybook-web-component';
 
 export default {
-  title: '@cagov/Web components/drawer',
+  title: 'Covid19/Web components/drawer',
   argTypes: {
     backgroundColor: { control: 'color' },
     onClick: { action: 'onClick' },
