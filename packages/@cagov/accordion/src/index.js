@@ -11,7 +11,7 @@ export class CaGovAccordion extends window.HTMLElement {
     if (expanded === "true") {
       this.triggerAccordionClick(); // Open the accordion.
     } else {
-      // this.closeAccordion(); // Update tabindex for automatically unopened accordions.
+      this.closeAccordion(); // Update tabindex for automatically unopened accordions.
     }
   }
 
@@ -45,7 +45,7 @@ export class CaGovAccordion extends window.HTMLElement {
     this.activateButton.setAttribute('aria-expanded', 'false');
     setTimeout(function () {
       expando.style.display = 'none';
-    }, 300);
+    }, 10);
   }
   
   closeAccordion() {

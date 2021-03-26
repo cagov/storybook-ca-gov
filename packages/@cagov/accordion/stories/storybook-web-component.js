@@ -104,8 +104,8 @@ export const MultipleWebComponentLongPage = ({
     },
   ],
 }) => {
-  return html`<main style="background:black;height:3000px">
-  <div class="accordion-container" style="background:yellow;height:3000px">${accordions.map((item, i) => [
+  return html`<main style="background:black;height:6000px">
+  <div class="accordion-container" style="background:light-gray;height:3000px">${accordions.map((item, i) => [
     html`<div>
       <cagov-accordion>
         <div class="card">
