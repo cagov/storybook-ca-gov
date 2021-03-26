@@ -12,6 +12,8 @@ People working with the Office of Digital Innovation team who publish packages t
 * Jim Bumgardner
 
 ## What is npm?
+* `npm` is the world's largest software registry.
+* [npmjs.com](https://npmjs.com)
 
 ## Creating an npm account
 
@@ -23,7 +25,6 @@ People working with the Office of Digital Innovation team who publish packages t
 
 ## Publishing checklist
 (requirements) - currently being explored in Airtable.
-
 
 ## Publishing methods
 
@@ -57,3 +58,9 @@ This will upload a .zipped file to the npm package registry.
 
 * To use your new package in a project folder, you will need to install it in `package.json`.
 * To find out when packages are updated: [check-dependencies](https://www.npmjs.com/package/check-dependencies).
+
+
+## Versioning
+
+* Start brand new components at `v0.0.1`. 
+* Use this until the component meets desired publishing goals.

@@ -4,17 +4,6 @@ export class CaGovGoToTop extends window.HTMLElement {
     console.log("go to top1");
     // @TODO We will move these to data attributes after we finish finding elements in code.
     this.options = {
-      callback: ({domain = "covid19.ca.gov"}) => {
-          // Hiding go-to-top button on the homepage
-          if (document.title !== undefined && document.title.indexOf(domain) !== -1) {
-            var returnTopButton = document.querySelector(".return-top");
-            returnTopButton.style.display = "none";
-            window.addEventListener("scroll", function () {
-              var returnTopButton = document.querySelector(".return-top");
-              returnTopButton.style.display = "none";
-            });
-          }
-      },
       parentSelector: "#main",
       onLoadSelector: "body",
       styles: "button-blue",
@@ -51,19 +40,15 @@ export class CaGovGoToTop extends window.HTMLElement {
         clearTimeout(this.state.timer);
       }
     };
-
-    if (typeof callback === "function") {
-      this.options.callback();
-    }
   }
 
   scrollToTopHandler(options, state) {
       let container = document.querySelector(this.options.parentSelector);
-      let { lastScrollTop } = state;
+      let { lastScrollTop, timer } = state;
       var returnTopButton = document.querySelector(".return-top");
 
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      console.log("scrollTop", scrollTop, lastScrollTop);
+      // console.log("scrollTop", scrollTop, lastScrollTop);
       if (scrollTop > lastScrollTop) {
         // Downscroll code
         returnTopButton.classList.remove("is-visible");
@@ -73,12 +58,12 @@ export class CaGovGoToTop extends window.HTMLElement {
           container.scrollTop >= options.scrollAfter ||
           document.documentElement.scrollTop >= options.scrollAfter
         ) {
-          if (this.state.timer !== null) {
-            clearTimeout(this.state.timer);
+          if (timer !== null) {
+            clearTimeout(timer);
           }
           returnTopButton.classList.add("is-visible");
 
-          this.state.timer = setTimeout(function () {
+          timer = setTimeout(function () {
             returnTopButton.classList.remove("is-visible");
           }, options.removeAfter); // Back to top removes itself after 2 sec of inactivity
         } else {

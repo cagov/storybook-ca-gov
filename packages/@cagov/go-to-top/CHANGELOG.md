@@ -1,6 +1,10 @@
 # CHANGELOG for cagov-go-to-top
 `cagov-go-to-top`
 
+## v1.0.2
+* Fix timer
+* Remove callback feature
+
 ## v1.0.1
 * Enable all interaction behaviors
 * Add state object for timer and scroll position
