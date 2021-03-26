@@ -1,6 +1,9 @@
 # CHANGELOG for cagov-go-to-top
 `cagov-go-to-top`
 
+## v1.0.3
+* Clean up console logs
+
 ## v1.0.2
 * Fix timer
 * Remove callback feature

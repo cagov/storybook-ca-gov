@@ -1,81 +1,84 @@
 export class CaGovGoToTop extends window.HTMLElement {
   constructor() {
     super();
-    console.log("go to top1");
-    // @TODO We will move these to data attributes after we finish finding elements in code.
+    // @TODO We will accept these properties as data attributes.
     this.options = {
       parentSelector: "#main",
       onLoadSelector: "body",
       styles: "button-blue",
       label: "Top",
-      scrollAfter: 400, // Height re: start showing button
+      scrollAfterHeight: 400,
       removeAfter: 2000,
+      scrollBottomThreshold: 10,
     };
     this.state = {
       lastScrollTop: 0,
-      timer: null
-    }
+      timer: null,
+    };
   }
 
   connectedCallback() {
-    console.log("go to top");
-    
     // Load go-to-top button
     document.querySelector(
       this.options.onLoadSelector
     ).onload = this.addGoToTopButton(this.options);
 
-    // If an user scrolls down the page for more than 400px activate back to top button.
+    // If a user scrolls down the page for more than the "scrollAfterHeight" (example: 400px), activate back to top button.
     // Otherwise, keep it invisible.
-    window.addEventListener("scroll",
+    window.addEventListener(
+      "scroll",
       () => this.scrollToTopHandler(this.options, this.state),
       false
     );
 
     // Hittin' rock bottom
-    window.onscroll = function (ev) {
-      var returnTopButton = document.querySelector(".return-top");
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        returnTopButton.classList.add("is-visible");
-        clearTimeout(this.state.timer);
-      }
-    };
+    window.onscroll = () =>
+      function (e, state) {
+        let { timer } = state;
+        var returnTopButton = document.querySelector(".return-top");
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+          returnTopButton.classList.add("is-visible");
+          clearTimeout(timer);
+        }
+      };
   }
 
   scrollToTopHandler(options, state) {
-      let container = document.querySelector(this.options.parentSelector);
-      let { lastScrollTop, timer } = state;
-      var returnTopButton = document.querySelector(".return-top");
-
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      // console.log("scrollTop", scrollTop, lastScrollTop);
-      if (scrollTop > lastScrollTop) {
-        // Downscroll code
-        returnTopButton.classList.remove("is-visible");
-      } else {
-        // Upscroll code
-        if (
-          container.scrollTop >= options.scrollAfter ||
-          document.documentElement.scrollTop >= options.scrollAfter
-        ) {
-          if (timer !== null) {
-            clearTimeout(timer);
-          }
-          returnTopButton.classList.add("is-visible");
-
-          timer = setTimeout(function () {
-            returnTopButton.classList.remove("is-visible");
-          }, options.removeAfter); // Back to top removes itself after 2 sec of inactivity
-        } else {
-          // Bottom of the page
-          returnTopButton.classList.remove("is-visible");
+    let container = document.querySelector(this.options.parentSelector);
+    let { lastScrollTop, timer } = state;
+    var returnTopButton = document.querySelector(".return-top");
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > lastScrollTop) {
+      // Downscroll code
+      returnTopButton.classList.remove("is-visible");
+    } else {
+      // Upscroll code
+      if (
+        container.scrollTop >= options.scrollAfterHeight ||
+        document.documentElement.scrollTop >= options.scrollAfterHeight
+      ) {
+        if (timer !== null) {
+          clearTimeout(timer);
         }
+        returnTopButton.classList.add("is-visible");
+
+        timer = setTimeout(function () {
+          returnTopButton.classList.remove("is-visible");
+        }, options.removeAfter); // Back to top removes itself after 2 sec of inactivity
+      } else {
+        // Bottom of the page
+        returnTopButton.classList.remove("is-visible");
       }
-      state.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+    }
+
+    state.lastScrollTop =
+      scrollTop <= 0
+        ? 0
+        : scrollTop; // For Mobile or negative scrolling
   }
 
   addStyle(element) {
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.textContent = `
     .return-top {
       position: fixed;
@@ -113,7 +116,7 @@ export class CaGovGoToTop extends window.HTMLElement {
     const returnTop = document.createElement("span");
     returnTop.classList.add("return-top");
     returnTop.classList.add(options.styles);
-    // Does not need to be accessible. 
+    // Does not need to be accessible.
     // Screen Reader users have other options to get to the top.
     returnTop.setAttribute("aria-hidden", "true");
 
@@ -127,7 +130,9 @@ export class CaGovGoToTop extends window.HTMLElement {
     container.append(returnTop);
 
     // Add on-click event
-    returnTop.addEventListener("click", (options) => this.goToTopFunction(options));
+    returnTop.addEventListener("click", (options) =>
+      this.goToTopFunction(options)
+    );
   }
 
   goToTopFunction(options) {
