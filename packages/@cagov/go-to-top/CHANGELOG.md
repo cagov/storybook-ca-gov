@@ -1,6 +1,12 @@
 # CHANGELOG for cagov-go-to-top
 `cagov-go-to-top`
 
+## v1.0.1
+* Enable all interaction behaviors
+* Add state object for timer and scroll position
+* Remove scss file and use plain CSS as style to remove dependency on scss.
+* Pull out more hard coded attributes to options
+
 ## v1.0.0
 * Port JS feature from covid19.ca.gov repository.
 * Change original component from "Back to top" to "Go to top" in all places.
