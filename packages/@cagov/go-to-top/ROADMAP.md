@@ -5,7 +5,6 @@
 * Generate more essential tests.
 * Add interaction tests.
 
-
 ## Testing Strategy
 
 ### Behaviors
