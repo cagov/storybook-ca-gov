@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cagov/storybook-ca-gov/tree/main/packages/%40cagov/back-to-top"
+    "url": "https://github.com/cagov/storybook-ca-gov/tree/main/packages/@cagov/go-to-top"
   },
   "keywords": ["web component"],
   "author": "ca.gov",

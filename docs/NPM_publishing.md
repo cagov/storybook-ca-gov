@@ -38,12 +38,13 @@ People working with the Office of Digital Innovation team who publish packages t
 ```cd /path/to/package```
 2. Login to npm in terminal.
 ```npm login```
-3. Authenticate with your email and two-factor authentication code.
+3. Authenticate with your npm username, email, npm password and two-factor authentication code.
 4. To push code to npm:
 ```npm publish --access public```
 This will upload a .zipped file to the npm package registry.
 5. Confirm the package is updated on the npm page.
 6. Notify any known package subscribers of the update. [How to subscribe to notifications]()
+7. Logout when done!
 
 ### Publishing Notes 
 

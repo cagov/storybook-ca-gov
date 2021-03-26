@@ -1,2 +1,2 @@
-# Back to top component
+# Go to top component
 
