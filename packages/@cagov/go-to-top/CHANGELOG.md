@@ -1,6 +1,9 @@
 # CHANGELOG for cagov-go-to-top
 `cagov-go-to-top`
 
+## v1.0.4
+* Increase time delay for disappearance behavior for go-to-top.
+
 ## v1.0.3
 * Clean up console logs
 
