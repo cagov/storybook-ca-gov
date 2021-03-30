@@ -8,7 +8,7 @@ export class CaGovGoToTop extends window.HTMLElement {
       styles: "button-blue",
       label: "Top",
       scrollAfterHeight: 400,
-      removeAfter: 3500,
+      removeAfter: 4000,
       scrollBottomThreshold: 10,
     };
     this.state = {
