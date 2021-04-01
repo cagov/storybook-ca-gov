@@ -15,9 +15,8 @@ const Template = (args) => WebComponent(args);
 export const GoToTop = Template.bind({});
 GoToTop.storyName = "Go To Top";
 GoToTop.args = {
-  hideAfter: 7000
-  // label: "Top",
+  hideAfter: 7000,
+  label: "Top",
   // parentSelector: "#main",
-
 };
 

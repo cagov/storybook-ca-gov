@@ -1,4 +1,5 @@
 export class CaGovGoToTop extends window.HTMLElement {
+  static get observedAttributes() { return ['hide-after']; }
   constructor() {
     super();
     this.options = {
@@ -17,6 +18,9 @@ export class CaGovGoToTop extends window.HTMLElement {
   }
 
   connectedCallback() {
+
+    console.log("hideAfter", this.options.hideAfter);
+
     // Load go-to-top button
     document.querySelector(
       this.options.onLoadSelector
@@ -40,6 +44,13 @@ export class CaGovGoToTop extends window.HTMLElement {
           clearTimeout(timer);
         }
       };
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    // console.log(name, oldValue, newValue);
+    if (name === "hide-after") {
+      this.options.hideAfter = Number(newValue);
+    }
   }
 
   scrollToTopHandler(options, state) {
@@ -139,4 +150,5 @@ export class CaGovGoToTop extends window.HTMLElement {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 }
+
 window.customElements.define("cagov-go-to-top", CaGovGoToTop);
