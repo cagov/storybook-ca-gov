@@ -1,14 +1,13 @@
 export class CaGovGoToTop extends window.HTMLElement {
   constructor() {
     super();
-    // @TODO We will accept these properties as data attributes.
     this.options = {
       parentSelector: "#main",
       onLoadSelector: "body",
       styles: "button-blue",
       label: "Top",
       scrollAfterHeight: 400,
-      removeAfter: 4000,
+      hideAfter: Number(this.dataset["hide-after"]) || 7000,
       scrollBottomThreshold: 10,
     };
     this.state = {
@@ -64,7 +63,7 @@ export class CaGovGoToTop extends window.HTMLElement {
 
         timer = setTimeout(function () {
           returnTopButton.classList.remove("is-visible");
-        }, options.removeAfter); // Back to top removes itself after 2 sec of inactivity
+        }, options.hideAfter); // Back to top removes itself after 2 sec of inactivity
       } else {
         // Bottom of the page
         returnTopButton.classList.remove("is-visible");
