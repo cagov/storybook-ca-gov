@@ -7,10 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
     "start": "npm run storybook --quiet ",
-    "storybook-docs": "start-storybook --docs --no-manager-cache",
+    "build-storybook": "build-storybook",
     "build": "npm run build-storybook",
     "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
-    "update:data": "npm run data:github:guidance",
     "cypress:run": "cypress run --headless --browser chrome",
     "cypress:open": "cypress open"
   },
@@ -58,7 +57,6 @@
     "postcss-nested": "^5.0.3",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
-    "storybook": "^6.2.1",
     "style-loader": "^2.0.0",
     "ts-dedent": "^2.0.0"
   }
