@@ -1,7 +1,7 @@
 import { WebComponent } from "./storybook-web-component";
 
 export default {
-  title: "@cagov/Web components/go-to-top",
+  title: "@cagov/go-to-top",
   argTypes: {
   },
   decorators: [],

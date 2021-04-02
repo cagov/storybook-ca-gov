@@ -1,7 +1,7 @@
 import { ArrowLink } from './storybook-web-component';
 
 export default {
-  title: 'Covid19/Web components/Arrow Links'
+  title: '@cagov/arrow'
 };
 
 const Template = (args) => ArrowLink(args);

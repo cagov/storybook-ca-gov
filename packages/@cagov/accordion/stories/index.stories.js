@@ -2,7 +2,7 @@ import { WebComponent, MultipleWebComponent, MultipleWebComponentLongPage } from
 import { html } from "lit-html";
 
 export default {
-  title: "@cagov/Web components/accordion",
+  title: "@cagov/accordion",
   argTypes: {
     // backgroundColor: { control: "color" },
     // onClick: { action: "onClick" },
