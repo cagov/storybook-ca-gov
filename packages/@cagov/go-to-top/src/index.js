@@ -1,16 +1,21 @@
+import { getDefaultCompilerOptions } from "typescript";
+
 export class CaGovGoToTop extends window.HTMLElement {
-  static get observedAttributes() { return ['hide-after']; }
+  static get observedAttributes() { return ["data-hide-after", "data-label"]; }
   constructor() {
     super();
-    this.options = {
+    // Support additional options
+    let defaultOptions = {
       parentSelector: "#main",
       onLoadSelector: "body",
-      styles: "button-blue",
-      label: "Top",
-      scrollAfterHeight: 400,
-      hideAfter: Number(this.dataset["hide-after"]) || 7000,
+      classes: "button-blue",
       scrollBottomThreshold: 10,
+      scrollAfterHeight: 400,
     };
+    this.options = Object.assign({}, defaultOptions, {
+      label: this.dataset.label || "Top",
+      hideAfter: Number(this.dataset.hideAfter) || 7001,
+    });
     this.state = {
       lastScrollTop: 0,
       timer: null,
@@ -18,9 +23,6 @@ export class CaGovGoToTop extends window.HTMLElement {
   }
 
   connectedCallback() {
-
-    console.log("hideAfter", this.options.hideAfter);
-
     // Load go-to-top button
     document.querySelector(
       this.options.onLoadSelector
@@ -48,8 +50,14 @@ export class CaGovGoToTop extends window.HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     // console.log(name, oldValue, newValue);
-    if (name === "hide-after") {
+    if (name === "data-hide-after") {
       this.options.hideAfter = Number(newValue);
+    }
+    if (name === "data-label") {
+      this.options.label = newValue;
+      if (document.querySelector(".return-top") !== null) {
+        document.querySelector(".return-top").innerHTML = this.options.label;
+      }
     }
   }
 
@@ -125,7 +133,7 @@ export class CaGovGoToTop extends window.HTMLElement {
 
     const returnTop = document.createElement("span");
     returnTop.classList.add("return-top");
-    returnTop.classList.add(options.styles);
+    returnTop.classList.add(options.classes);
     // Does not need to be accessible.
     // Screen Reader users have other options to get to the top.
     returnTop.setAttribute("aria-hidden", "true");
