@@ -35,13 +35,13 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-      - name: Update mock data
-        run: |
-          npm run update:data
-        env:
-          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
-          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
-          AIRTABLE_VIEW_NAME: ${{ secrets.AIRTABLE_VIEW_NAME }}
+      # - name: Update mock data
+      #   run: |
+      #     npm run update:data
+      #   env:
+      #     AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+      #     AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+      #     AIRTABLE_VIEW_NAME: ${{ secrets.AIRTABLE_VIEW_NAME }}
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
