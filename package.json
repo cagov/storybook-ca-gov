@@ -10,12 +10,6 @@
     "storybook-docs": "start-storybook --docs --no-manager-cache",
     "build": "npm run build-storybook",
     "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
-    "build:data:cagov-reopening": "npm run update:data_activities && npm run update:data_state_guidance && npm run update:mock_data_guidance",
-    "update:local:data_activities": "node -r dotenv/config ./packages/covid19-site/mock-datasets/reopening/api/scripts/buildAirtableJsonCsv.js dotenv_config_path=.env/.env.local",
-    "update:local:data_state_guidance": "node -r dotenv/config ./packages/covid19-site/mock-datasets/reopening/api/scripts/buildStateIndustryGuidance.js dotenv_config_path=.env/.env.local",
-    "update:local:mock_data_guidance": "node -r dotenv/config ./packages/covid19-site/mock-datasets/reopening/api/scripts/updateMockData.js dotenv_config_path=.env/.env.local",
-    "data:local:guidance": "npm run update:local:data_activities && npm run update:local:data_state_guidance && npm run update:local:mock_data_guidance",
-    "data:github:guidance": "node ./packages/covid19-site/mock-datasets/reopening/api/scripts/buildAirtableJsonCsv.js && node ./packages/covid19-site/mock-datasets/reopening/api/scripts/buildStateIndustryGuidance.js && node ./packages/covid19-site/mock-datasets/reopening/api/scripts/updateMockData.js",
     "update:data": "npm run data:github:guidance",
     "cypress:run": "cypress run --headless --browser chrome",
     "cypress:open": "cypress open"
