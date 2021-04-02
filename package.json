@@ -8,7 +8,10 @@
     "storybook": "start-storybook -p 6006 --no-manager-cache",
     "start": "npm run storybook --quiet ",
     "build-storybook": "build-storybook",
+    "storybook-docs": "start-storybook --docs --no-manager-cache",
+    "build-storybook-docs": "build-storybook --docs",
     "build": "npm run build-storybook",
+    "build:docs": "npm run build-storybook",
     "build:commit": "npm run build-storybook && git add storybook-static && git commit -m 'update storybook-static build'",
     "cypress:run": "cypress run --headless --browser chrome",
     "cypress:open": "cypress open"
