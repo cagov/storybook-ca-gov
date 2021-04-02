@@ -38,7 +38,8 @@ export class CaGovAccordion extends window.HTMLElement {
   expandAccordion() {
     // console.log("expanding accordion");
     this.expandTarget.setAttribute('tabindex', '-1');
-    this.expandTarget.style.height = '0px';
+    // this.expandTarget.style.height = '0px';
+    this.expandTarget.style.display = 'none';
     this.expandTarget.setAttribute('aria-hidden', 'true');
     this.querySelector('.card-header').classList.remove('accordion-alpha-open');
     const expando = this.expandTarget;

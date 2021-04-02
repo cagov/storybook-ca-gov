@@ -1,16 +1,9 @@
 # CHANGELOG for cagov-accordion
 `cagov-accordion`
 
-## Unreleased
-* Add auto expand based on `aria-expanded="true"`.
-* Fix package.json repository link.
-* Reorganize test & stories folder
-* Move classes to `src`, but keep custom element assignment at the root, called index so it can be loaded easily.
-* Added CHANGELOG.md
+# 2.0.7
+* Make hidden links really hidden to Screen Reader, by changing the body container to be "display: none".
 
 
-## 2.0.1
-
-
-## 2.0.0
-
+# 2.0.6 
+@TODO find old notes
