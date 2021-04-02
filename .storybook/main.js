@@ -12,12 +12,12 @@ module.exports = {
     // "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-cssresources",
-    // { 
-    //   name: '@storybook/addon-a11y', 
-    //   options: {
-    //     maxLevels: 2,
-    //   }
-    // },
+    { 
+      name: '@storybook/addon-a11y', 
+      options: {
+        maxLevels: 2,
+      }
+    },
     // "storybook-addon-designs",
     '@storybook/preset-scss'
   ],
