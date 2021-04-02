@@ -1,8 +1,7 @@
 import { WebComponent } from "./storybook-web-component";
-import { html } from "lit-html";
 
 export default {
-  title: "@cagov/Web components/web-component-template",
+  title: "@cagov/template",
   argTypes: {
   },
   decorators: [],

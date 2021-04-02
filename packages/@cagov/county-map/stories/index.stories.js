@@ -1,7 +1,7 @@
-import { WebComponent } from './web-component-container';
-import { data } from './data/all-data.js';
+import { WebComponent } from './../web-component-container';
+import { data } from './../data/all-data.js';
 export default {
-  title: '@cagov/Web components/cagov-county-map',
+  title: '@cagov/county-map',
   argTypes: {
     // onClick: { action: 'onClick' },
   },
