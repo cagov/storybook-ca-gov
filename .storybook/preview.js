@@ -43,7 +43,7 @@ setConsoleOptions({
 // We will do a separate build of the development folder to a development web site for anything that's not ready but still needs to be versioned. If doing more extensive testing, we can do that in staging to not block new development or interfere with production releases.
 // @TODO rename packages to `dist` - any published packages may be cleaned up at some point.
 
-const req = require.context("../development", true, /\.stories\.(js|mdx)$/);
+const req = require.context("../packages", true, /\.stories\.(js|mdx)$/);
 configure(req, module);
 if (module.hot) {
   module.hot.accept(req.id, () => {
