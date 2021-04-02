@@ -1,1 +1,1 @@
-This is a folder of current published versions of published packages.
+This folder will render as docs
