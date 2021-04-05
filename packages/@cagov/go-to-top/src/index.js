@@ -1,16 +1,21 @@
+import { getDefaultCompilerOptions } from "typescript";
+
 export class CaGovGoToTop extends window.HTMLElement {
+  static get observedAttributes() { return ["data-hide-after", "data-label"]; }
   constructor() {
     super();
-    // @TODO We will accept these properties as data attributes.
-    this.options = {
+    // Support additional options
+    let defaultOptions = {
       parentSelector: "#main",
       onLoadSelector: "body",
-      styles: "button-blue",
-      label: "Top",
-      scrollAfterHeight: 400,
-      removeAfter: 4000,
+      classes: "button-blue",
       scrollBottomThreshold: 10,
+      scrollAfterHeight: 400,
     };
+    this.options = Object.assign({}, defaultOptions, {
+      label: this.dataset.label || "Top",
+      hideAfter: Number(this.dataset.hideAfter) || 7000, // 7 second initial display.
+    });
     this.state = {
       lastScrollTop: 0,
       timer: null,
@@ -43,6 +48,19 @@ export class CaGovGoToTop extends window.HTMLElement {
       };
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    // console.log(name, oldValue, newValue);
+    if (name === "data-hide-after") {
+      this.options.hideAfter = Number(newValue);
+    }
+    if (name === "data-label") {
+      this.options.label = newValue;
+      if (document.querySelector(".return-top") !== null) {
+        document.querySelector(".return-top").innerHTML = this.options.label;
+      }
+    }
+  }
+
   scrollToTopHandler(options, state) {
     let container = document.querySelector(this.options.parentSelector);
     let { lastScrollTop, timer } = state;
@@ -64,7 +82,7 @@ export class CaGovGoToTop extends window.HTMLElement {
 
         timer = setTimeout(function () {
           returnTopButton.classList.remove("is-visible");
-        }, options.removeAfter); // Back to top removes itself after 2 sec of inactivity
+        }, options.hideAfter); // Back to top removes itself after 2 sec of inactivity
       } else {
         // Bottom of the page
         returnTopButton.classList.remove("is-visible");
@@ -115,7 +133,7 @@ export class CaGovGoToTop extends window.HTMLElement {
 
     const returnTop = document.createElement("span");
     returnTop.classList.add("return-top");
-    returnTop.classList.add(options.styles);
+    returnTop.classList.add(options.classes);
     // Does not need to be accessible.
     // Screen Reader users have other options to get to the top.
     returnTop.setAttribute("aria-hidden", "true");
@@ -140,4 +158,5 @@ export class CaGovGoToTop extends window.HTMLElement {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 }
+
 window.customElements.define("cagov-go-to-top", CaGovGoToTop);
