@@ -14,7 +14,7 @@ export class CaGovGoToTop extends window.HTMLElement {
     };
     this.options = Object.assign({}, defaultOptions, {
       label: this.dataset.label || "Top",
-      hideAfter: Number(this.dataset.hideAfter) || 7001,
+      hideAfter: Number(this.dataset.hideAfter) || 7000, // 7 second initial display.
     });
     this.state = {
       lastScrollTop: 0,
