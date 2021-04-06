@@ -1,5 +1,3 @@
-import { getDefaultCompilerOptions } from "typescript";
-
 export class CaGovGoToTop extends window.HTMLElement {
   static get observedAttributes() { return ["data-hide-after", "data-label"]; }
   constructor() {
