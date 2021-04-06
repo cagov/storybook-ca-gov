@@ -1,6 +1,9 @@
 # CHANGELOG for cagov-accordion
 `cagov-accordion`
 
+# 2.0.8
+* All links and buttons inside of the collapsed accordion container now have attibute tabindex -1, this attribute is removed as soone as accordion container is expanded.
+
 # 2.0.7
 * Make hidden links really hidden to Screen Reader, by changing the body container to be "display: none".
 
