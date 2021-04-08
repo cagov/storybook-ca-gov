@@ -1,6 +1,6 @@
 # CHANGELOG for cagov-accordion
 `cagov-accordion`
-# 2.0.8
+# 2.0.9
 * Included base css styles inside the accordion component itself so it can run well without any of the global site styles, put initial on page load tabindex generation inside of the callback class.
 
 # 2.0.8
