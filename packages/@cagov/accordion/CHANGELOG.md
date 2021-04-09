@@ -2,7 +2,7 @@
 `cagov-accordion`
 # 2.0.9
 * Included base css styles inside the accordion component itself so it can run well without any of the global site styles, put initial on page load tabindex generation inside of the callback class.
-* Clean out old code.
+* Update readme and docs.
 
 # 2.0.8
 * All links and buttons inside of the collapsed accordion container now have attibute tabindex -1, this attribute is removed as soone as accordion container is expanded.
