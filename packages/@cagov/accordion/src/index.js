@@ -6,16 +6,15 @@ export class CaGovAccordion extends window.HTMLElement {
     this.expandButton.addEventListener('click', this.listen.bind(this));
     this.activateButton = this.querySelector('.card-header');
     this.eventType = this.dataset.eventType ? this.dataset.eventType : 'click';
-    this.addStyle(this); // adding local styles
+    this.addStyle(this); // Add local styles
+
     // Detect if accordion should open by default.
     let expanded = this.activateButton.getAttribute('aria-expanded');
     if (expanded === "true") {
       this.triggerAccordionClick(); // Open the accordion.
-    } else {
-      //this.closeAccordion(); // Update tabindex for automatically unopened accordions.
     }
 
-    // making sure that all links inside of the accordion container are having tabindex -1
+    // Make sure that all links inside of the accordion container are having tabindex -1.
     let allLinks = this.querySelectorAll(".card-container a");
     let allbuttons = this.querySelectorAll(".card-container button");
     for (var i = 0; i < allLinks.length; i++) {
@@ -48,8 +47,6 @@ export class CaGovAccordion extends window.HTMLElement {
   }
 
   expandAccordion() {
-    // console.log("expanding accordion");
-    // this.expandTarget.setAttribute('tabindex', '-1');
     this.expandTarget.style.height = '0px';
     this.expandTarget.setAttribute('aria-hidden', 'true');
     this.querySelector('.card-header').classList.remove('accordion-alpha-open');
@@ -65,8 +62,6 @@ export class CaGovAccordion extends window.HTMLElement {
   }
 
   closeAccordion() {
-    // console.log("close accordion");
-    // this.expandTarget.removeAttribute("tabindex");
     this.expandTarget.style.height = this.cardBodyHeight + 'px';
     this.expandTarget.setAttribute('aria-hidden', 'false');
     this.querySelector('.card-header').classList.add('accordion-alpha-open');
