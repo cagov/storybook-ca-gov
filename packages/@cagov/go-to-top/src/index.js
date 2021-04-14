@@ -30,21 +30,47 @@ export class CaGovGoToTop extends window.HTMLElement {
     // Otherwise, keep it invisible.
     window.addEventListener(
       "scroll",
-      () => this.scrollToTopHandler(this.options, this.state),
+      this.debounce(() => this.scrollToTopHandler(this.options, this.state), 1000),
       false
     );
+
+    // window.addEventListener(
+    //   "scroll",
+    //   () => this.scrollToTopHandler(this.options, this.state),
+    //   false
+    // );
 
     // Hittin' rock bottom
     window.onscroll = () =>
       function (e, state) {
         let { timer } = state;
         var returnTopButton = document.querySelector(".return-top");
+        console.log("window.innerHeight", window.innerHeight + window.scrollY, "document.body.offsetHeight", document.body.offsetHeight);
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
           returnTopButton.classList.add("is-visible");
           clearTimeout(timer);
         }
       };
   }
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
 
   attributeChangedCallback(name, oldValue, newValue) {
     // console.log(name, oldValue, newValue);
@@ -60,10 +86,12 @@ export class CaGovGoToTop extends window.HTMLElement {
   }
 
   scrollToTopHandler(options, state) {
+    console.log("debcoun");
     let container = document.querySelector(this.options.parentSelector);
     let { lastScrollTop, timer } = state;
     var returnTopButton = document.querySelector(".return-top");
     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    console.log(scrollTop, lastScrollTop);
     if (scrollTop > lastScrollTop) {
       // Downscroll code
       returnTopButton.classList.remove("is-visible");
