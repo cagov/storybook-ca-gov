@@ -9,10 +9,3 @@ An interactive, global "Go to top" component.
 * Displays on scroll-up.
 * Disappears on scroll-down.
 * Displays when scrolled to bottom for two seconds.
-
-## Stories
-* Generates a button
-* Takes data for: Label, Selector, domain
-* Test interactions
-    * show on load scroll at bottom 
-

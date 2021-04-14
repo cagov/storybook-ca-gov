@@ -86,7 +86,6 @@ export class CaGovGoToTop extends window.HTMLElement {
   }
 
   scrollToTopHandler(options, state) {
-    console.log("debcoun");
     let container = document.querySelector(this.options.parentSelector);
     let { lastScrollTop, timer } = state;
     var returnTopButton = document.querySelector(".return-top");
