@@ -8,11 +8,11 @@ export class CaGovGoToTop extends window.HTMLElement {
       onLoadSelector: "body",
       classes: "button-blue",
       scrollBottomThreshold: 10,
-      scrollAfterHeight: 400,
+      scrollAfterHeight: 400, // Pixel height (after which, go-to-top behavior will start)
     };
     this.options = Object.assign({}, defaultOptions, {
       label: this.dataset.label || "Top",
-      hideAfter: Number(this.dataset.hideAfter) || 7000, // 7 second initial display.
+      hideAfter: Number(this.dataset.hideAfter) || 7000, // 7 second initial display. (milliseconds)
     });
     this.state = {
       lastScrollTop: 0,
@@ -30,27 +30,21 @@ export class CaGovGoToTop extends window.HTMLElement {
     // Otherwise, keep it invisible.
     window.addEventListener(
       "scroll",
-      this.debounce(() => this.scrollToTopHandler(this.options, this.state), 1000),
+      this.debounce(() => this.scrollToTopHandler(this.options, this.state), 200), // 1 second debounce delay
       false
     );
 
-    // window.addEventListener(
-    //   "scroll",
-    //   () => this.scrollToTopHandler(this.options, this.state),
-    //   false
-    // );
+    // Reaching botton of the screen
+    window.onscroll = this.debounce((e) => this.checkScrolledToBottom(e, this.state), 200)
+  }
 
-    // Hittin' rock bottom
-    window.onscroll = () =>
-      function (e, state) {
-        let { timer } = state;
-        var returnTopButton = document.querySelector(".return-top");
-        console.log("window.innerHeight", window.innerHeight + window.scrollY, "document.body.offsetHeight", document.body.offsetHeight);
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-          returnTopButton.classList.add("is-visible");
-          clearTimeout(timer);
-        }
-      };
+  checkScrolledToBottom(e, state) {
+    let { timer } = state;
+    var returnTopButton = document.querySelector(".return-top");
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      returnTopButton.classList.add("is-visible");
+      clearTimeout(timer);
+    }
   }
 
   // Returns a function, that, as long as it continues to be invoked, will not
@@ -73,7 +67,6 @@ export class CaGovGoToTop extends window.HTMLElement {
   };
 
   attributeChangedCallback(name, oldValue, newValue) {
-    // console.log(name, oldValue, newValue);
     if (name === "data-hide-after") {
       this.options.hideAfter = Number(newValue);
     }
@@ -90,7 +83,6 @@ export class CaGovGoToTop extends window.HTMLElement {
     let { lastScrollTop, timer } = state;
     var returnTopButton = document.querySelector(".return-top");
     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    console.log(scrollTop, lastScrollTop);
     if (scrollTop > lastScrollTop) {
       // Downscroll code
       returnTopButton.classList.remove("is-visible");
