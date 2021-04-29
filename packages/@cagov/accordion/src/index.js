@@ -8,21 +8,29 @@ export class CaGovAccordion extends window.HTMLElement {
     this.eventType = this.dataset.eventType ? this.dataset.eventType : 'click';
     this.addStyle(this); // Add local styles
 
-    // Detect if accordion should open by default.
+    // Detect if accordion should open by default
     let expanded = this.activateButton.getAttribute('aria-expanded');
     if (expanded === "true") {
       this.triggerAccordionClick(); // Open the accordion.
+      let allLinks = this.querySelectorAll(".card-container a");
+      for (var i = 0; i < allLinks.length; i++) {
+        allLinks[i].removeAttribute("tabindex"); // remove tabindex from all the links
+      }
+      for (var i = 0; i < allbuttons.length; i++) {
+        allbuttons[i].removeAttribute("tabindex"); // remove tabindex from all the buttons
+      }
     }
-
-    // Make sure that all links inside of the accordion container are having tabindex -1.
-    let allLinks = this.querySelectorAll(".card-container a");
-    let allbuttons = this.querySelectorAll(".card-container button");
-    for (var i = 0; i < allLinks.length; i++) {
-      allLinks[i].setAttribute('tabindex', '-1');
-    }
-
-    for (var i = 0; i < allbuttons.length; i++) {
-      allbuttons[i].setAttribute('tabindex', '-1');
+    // making sure that all links inside of the accordion container are having tabindex -1
+    else {
+      let allLinks = this.querySelectorAll(".card-container a");
+      let allbuttons = this.querySelectorAll(".card-container button");
+      for (var i = 0; i < allLinks.length; i++) {
+        allLinks[i].setAttribute('tabindex', '-1');
+      }
+  
+      for (var i = 0; i < allbuttons.length; i++) {
+        allbuttons[i].setAttribute('tabindex', '-1');
+      }
     }
   }
 

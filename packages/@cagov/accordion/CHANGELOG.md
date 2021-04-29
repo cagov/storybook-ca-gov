@@ -1,5 +1,8 @@
 # CHANGELOG for cagov-accordion
 `cagov-accordion`
+# 2.0.10
+* Fixed tabindex for the links that are inside of the accorions that are open by default.
+
 # 2.0.9
 * Included base css styles inside the accordion component itself so it can run well without any of the global site styles, put initial on page load tabindex generation inside of the callback class.
 * Clean out old code.
