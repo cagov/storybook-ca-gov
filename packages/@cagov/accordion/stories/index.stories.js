@@ -88,7 +88,7 @@ MultipleAccordions.args = {
       <tr><td>Berkeley</td><td></td></tr>
       <tr><td>Emeryville</td><td></td></tr>
       </tbody>
-      </table>`,
+      </table><a href="google.com">link inside of closed accordion</a>`,
       expanded: false,
     },
     {
@@ -100,7 +100,7 @@ MultipleAccordions.args = {
       <tr><td>Berkeley</td><td>The rate will increase from $15.59/hour based on the Consumer Price Index.</td></tr>
       <tr><td>Emeryville</td><td>$16.42/hour (estimated). The rate will increase based on the Consumer Price Index</td></tr>
       </tbody>
-      </table>`,
+      </table><a href="google.com">link inside of open accordion</a>`,
       expanded: true,
     },
     {
