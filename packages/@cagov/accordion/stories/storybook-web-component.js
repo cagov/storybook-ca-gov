@@ -55,7 +55,12 @@ export const MultipleWebComponent = ({
     },
   ],
 }) => {
-  return html`${accordions.map((item, i) => [
+  return html`
+  <div class="header">
+    <h2>Compare minimum wage across cities</h2>
+    <p>These California cities and counties have their own minimum wage laws.</p>
+  </div>
+  ${accordions.map((item, i) => [
     html`<div>
       <cagov-accordion>
         <div class="card">
