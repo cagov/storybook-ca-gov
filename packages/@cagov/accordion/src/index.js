@@ -10,10 +10,10 @@ export class CaGovAccordion extends window.HTMLElement {
 
     // Detect if accordion should open by default
     let expanded = this.activateButton.getAttribute('aria-expanded');
-    let allbuttons = this.querySelectorAll(".card-container button");
     if (expanded === "true") {
       this.triggerAccordionClick(); // Open the accordion.
       let allLinks = this.querySelectorAll(".card-container a");
+      let allbuttons = this.querySelectorAll(".card-container button");
       for (var i = 0; i < allLinks.length; i++) {
         allLinks[i].removeAttribute("tabindex"); // remove tabindex from all the links
       }
