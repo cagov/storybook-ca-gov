@@ -1,5 +1,8 @@
 # CHANGELOG for cagov-accordion
 `cagov-accordion`
+# 2.0.11
+* Fixed "allbuttons is not defined" console error.
+
 # 2.0.10
 * Fixed tabindex for the links that are inside of the accorions that are open by default.
 
